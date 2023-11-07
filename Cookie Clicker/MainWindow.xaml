@@ -5,8 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="600">
     <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions >
+            
+            <!-- Cookie panel -->
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+                <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+                    <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
+                    <Image Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+            <!-- Middle Panel -->
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,1,0">
+                <StackPanel Background="Bisque" >
+
+                </StackPanel>
+            </Border>
+            <!-- Store -->
+            <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                <StackPanel Background="Beige" >
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+                        </WrapPanel>
+                    </Border>
+
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                        <WrapPanel Background="AliceBlue">
+                            <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
+                            <Label Content="Clicker"></Label>
+
+                        </WrapPanel>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                        <WrapPanel Background="AliceBlue">
+                            <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
+                            <Label Content="Clicker"></Label>
+
+                        </WrapPanel>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                        <WrapPanel Background="AliceBlue">
+                            <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
+                            <Label Content="Clicker"></Label>
+
+                        </WrapPanel>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                        <WrapPanel Background="AliceBlue">
+                            <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
+                            <Label Content="Clicker"></Label>
+
+                        </WrapPanel>
+                    </Border>
+
+
+                </StackPanel>
+            </Border>
+            
+        </Grid>
         
     </Grid>
 </Window>

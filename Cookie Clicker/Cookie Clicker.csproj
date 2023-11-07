@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cookie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
