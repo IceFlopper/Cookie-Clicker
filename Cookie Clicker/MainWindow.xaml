@@ -20,8 +20,9 @@
             <!-- Cookie panel -->
             <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
                 <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
-                    <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
-                    <Image Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Name="LblCookiePerSecond" Content="0.0s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"></Label>
+                    <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
+                    <Image Name="ImgCookie" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                 </StackPanel>
             </Border>
             <!-- Middle Panel -->
@@ -34,35 +35,35 @@
             <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
                 <StackPanel Background="Beige" >
                     <Border BorderBrush="Black" BorderThickness="0,0,0,2">
-                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 
                         </WrapPanel>
                     </Border>
 
                     <Border BorderBrush="Black" BorderThickness="0,0,1,1">
-                        <WrapPanel Background="AliceBlue">
+                        <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False">
                             <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
                             <Label Content="Clicker"></Label>
 
                         </WrapPanel>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="0,0,1,1">
-                        <WrapPanel Background="AliceBlue">
+                        <WrapPanel Background="LightSlateGray" IsEnabled="False">
                             <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
                             <Label Content="Clicker"></Label>
 
                         </WrapPanel>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="0,0,1,1">
-                        <WrapPanel Background="AliceBlue">
+                        <WrapPanel Background="LightSlateGray" IsEnabled="False">
                             <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
                             <Label Content="Clicker"></Label>
 
                         </WrapPanel>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="0,0,1,1">
-                        <WrapPanel Background="AliceBlue">
+                        <WrapPanel Background="LightSlateGray" IsEnabled="False">
                             <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
                             <Label Content="Clicker"></Label>
 
