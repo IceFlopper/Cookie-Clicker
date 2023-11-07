@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -39,6 +41,22 @@ namespace Cookie_Clicker
             gameTimer.Tick += gameTimer_tick;
             gameTimer.Start();
 
+
+            new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
+            CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
+            RotateTransform rotateTransform = new RotateTransform();
+            CookieImage.RenderTransform = rotateTransform;
+
+            DoubleAnimation rotationAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = 360,
+                Duration = TimeSpan.FromSeconds(40),
+                RepeatBehavior = RepeatBehavior.Forever
+                
+            };
+            rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
+
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -64,6 +82,7 @@ namespace Cookie_Clicker
         }
         private void ClickerVerify()
         {
+            //verifies if u have atleast 15 cookies
             if (cookies < 15)
             {
                 ClickerP.IsEnabled = false;
@@ -81,5 +100,9 @@ namespace Cookie_Clicker
             cookiesPerSecond = cookiesPerSecond + 0.2;
             cookies = cookies - 15;
         }
+
+
+
+
     }
 }

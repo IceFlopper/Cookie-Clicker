@@ -22,7 +22,7 @@
                 <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
                     <Label Name="LblCookiePerSecond" Content="0.0s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"></Label>
                     <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
-                    <Image Name="ImgCookie" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                    <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                 </StackPanel>
             </Border>
             <!-- Middle Panel -->
