@@ -165,8 +165,8 @@ namespace Cookie_Clicker
         private void FarmVerify()
         {
 
-            //verify if cookie count is high enough to purchase Grandma
-            if (cookies < grandmaCost)
+            //verify if cookie count is high enough to purchase Farm
+            if (cookies < farmCost)
             {
                 FarmP.IsEnabled = false;
                 FarmP.Background = new SolidColorBrush(Colors.LightSlateGray);
