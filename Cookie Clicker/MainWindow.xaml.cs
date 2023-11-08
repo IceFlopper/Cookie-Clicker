@@ -65,11 +65,14 @@ namespace Cookie_Clicker
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //when left click on cookie image add cookie clickCount to cookies
             cookies = cookies + clickCount;
             LblCookie.Content = (int)cookies + " Cookies";
+            DrawCookies();
         }
         private void gameTimer_tick(object sender, EventArgs e)
         {
+            //update labels every 50ms
             DrawCookies();
             LblCookiePerSecond.Content = cookiesPerSecond + "s";
             LblCostClicker.Content = "Cost: " + clickerCost;
@@ -80,22 +83,25 @@ namespace Cookie_Clicker
         }
         private void DrawCookies()
         {
+            //update cookielabel to concatinate to smaller digits
             int cookiesCount = (int)cookies;
             string cookiesLabel = cookiesCount.ToString();
             if (cookiesCount > 9999 && cookiesCount < 100000)
             {
-                cookiesLabel = cookiesCount.ToString().Substring(0, 2) + "K";
+                cookiesLabel = cookiesCount.ToString().Substring(0, cookiesLabel.Length - 3) + "K";
             }
             else if (cookiesCount > 100000 && cookiesCount < 1000000)
             {
-                cookiesLabel = cookiesCount.ToString().Substring(0, 3) + "K";
+                cookiesLabel = cookiesCount.ToString().Substring(0, cookiesLabel.Length - 3) + "K";
             }
+
 
             LblCookie.Content = cookiesLabel + " Cookies";
 
         }
         private void CookieTimer_Tick(object sender, EventArgs e)
         {
+            //add cookies every second
             cookies = cookies + cookiesPerSecond;
         }
         private void ClickerVerify()
@@ -116,6 +122,7 @@ namespace Cookie_Clicker
         }
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //verify if cookies is high enough to purchase
             ClickerVerify();
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * 1.10;
