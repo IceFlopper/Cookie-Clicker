@@ -37,6 +37,10 @@ namespace Cookie_Clicker
         double grandmaCost = 150;
         int grandmaCount = 0;
         double grandmaProduction = 5;
+        //farm
+        double farmCost = 3000;
+        int farmCount = 0;
+        double farmProduction = 25;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -53,12 +57,11 @@ namespace Cookie_Clicker
             gameTimer.Tick += gameTimer_tick;
             gameTimer.Start();
 
-            //content for the /s label
-            LblClickerProd.Content = "0,5/s";
-            LblGrandmaProd.Content = "10/s";
             //content for clickerproduction
-            LblClickerProd.Content = clickerProduction;
-            LblGrandmaProd.Content = grandmaProduction;
+            LblClickerProd.Content = clickerProduction + "/s";
+            LblGrandmaProd.Content = grandmaProduction + "/s";
+            LblFarmProd.Content = farmProduction + "/s";
+
 
 
 
@@ -93,11 +96,15 @@ namespace Cookie_Clicker
             LblCookiePerSecond.Content = cookiesPerSecond+ "/s";
             LblCostClicker.Content = "Cost: " + clickerCost;
             LblCostGrandma.Content = "Cost: " + grandmaCost;
+            LblCostFarm.Content = "Cost: " + farmCost;
+
 
 
 
             ClickerVerify();
             GrandmaVerify();
+            FarmVerify();
+
 
         }
         private void DrawCookies()
@@ -155,6 +162,22 @@ namespace Cookie_Clicker
 
             }
         }
+        private void FarmVerify()
+        {
+
+            //verify if cookie count is high enough to purchase Grandma
+            if (cookies < grandmaCost)
+            {
+                FarmP.IsEnabled = false;
+                FarmP.Background = new SolidColorBrush(Colors.LightSlateGray);
+            }
+            else
+            {
+                FarmP.IsEnabled = true;
+                FarmP.Background = new SolidColorBrush(Colors.AliceBlue);
+
+            }
+        }
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy clicker
@@ -181,8 +204,22 @@ namespace Cookie_Clicker
             grandmaProduction = grandmaProduction * 1.10;
             grandmaCost = Math.Round(grandmaCost);
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
-            double granmaProudctionRounded = Math.Round(grandmaProduction, 2);
-            LblGrandmaProd.Content = granmaProudctionRounded + "/s";
+            double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
+            LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
+        }
+        private void FarmP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy farm
+            FarmVerify();
+            farmCount++;
+            LblFarm.Content = "Farms: " + farmCount;
+            cookies = cookies - farmCost;
+            farmCost = farmCost * 1.25;
+            farmProduction = farmProduction * 1.10;
+            farmCost = Math.Round(farmCost);
+            cookiesPerSecond = cookiesPerSecond + farmProduction;
+            double farmProductionRounded = Math.Round(farmProduction, 2);
+            LblFarmProd.Content = farmProductionRounded + "/s";
         }
     }
 }

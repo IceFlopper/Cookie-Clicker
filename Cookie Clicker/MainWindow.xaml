@@ -65,6 +65,18 @@
 
                         </WrapPanel>
                     </Border>
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                        <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                            <Image  Width="40" Source="/farm.png"/>
+                            <StackPanel >
+                                <Label Name="LblFarm" Content="Farm"></Label>
+                                <Label Name="LblFarmProd" Content="" Margin="0,-10,0,0"></Label>
+
+                            </StackPanel>
+                            <Label Name="LblCostFarm" Content="Cost: 3000" ></Label>
+
+                        </WrapPanel>
+                    </Border>
 
 
                 </StackPanel>
