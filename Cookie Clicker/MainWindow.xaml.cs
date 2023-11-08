@@ -27,20 +27,26 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 50;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
         int clickerCount = 0;
-        double clickerProduction = 0.5;
+        double clickerProduction = 0.1;
         //grandma
-        double grandmaCost = 150;
+        double grandmaCost = 100;
         int grandmaCount = 0;
-        double grandmaProduction = 5;
+        double grandmaProduction = 1;
         //farm
-        double farmCost = 3000;
+        double farmCost = 1100;
         int farmCount = 0;
-        double farmProduction = 25;
+        double farmProduction = 8;
+
+        //upgrades
+        int Upgrade1Level = 2;
+        int cookieCostUpgrade1 = 100;
+        int Upgrade2Level = 2;
+        int cookieCostUpgrade2 = 150;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -61,6 +67,8 @@ namespace Cookie_Clicker
             LblClickerProd.Content = clickerProduction + "/s";
             LblGrandmaProd.Content = grandmaProduction + "/s";
             LblFarmProd.Content = farmProduction + "/s";
+            LblUpgrade1.Content = "x" + Upgrade1Level + "Cursor";
+            LblUpgrade2.Content = "x" + Upgrade2Level + "Clicker";
 
 
 
@@ -104,22 +112,28 @@ namespace Cookie_Clicker
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
+            UpgradeUnlock();
 
 
         }
         private void DrawCookies()
         {
             //update cookielabel to concatinate to smaller digits
-            int cookiesCount = (int)cookies;
+            double cookiesCount = (int)cookies;
             string cookiesLabel = cookiesCount.ToString();
-            if (cookiesCount > 9999 && cookiesCount < 100000)
+            if (cookiesCount > 9999 && cookiesCount < 999999)
             {
-                cookiesLabel = cookiesCount.ToString().Substring(0, cookiesLabel.Length - 3) + "K";
+                cookiesLabel = $"{(cookiesCount / 1000.0):F1}K";
             }
-            else if (cookiesCount > 100000 && cookiesCount < 1000000)
+            else if (cookiesCount > 999999 && cookiesCount < 999999999)
             {
-                cookiesLabel = cookiesCount.ToString().Substring(0, cookiesLabel.Length - 3) + "K";
+                cookiesLabel = $"{(cookiesCount / 1000000.0):F1}M";
             }
+            else if (cookiesCount > 999999999 && cookiesCount < 999999999999)
+            {
+                cookiesLabel = $"{(cookiesCount / 1000000000.0):F1}B";
+            }
+
 
 
             LblCookie.Content = cookiesLabel + " Cookies";
@@ -178,6 +192,8 @@ namespace Cookie_Clicker
 
             }
         }
+
+
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy clicker
@@ -217,7 +233,7 @@ namespace Cookie_Clicker
             FarmVerify();
             //add 1 farm to farm count when executed
             farmCount++;
-            LblFarm.Content = "Farm: " + "s:" + farmCount;
+            LblFarm.Content = "Farm" + "s: " + farmCount;
 
             cookies = cookies - farmCost;
             farmCost = farmCost * 1.25;
@@ -226,6 +242,48 @@ namespace Cookie_Clicker
             cookiesPerSecond = cookiesPerSecond + farmProduction;
             double farmProductionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProductionRounded + "/s";
+        }
+
+        private void UpgradeUnlock()
+        {
+            if (cookies > 99.99)
+            {
+                Upgrade1.IsEnabled = true;
+                Upgrade1.Background = new SolidColorBrush(Colors.SandyBrown);
+            }
+            else
+            {
+                Upgrade1.IsEnabled = false;
+                Upgrade1.Background = new SolidColorBrush(Colors.SaddleBrown);
+
+            }
+
+            if (cookies > 149.99)
+            {
+                Upgrade2.IsEnabled = true;
+                Upgrade2.Background = new SolidColorBrush(Colors.SandyBrown);
+            }
+            else
+            {
+                Upgrade2.IsEnabled = false;
+                Upgrade2.Background = new SolidColorBrush(Colors.SaddleBrown);
+
+            }
+
+        }
+        private void Upgrade1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+            clickCount = clickCount * 2;
+            cookies = cookies - cookieCostUpgrade1;
+        }
+
+        private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            clickerProduction = clickerProduction * 2;
+            cookies = cookies - cookieCostUpgrade2;
+            LblClickerProd.Content = clickerProduction + "/s";
+
         }
     }
 }

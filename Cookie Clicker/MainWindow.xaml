@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions >
             
             <!-- Cookie panel -->
-            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0">
                 <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
                     <Label Name="LblCookiePerSecond" Content="0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"></Label>
                     <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
@@ -26,22 +26,40 @@
                 </StackPanel>
             </Border>
             <!-- Middle Panel -->
-            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,1,0">
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                 <StackPanel Background="Bisque" >
 
                 </StackPanel>
             </Border>
             <!-- Store -->
-            <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+            <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1,0,0,0">
                 <StackPanel Background="Beige" >
                     <Border BorderBrush="Black" BorderThickness="0,0,0,2">
                         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-
                         </WrapPanel>
                     </Border>
+                    <WrapPanel>
+                        <Border BorderBrush="Bisque" BorderThickness="2">
+                            <WrapPanel>
+                                <StackPanel Name="Upgrade1" Width="40" Height="40" Background="SaddleBrown" MouseLeftButtonDown="Upgrade1_MouseLeftButtonDown">
+                                    <Label Name="LblUpgrade1" Content="x2 Cursor" FontSize="6" Height="17" Margin="-5" HorizontalAlignment="Center"></Label>
+                                    <Image Source="Clicker.png" Width="30"/>
+                                </StackPanel>
+                            </WrapPanel>
+                        </Border>
+                        <Border BorderBrush="Bisque" BorderThickness="2">
+                            <WrapPanel>
+                                <StackPanel Name="Upgrade2" Width="40" Height="40" Background="SaddleBrown" MouseLeftButtonDown="Upgrade2_MouseLeftButtonDown">
+                                    <Label Name="LblUpgrade2" Content="x2 Clicker" FontSize="6" Height="17" Margin="-5" HorizontalAlignment="Center"></Label>
+                                    <Image Source="Clicker.png" Width="30"/>
+                                </StackPanel>
+                            </WrapPanel>
+                        </Border>
+                    </WrapPanel>
+                   
 
-                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
                         <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
                             <Image Source="Clicker.png" Width="40"/>
                             <StackPanel >
@@ -53,7 +71,7 @@
 
                         </WrapPanel>
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
+                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
                         <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
                             <Image  Width="40" Source="/Grandma.png"/>
                             <StackPanel >
@@ -65,8 +83,8 @@
 
                         </WrapPanel>
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="0,0,1,1">
-                        <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                        <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
                             <Image  Width="40" Source="/farm.png"/>
                             <StackPanel >
                                 <Label Name="LblFarm" Content="Farm"></Label>
