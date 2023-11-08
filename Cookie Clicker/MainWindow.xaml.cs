@@ -86,6 +86,7 @@ namespace Cookie_Clicker
             if (cookies < 15)
             {
                 ClickerP.IsEnabled = false;
+                ClickerP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
             else
             {
