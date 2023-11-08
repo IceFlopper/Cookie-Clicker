@@ -25,7 +25,8 @@ namespace Cookie_Clicker
     {
         private double cookies = 0;
         private double cookiesPerSecond = 0;
-        
+        double clickerCost = 15;
+
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
         DispatcherTimer gameTimer = new DispatcherTimer();
@@ -42,6 +43,8 @@ namespace Cookie_Clicker
             gameTimer.Start();
 
 
+
+
             new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
             RotateTransform rotateTransform = new RotateTransform();
@@ -56,18 +59,19 @@ namespace Cookie_Clicker
                 
             };
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
-
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             cookies++;
-            LblCookie.Content = cookies + " Cookies";
+            LblCookie.Content = (int)cookies + " Cookies";
         }
         private void gameTimer_tick(object sender, EventArgs e)
         {
-            LblCookie.Content = cookies + " Cookies";
+            LblCookie.Content = (int)cookies + " Cookies";
             LblCookiePerSecond.Content = cookiesPerSecond + "s";
+            LblCostClicker.Content = "Cost: " + clickerCost;
+
             ClickerVerify();
 
 
@@ -75,15 +79,12 @@ namespace Cookie_Clicker
         private void CookieTimer_Tick(object sender, EventArgs e)
         {
             cookies = cookies + cookiesPerSecond;
-            
-
-            
-
         }
         private void ClickerVerify()
         {
+
             //verifies if u have atleast 15 cookies
-            if (cookies < 15)
+            if (cookies < clickerCost)
             {
                 ClickerP.IsEnabled = false;
                 ClickerP.Background = new SolidColorBrush(Colors.LightSlateGray);
@@ -98,8 +99,10 @@ namespace Cookie_Clicker
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ClickerVerify();
-            cookiesPerSecond = cookiesPerSecond + 0.2;
-            cookies = cookies - 15;
+            cookies = cookies - clickerCost;
+            clickerCost = clickerCost * 1.10;
+            clickerCost = Math.Round(clickerCost);
+            cookiesPerSecond = cookiesPerSecond + 0.5;
         }
 
 
