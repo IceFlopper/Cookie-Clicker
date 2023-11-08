@@ -212,7 +212,7 @@ namespace Cookie_Clicker
             //buy farm
             FarmVerify();
             farmCount++;
-            LblFarm.Content = "Farms: " + farmCount;
+            LblFarm.Content = "Farm: " + "s:" + farmCount;
             cookies = cookies - farmCost;
             farmCost = farmCost * 1.25;
             farmProduction = farmProduction * 1.10;
