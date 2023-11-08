@@ -26,10 +26,17 @@ namespace Cookie_Clicker
     {
         private double cookies = 0;
         private double cookiesPerSecond = 0;
+        //amount gained per click
+        double clickCount = 1;
+
+        //clicker
         double clickerCost = 15;
-        double clickCount = 500;
         int clickerCount = 0;
         double clickerProduction = 0.5;
+        //grandma
+        double grandmaCost = 150;
+        int grandmaCount = 0;
+        double grandmaProduction = 5;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -46,6 +53,12 @@ namespace Cookie_Clicker
             gameTimer.Tick += gameTimer_tick;
             gameTimer.Start();
 
+            //content for the /s label
+            LblClickerProd.Content = "0,5/s";
+            LblGrandmaProd.Content = "10/s";
+            //content for clickerproduction
+            LblClickerProd.Content = clickerProduction;
+            LblGrandmaProd.Content = grandmaProduction;
 
 
 
@@ -77,11 +90,14 @@ namespace Cookie_Clicker
             //update labels every 10ms
             DrawCookies();
             cookiesPerSecond = Math.Round(cookiesPerSecond, 1);
-            LblCookiePerSecond.Content = cookiesPerSecond+ "s";
+            LblCookiePerSecond.Content = cookiesPerSecond+ "/s";
             LblCostClicker.Content = "Cost: " + clickerCost;
+            LblCostGrandma.Content = "Cost: " + grandmaCost;
 
-  
+
+
             ClickerVerify();
+            GrandmaVerify();
 
         }
         private void DrawCookies()
@@ -123,6 +139,22 @@ namespace Cookie_Clicker
 
             }
         }
+        private void GrandmaVerify()
+        {
+
+            //verify if cookie count is high enough to purchase Grandma
+            if (cookies < grandmaCost)
+            {
+                GrandmaP.IsEnabled = false;
+                GrandmaP.Background = new SolidColorBrush(Colors.LightSlateGray);
+            }
+            else
+            {
+                GrandmaP.IsEnabled = true;
+                GrandmaP.Background = new SolidColorBrush(Colors.AliceBlue);
+
+            }
+        }
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy clicker
@@ -130,16 +162,27 @@ namespace Cookie_Clicker
             clickerCount++;
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
             cookies = cookies - clickerCost;
-            clickerCost = clickerCost * 1.10;
+            clickerCost = clickerCost * 1.25;
             clickerProduction = clickerProduction * 1.10;
             clickerCost = Math.Round(clickerCost);
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
-            LblClickerProd.Content = clickerProductionRounded + "s";
+            LblClickerProd.Content = clickerProductionRounded + "/s";
         }
 
-
-
-
+        private void GrandmaP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy grandma
+            GrandmaVerify();
+            grandmaCount++;
+            LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
+            cookies = cookies - grandmaCost;
+            grandmaCost = grandmaCost * 1.25;
+            grandmaProduction = grandmaProduction * 1.10;
+            grandmaCost = Math.Round(grandmaCost);
+            cookiesPerSecond = cookiesPerSecond + grandmaProduction;
+            double granmaProudctionRounded = Math.Round(grandmaProduction, 2);
+            LblGrandmaProd.Content = granmaProudctionRounded + "/s";
+        }
     }
 }

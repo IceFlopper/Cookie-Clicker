@@ -20,7 +20,7 @@
             <!-- Cookie panel -->
             <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
                 <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
-                    <Label Name="LblCookiePerSecond" Content="0.0s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"></Label>
+                    <Label Name="LblCookiePerSecond" Content="0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"></Label>
                     <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
                     <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                 </StackPanel>
@@ -43,10 +43,10 @@
 
                     <Border BorderBrush="Black" BorderThickness="0,0,1,1">
                         <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
-                            <Image Source="/computer-mouse-cursor-pointer-point-and-click-cursor-c807b461627a874318ae50225d8f53c4.png" Width="40"/>
+                            <Image Source="Clicker.png" Width="40"/>
                             <StackPanel >
                                 <Label Name="LblClicker" Content="Clicker"></Label>
-                                <Label Name="LblClickerProd" Content="0.5s" Margin="0,-10,0,0"></Label>
+                                <Label Name="LblClickerProd" Content="" Margin="0,-10,0,0"></Label>
 
                             </StackPanel>
                             <Label Name="LblCostClicker" Content="Cost: 15" ></Label>
@@ -54,14 +54,14 @@
                         </WrapPanel>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="0,0,1,1">
-                        <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                        <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
                             <Image  Width="40" Source="/Grandma.png"/>
                             <StackPanel >
                                 <Label Name="LblGrandma" Content="Grandma"></Label>
-                                <Label Name="LblGrandmaProd" Content="0.5s" Margin="0,-10,0,0"></Label>
+                                <Label Name="LblGrandmaProd" Content="" Margin="0,-10,0,0"></Label>
 
                             </StackPanel>
-                            <Label Name="LblCostGrandma" Content="Cost: 15" ></Label>
+                            <Label Name="LblCostGrandma" Content="Cost: 150" ></Label>
 
                         </WrapPanel>
                     </Border>
