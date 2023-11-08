@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -26,6 +27,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         double clickerCost = 15;
+        double clickCount = 500;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -63,17 +65,33 @@ namespace Cookie_Clicker
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            cookies++;
+            cookies = cookies + clickCount;
             LblCookie.Content = (int)cookies + " Cookies";
         }
         private void gameTimer_tick(object sender, EventArgs e)
         {
-            LblCookie.Content = (int)cookies + " Cookies";
+            DrawCookies();
             LblCookiePerSecond.Content = cookiesPerSecond + "s";
             LblCostClicker.Content = "Cost: " + clickerCost;
 
+  
             ClickerVerify();
 
+        }
+        private void DrawCookies()
+        {
+            int cookiesCount = (int)cookies;
+            string cookiesLabel = cookiesCount.ToString();
+            if (cookiesCount > 9999 && cookiesCount < 100000)
+            {
+                cookiesLabel = cookiesCount.ToString().Substring(0, 2) + "K";
+            }
+            else if (cookiesCount > 100000 && cookiesCount < 1000000)
+            {
+                cookiesLabel = cookiesCount.ToString().Substring(0, 3) + "K";
+            }
+
+            LblCookie.Content = cookiesLabel + " Cookies";
 
         }
         private void CookieTimer_Tick(object sender, EventArgs e)
