@@ -28,6 +28,8 @@ namespace Cookie_Clicker
         private double cookiesPerSecond = 0;
         double clickerCost = 15;
         double clickCount = 500;
+        int clickerCount = 0;
+        double clickerProduction = 0.5;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -40,7 +42,7 @@ namespace Cookie_Clicker
             cookieTimer.Tick += CookieTimer_Tick;
             cookieTimer.Start();
 
-            gameTimer.Interval = TimeSpan.FromMilliseconds(50);
+            gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             gameTimer.Tick += gameTimer_tick;
             gameTimer.Start();
 
@@ -72,9 +74,10 @@ namespace Cookie_Clicker
         }
         private void gameTimer_tick(object sender, EventArgs e)
         {
-            //update labels every 50ms
+            //update labels every 10ms
             DrawCookies();
-            LblCookiePerSecond.Content = cookiesPerSecond + "s";
+            cookiesPerSecond = Math.Round(cookiesPerSecond, 1);
+            LblCookiePerSecond.Content = cookiesPerSecond+ "s";
             LblCostClicker.Content = "Cost: " + clickerCost;
 
   
@@ -107,7 +110,7 @@ namespace Cookie_Clicker
         private void ClickerVerify()
         {
 
-            //verifies if u have atleast 15 cookies
+            //verify if cookie count is high enough to purchase Clicker
             if (cookies < clickerCost)
             {
                 ClickerP.IsEnabled = false;
@@ -122,12 +125,17 @@ namespace Cookie_Clicker
         }
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //verify if cookies is high enough to purchase
+            //buy clicker
             ClickerVerify();
+            clickerCount++;
+            LblClicker.Content = "Clicker" + "s: " + clickerCount;
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * 1.10;
+            clickerProduction = clickerProduction * 1.10;
             clickerCost = Math.Round(clickerCost);
-            cookiesPerSecond = cookiesPerSecond + 0.5;
+            cookiesPerSecond = cookiesPerSecond + clickerProduction;
+            double clickerProductionRounded = Math.Round(clickerProduction, 2);
+            LblClickerProd.Content = clickerProductionRounded + "s";
         }
 
 
