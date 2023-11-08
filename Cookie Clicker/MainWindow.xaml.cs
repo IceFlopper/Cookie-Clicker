@@ -27,7 +27,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 50;
 
         //clicker
         double clickerCost = 15;
@@ -182,8 +182,10 @@ namespace Cookie_Clicker
         {
             //buy clicker
             ClickerVerify();
+            //add 1 clicker to clicker count when executed
             clickerCount++;
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
+
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * 1.25;
             clickerProduction = clickerProduction * 1.10;
@@ -197,8 +199,10 @@ namespace Cookie_Clicker
         {
             //buy grandma
             GrandmaVerify();
+            //add 1 grandma to grandma count when executed
             grandmaCount++;
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
+
             cookies = cookies - grandmaCost;
             grandmaCost = grandmaCost * 1.25;
             grandmaProduction = grandmaProduction * 1.10;
@@ -211,8 +215,10 @@ namespace Cookie_Clicker
         {
             //buy farm
             FarmVerify();
+            //add 1 farm to farm count when executed
             farmCount++;
             LblFarm.Content = "Farm: " + "s:" + farmCount;
+
             cookies = cookies - farmCost;
             farmCost = farmCost * 1.25;
             farmProduction = farmProduction * 1.10;
