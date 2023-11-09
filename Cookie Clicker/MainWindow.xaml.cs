@@ -4,6 +4,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 10;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
@@ -41,6 +42,10 @@ namespace Cookie_Clicker
         double farmCost = 1100;
         int farmCount = 0;
         double farmProduction = 8;
+        //mine
+        double mineCost = 9000;
+        int mineCount = 0;
+        double mineProduction = 30;
 
         //upgrades
         int Upgrade1Level = 2;
@@ -67,6 +72,7 @@ namespace Cookie_Clicker
             LblClickerProd.Content = clickerProduction + "/s";
             LblGrandmaProd.Content = grandmaProduction + "/s";
             LblFarmProd.Content = farmProduction + "/s";
+            LblMineProd.Content = mineProduction + "/s";
             LblUpgrade1.Content = "x" + Upgrade1Level + "Cursor";
             LblUpgrade2.Content = "x" + Upgrade2Level + "Clicker";
 
@@ -105,6 +111,8 @@ namespace Cookie_Clicker
             LblCostClicker.Content = "Cost: " + clickerCost;
             LblCostGrandma.Content = "Cost: " + grandmaCost;
             LblCostFarm.Content = "Cost: " + farmCost;
+            LblCostMine.Content = "Cost: " + mineCost;
+
 
 
 
@@ -112,6 +120,7 @@ namespace Cookie_Clicker
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
+            MineVerify();
             UpgradeUnlock();
 
 
@@ -192,6 +201,22 @@ namespace Cookie_Clicker
 
             }
         }
+        private void MineVerify()
+        {
+
+            //verify if cookie count is high enough to purchase Farm
+            if (cookies < mineCost)
+            {
+                MineP.IsEnabled = false;
+                MineP.Background = new SolidColorBrush(Colors.LightSlateGray);
+            }
+            else
+            {
+                MineP.IsEnabled = true;
+                MineP.Background = new SolidColorBrush(Colors.AliceBlue);
+
+            }
+        }
 
 
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -204,9 +229,10 @@ namespace Cookie_Clicker
 
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + clickerProduction;
+
             clickerProduction = clickerProduction * 1.10;
             clickerCost = Math.Round(clickerCost);
-            cookiesPerSecond = cookiesPerSecond + clickerProduction;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
@@ -221,9 +247,10 @@ namespace Cookie_Clicker
 
             cookies = cookies - grandmaCost;
             grandmaCost = grandmaCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + grandmaProduction;
+
             grandmaProduction = grandmaProduction * 1.10;
             grandmaCost = Math.Round(grandmaCost);
-            cookiesPerSecond = cookiesPerSecond + grandmaProduction;
             double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
         }
@@ -231,19 +258,36 @@ namespace Cookie_Clicker
         {
             //buy farm
             FarmVerify();
-            //add 1 farm to farm count when executed
+            //add 1 farm to grandma count when executed
             farmCount++;
             LblFarm.Content = "Farm" + "s: " + farmCount;
 
             cookies = cookies - farmCost;
             farmCost = farmCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + farmProduction;
+
             farmProduction = farmProduction * 1.10;
             farmCost = Math.Round(farmCost);
-            cookiesPerSecond = cookiesPerSecond + farmProduction;
-            double farmProductionRounded = Math.Round(farmProduction, 2);
-            LblFarmProd.Content = farmProductionRounded + "/s";
+            double farmProudctionRounded = Math.Round(farmProduction, 2);
+            LblFarmProd.Content = farmProudctionRounded + "/s";
         }
+        private void MineP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy mine
+            MineVerify();
+            //add 1 mine to mine count when executed
+            mineCount++;
+            LblMine.Content = "Mine" + "s: " + mineCount;
 
+            cookies = cookies - mineCost;
+            mineCost = mineCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + mineProduction;
+
+            mineProduction = mineProduction * 1.10;
+            mineCost = Math.Round(mineCost);
+            double mineProductionRounded = Math.Round(mineProduction, 2);
+            LblMineProd.Content = mineProductionRounded + "/s";
+        }
         private void UpgradeUnlock()
         {
             if (cookies >= cookieCostUpgrade1)
@@ -273,22 +317,41 @@ namespace Cookie_Clicker
         }
         private void Upgrade1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
-            clickCount = clickCount * 2;
+            clickCount = clickCount * Upgrade1Level;
             cookies = cookies - cookieCostUpgrade1;
             cookieCostUpgrade1 = cookieCostUpgrade1 * 3;
-
-
         }
 
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            clickerProduction = clickerProduction * 2;
+            clickerProduction = clickerProduction * Upgrade2Level;
             cookies = cookies - cookieCostUpgrade2;
             LblClickerProd.Content = clickerProduction + "/s";
             Upgrade2.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
+        }
+
+        private void Upgrade1_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+
+            
+        }
+
+        private void Upgrade2_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+
+        }
+
+        private void Upgrade1_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Upgrade2_MouseLeave(object sender, MouseEventArgs e)
+        {
 
         }
     }
