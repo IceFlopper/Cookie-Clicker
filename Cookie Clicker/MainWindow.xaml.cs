@@ -27,7 +27,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 10;
 
         //clicker
         double clickerCost = 15;
@@ -246,7 +246,7 @@ namespace Cookie_Clicker
 
         private void UpgradeUnlock()
         {
-            if (cookies > 99.99)
+            if (cookies >= cookieCostUpgrade1)
             {
                 Upgrade1.IsEnabled = true;
                 Upgrade1.Background = new SolidColorBrush(Colors.SandyBrown);
@@ -258,7 +258,7 @@ namespace Cookie_Clicker
 
             }
 
-            if (cookies > 149.99)
+            if (cookies >= cookieCostUpgrade2)
             {
                 Upgrade2.IsEnabled = true;
                 Upgrade2.Background = new SolidColorBrush(Colors.SandyBrown);
@@ -276,6 +276,9 @@ namespace Cookie_Clicker
 
             clickCount = clickCount * 2;
             cookies = cookies - cookieCostUpgrade1;
+            cookieCostUpgrade1 = cookieCostUpgrade1 * 3;
+
+
         }
 
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -283,6 +286,9 @@ namespace Cookie_Clicker
             clickerProduction = clickerProduction * 2;
             cookies = cookies - cookieCostUpgrade2;
             LblClickerProd.Content = clickerProduction + "/s";
+            Upgrade2.Visibility = Visibility.Collapsed;
+            double clickerProductionRounded = Math.Round(clickerProduction, 2);
+            LblClickerProd.Content = clickerProductionRounded + "/s";
 
         }
     }
