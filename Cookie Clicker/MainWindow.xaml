@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="680">
-    <Viewbox MinWidth="680" MinHeight="300">
+    <Viewbox>
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
