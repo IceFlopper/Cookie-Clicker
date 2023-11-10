@@ -30,7 +30,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100;
 
         //clicker
         double clickerCost = 15;
@@ -354,20 +354,23 @@ namespace Cookie_Clicker
                 Upgrade4.Background = new SolidColorBrush(Colors.SaddleBrown);
                 LblUpgrade4.Foreground = new SolidColorBrush(Colors.Wheat);
             }
-            if (cookies >= cookieCostUpgrade5 && upgrade2Count > 0 && upgrade5Count !=1)
+            if (upgrade5Count != 1 && upgrade2Count > 0)
             {
-                
                 Upgrade5.Visibility = Visibility.Visible;
-                Upgrade5.IsEnabled = true;
-                Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
-                LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
+                if (cookies >= cookieCostUpgrade5 && upgrade2Count > 0 && upgrade5Count != 1)
+                {
+                    Upgrade5.IsEnabled = true;
+                    Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
+                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
+                }
+                else
+                {
+                    Upgrade5.IsEnabled = false;
+                    Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
+                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Wheat);
+                }
             }
-            else
-            {
-                Upgrade5.IsEnabled = false;
-                Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
-                LblUpgrade5.Foreground = new SolidColorBrush(Colors.Wheat);
-            }
+
         }
         private void Upgrade1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
