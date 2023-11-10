@@ -52,6 +52,8 @@ namespace Cookie_Clicker
         int cookieCostUpgrade1 = 100;
         int Upgrade2Level = 2;
         int cookieCostUpgrade2 = 150;
+        int Upgrade3Level = 2;
+        int cookieCostUpgrade3 = 500;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -294,6 +296,7 @@ namespace Cookie_Clicker
             {
                 Upgrade1.IsEnabled = true;
                 Upgrade1.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade1.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
             {
@@ -306,11 +309,24 @@ namespace Cookie_Clicker
             {
                 Upgrade2.IsEnabled = true;
                 Upgrade2.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade2.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
             {
                 Upgrade2.IsEnabled = false;
                 Upgrade2.Background = new SolidColorBrush(Colors.SaddleBrown);
+
+            }
+            if (cookies >= cookieCostUpgrade3)
+            {
+                Upgrade3.IsEnabled = true;
+                Upgrade3.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade3.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                Upgrade3.IsEnabled = false;
+                Upgrade3.Background = new SolidColorBrush(Colors.SaddleBrown);
 
             }
 
@@ -324,12 +340,26 @@ namespace Cookie_Clicker
 
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            cookiesPerSecond = cookiesPerSecond - (clickerProduction * clickerCount);
             clickerProduction = clickerProduction * Upgrade2Level;
+            cookiesPerSecond = cookiesPerSecond + (clickerProduction * clickerCount);
             cookies = cookies - cookieCostUpgrade2;
             LblClickerProd.Content = clickerProduction + "/s";
             Upgrade2.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
+        }
+
+        private void Upgrade3_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            cookiesPerSecond = cookiesPerSecond - (grandmaProduction * grandmaCount);
+            grandmaProduction = grandmaProduction * Upgrade3Level;
+            cookiesPerSecond = cookiesPerSecond + (grandmaProduction * grandmaCount);
+            cookies = cookies - cookieCostUpgrade3;
+            LblGrandmaProd.Content = grandmaProduction + "/s";
+            Upgrade3.Visibility = Visibility.Collapsed;
+            double grandmaProductionRounded = Math.Round(grandmaProduction, 2);
+            LblGrandmaProd.Content = grandmaProductionRounded + "/s";
         }
 
         private void Upgrade1_MouseEnter(object sender, MouseEventArgs e)
