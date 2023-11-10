@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="285" Width="680">
-    <Viewbox MinWidth="680" MinHeight="285">
+        Title="MainWindow" Height="300" Width="680">
+    <Viewbox MinWidth="680" MinHeight="300">
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
                     <ColumnDefinition Width="250"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions >
 
