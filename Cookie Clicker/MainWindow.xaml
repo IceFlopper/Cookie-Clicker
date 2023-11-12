@@ -154,7 +154,7 @@
                                     <Label Name="LblFactory" Content="Factory"></Label>
                                     <Label Name="LblFactoryProd" Content="" Margin="0,-10,0,0"></Label>
                                 </StackPanel>
-                                <Label Name="LblCostFactory" Content="Cost: 9000" ></Label>
+                                <Label Name="LblCostFactory" Content="Cost: 100000" ></Label>
                             </WrapPanel>
                         </Border>
 
