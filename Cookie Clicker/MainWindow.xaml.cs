@@ -48,6 +48,10 @@ namespace Cookie_Clicker
         double mineCost = 9000;
         int mineCount = 0;
         double mineProduction = 30;
+        //factory
+        double factoryCost = 90000;
+        int factoryCount = 0;
+        double factoryProduction = 200;
 
         //upgrades
         int upgradeCursorLevel = 2;
@@ -290,6 +294,24 @@ namespace Cookie_Clicker
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
         }
+        private void FactoryP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // buy factory
+            FactoryVerify();
+            // add 1 factory to factory count when executed
+            factoryCount++;
+            LblFactory.Content = "Factory" + "s: " + factoryCount;
+
+            cookies = cookies - factoryCost;
+            factoryCost = factoryCost * 1.20;
+            cookiesPerSecond = cookiesPerSecond + factoryProduction;
+
+            factoryProduction = factoryProduction * 1.10;
+            factoryCost = Math.Round(factoryCost);
+            double factoryProductionRounded = Math.Round(factoryProduction, 2);
+            LblFactoryProd.Content = factoryProductionRounded + "/s";
+        }
+
         private void UpgradeUnlock()
         {
             //verifies if u have enough cookies to purchase upgrade.
