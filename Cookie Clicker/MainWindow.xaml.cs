@@ -90,10 +90,6 @@ namespace Cookie_Clicker
             LblUpgrade5.Content = upgradeClicker2Level + "x" + " Clicker";
 
 
-
-
-
-
             new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
             RotateTransform rotateTransform = new RotateTransform();
@@ -128,17 +124,11 @@ namespace Cookie_Clicker
             LblCostFarm.Content = "Cost: " + farmCost;
             LblCostMine.Content = "Cost: " + mineCost;
 
-
-
-
-
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
             MineVerify();
             UpgradeUnlock();
-
-
         }
         private void DrawCookies()
         {
@@ -158,10 +148,7 @@ namespace Cookie_Clicker
                 cookiesLabel = $"{(cookiesCount / 1000000000.0):F3}B";
             }
 
-
-
             LblCookie.Content = cookiesLabel + " Cookies";
-
         }
         private void CookieTimer_Tick(object sender, EventArgs e)
         {
@@ -243,7 +230,7 @@ namespace Cookie_Clicker
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
 
             cookies = cookies - clickerCost;
-            clickerCost = clickerCost * 1.25;
+            clickerCost = clickerCost * 1.20;
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
 
             clickerProduction = clickerProduction * 1.10;
@@ -261,7 +248,7 @@ namespace Cookie_Clicker
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
 
             cookies = cookies - grandmaCost;
-            grandmaCost = grandmaCost * 1.25;
+            grandmaCost = grandmaCost * 1.20;
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
 
             grandmaProduction = grandmaProduction * 1.10;
@@ -278,7 +265,7 @@ namespace Cookie_Clicker
             LblFarm.Content = "Farm" + "s: " + farmCount;
 
             cookies = cookies - farmCost;
-            farmCost = farmCost * 1.25;
+            farmCost = farmCost * 1.20;
             cookiesPerSecond = cookiesPerSecond + farmProduction;
 
             farmProduction = farmProduction * 1.10;
@@ -295,7 +282,7 @@ namespace Cookie_Clicker
             LblMine.Content = "Mine" + "s: " + mineCount;
 
             cookies = cookies - mineCost;
-            mineCost = mineCost * 1.25;
+            mineCost = mineCost * 1.20;
             cookiesPerSecond = cookiesPerSecond + mineProduction;
 
             mineProduction = mineProduction * 1.10;
@@ -305,6 +292,7 @@ namespace Cookie_Clicker
         }
         private void UpgradeUnlock()
         {
+            //verifies if u have enough cookies to purchase upgrade.
             if (cookies >= cookieCostUpgradeCursor)
             {
                 Upgrade1.IsEnabled = true;
@@ -388,7 +376,9 @@ namespace Cookie_Clicker
             cookiesPerSecond = cookiesPerSecond + (clickerProduction * clickerCount);
             cookies = cookies - cookieCostUpgradeClicker;
             LblClickerProd.Content = clickerProduction + "/s";
+
             Upgrade2.Visibility = Visibility.Collapsed;
+            BorderUpgradeClicker1.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
@@ -400,6 +390,8 @@ namespace Cookie_Clicker
             cookiesPerSecond = cookiesPerSecond + (grandmaProduction * grandmaCount);
             cookies = cookies - cookieCostUpgradeGrandma;
             LblGrandmaProd.Content = grandmaProduction + "/s";
+
+            BorderUpgradeGrandma.Visibility = Visibility.Collapsed;
             Upgrade3.Visibility = Visibility.Collapsed;
             double grandmaProductionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProductionRounded + "/s";
@@ -411,6 +403,8 @@ namespace Cookie_Clicker
             cookiesPerSecond = cookiesPerSecond + (mineProduction * mineCount);
             cookies = cookies - cookieCostUpgradeMine;
             LblMineProd.Content = mineProduction + "/s";
+
+            BorderUpgradeMine.Visibility = Visibility.Collapsed;
             Upgrade4.Visibility = Visibility.Collapsed;
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
@@ -424,6 +418,8 @@ namespace Cookie_Clicker
             cookiesPerSecond = cookiesPerSecond + (clickerProduction * clickerCount);
             cookies = cookies - cookieCostUpgradeClicker2;
             LblClickerProd.Content = clickerProduction + "/s";
+
+            BorderUpgradeClicker2.Visibility = Visibility.Collapsed;
             Upgrade5.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
