@@ -30,7 +30,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 1000;
 
         //clicker
         double clickerCost = 15;
@@ -49,23 +49,23 @@ namespace Cookie_Clicker
         int mineCount = 0;
         double mineProduction = 30;
         //factory
-        double factoryCost = 90000;
+        double factoryCost = 100000;
         int factoryCount = 0;
         double factoryProduction = 200;
 
         //upgrades
         int upgradeCursorLevel = 2;
-        int cookieCostUpgradeCursor = 100;
+        double cookieCostUpgradeCursor = 100;
         int upgradeClickerCount = 0;
         int upgradeClickerLevel = 2;
-        int cookieCostUpgradeClicker = 250;
+        double cookieCostUpgradeClicker = 250;
         int upgradeGrandmaLevel = 2;
-        int cookieCostUpgradeGrandma = 750;
+        double cookieCostUpgradeGrandma = 750;
         int upgradeMineLevel = 2;
-        int cookieCostUpgradeMine = 20000;
+        double cookieCostUpgradeMine = 20000;
         int upgradeClicker2Count = 0;
         int upgradeClicker2Level = 2;
-        int cookieCostUpgradeClicker2 = 1500;
+        double cookieCostUpgradeClicker2 = 1500;
 
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
@@ -87,6 +87,8 @@ namespace Cookie_Clicker
             LblGrandmaProd.Content = grandmaProduction + "/s";
             LblFarmProd.Content = farmProduction + "/s";
             LblMineProd.Content = mineProduction + "/s";
+            LblFactoryProd.Content = factoryProduction + "/s";
+            //content for upgrade 
             LblUpgrade1.Content = upgradeCursorLevel + "x" + " Cursor";
             LblUpgrade2.Content = upgradeClickerLevel + "x" +" Clicker";
             LblUpgrade3.Content = upgradeGrandmaLevel + "x" + " Grandma";
@@ -127,11 +129,14 @@ namespace Cookie_Clicker
             LblCostGrandma.Content = "Cost: " + grandmaCost;
             LblCostFarm.Content = "Cost: " + farmCost;
             LblCostMine.Content = "Cost: " + mineCost;
+            LblCostFactory.Content = "Cost: " + factoryCost;
+
 
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
             MineVerify();
+            FactoryVerify();
             UpgradeUnlock();
         }
         private void DrawCookies()
@@ -224,6 +229,23 @@ namespace Cookie_Clicker
             }
         }
 
+        private void FactoryVerify()
+        {
+
+            //verify if cookie count is high enough to purchase Farm
+            if (cookies < factoryCost)
+            {
+                FactoryP.IsEnabled = false;
+                FactoryP.Background = new SolidColorBrush(Colors.LightSlateGray);
+            }
+            else
+            {
+                FactoryP.IsEnabled = true;
+                FactoryP.Background = new SolidColorBrush(Colors.AliceBlue);
+
+            }
+        }
+
 
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -234,7 +256,7 @@ namespace Cookie_Clicker
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
 
             cookies = cookies - clickerCost;
-            clickerCost = clickerCost * 1.20;
+            clickerCost = clickerCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
 
             clickerProduction = clickerProduction * 1.10;
@@ -252,7 +274,7 @@ namespace Cookie_Clicker
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
 
             cookies = cookies - grandmaCost;
-            grandmaCost = grandmaCost * 1.20;
+            grandmaCost = grandmaCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
 
             grandmaProduction = grandmaProduction * 1.10;
@@ -269,7 +291,7 @@ namespace Cookie_Clicker
             LblFarm.Content = "Farm" + "s: " + farmCount;
 
             cookies = cookies - farmCost;
-            farmCost = farmCost * 1.20;
+            farmCost = farmCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + farmProduction;
 
             farmProduction = farmProduction * 1.10;
@@ -286,7 +308,7 @@ namespace Cookie_Clicker
             LblMine.Content = "Mine" + "s: " + mineCount;
 
             cookies = cookies - mineCost;
-            mineCost = mineCost * 1.20;
+            mineCost = mineCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + mineProduction;
 
             mineProduction = mineProduction * 1.10;
@@ -303,7 +325,7 @@ namespace Cookie_Clicker
             LblFactory.Content = "Factory" + "s: " + factoryCount;
 
             cookies = cookies - factoryCost;
-            factoryCost = factoryCost * 1.20;
+            factoryCost = factoryCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + factoryProduction;
 
             factoryProduction = factoryProduction * 1.10;
@@ -386,7 +408,7 @@ namespace Cookie_Clicker
         {
             clickCount = clickCount * upgradeCursorLevel;
             cookies = cookies - cookieCostUpgradeCursor;
-            cookieCostUpgradeCursor = cookieCostUpgradeCursor * 3;
+            cookieCostUpgradeCursor = cookieCostUpgradeCursor * 3.5;
         }
 
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
