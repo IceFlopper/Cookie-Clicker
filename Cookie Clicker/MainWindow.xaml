@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="680"
+        Title="MainWindow" Height="300" Width="610"
         Icon="cookie.png">
     <Viewbox>
         <Grid>
@@ -30,11 +30,7 @@
                 <!-- Middle Panel -->
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                     <StackPanel Background="Bisque" >
-                        <Border BorderThickness="1" BorderBrush="Brown">
-                            <WrapPanel Height="50">
 
-                            </WrapPanel>
-                        </Border>
 
 
                     </StackPanel>
