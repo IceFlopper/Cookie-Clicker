@@ -68,6 +68,7 @@ namespace Cookie_Clicker
         double cookieCostUpgradeClicker2 = 1500;
 
 
+
         DispatcherTimer cookieTimer = new DispatcherTimer();
         DispatcherTimer gameTimer = new DispatcherTimer();
         public MainWindow()
@@ -97,6 +98,7 @@ namespace Cookie_Clicker
 
 
             new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
+
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
             RotateTransform rotateTransform = new RotateTransform();
             CookieImage.RenderTransform = rotateTransform;
@@ -107,9 +109,10 @@ namespace Cookie_Clicker
                 To = 360,
                 Duration = TimeSpan.FromSeconds(40),
                 RepeatBehavior = RepeatBehavior.Forever
-                
+
             };
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
+
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -119,6 +122,7 @@ namespace Cookie_Clicker
             LblCookie.Content = (int)cookies + " Cookies";
             DrawCookies();
         }
+
         private void gameTimer_tick(object sender, EventArgs e)
         {
             //update labels every 10ms
