@@ -30,6 +30,9 @@
                 <!-- Middle Panel -->
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                     <StackPanel Background="Bisque" >
+                        <WrapPanel>
+                            <Label Name="LblMouseEnter"></Label>
+                        </WrapPanel>
 
                     </StackPanel>
                 </Border>
@@ -96,7 +99,7 @@
 
                         <!--Clicker-->
                         <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                            <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="ClickerP_MouseEnter" MouseLeave="ClickerP_MouseLeave" >
                                 <Image Source="Clicker.png" Width="40"/>
                                 <StackPanel >
                                     <Label Name="LblClicker" Content="Clicker"></Label>
@@ -109,7 +112,7 @@
                         </Border>
                         <!--Grandma-->
                         <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                            <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="GrandmaP_MouseEnter" MouseLeave="GrandmaP_MouseLeave">
                                 <Image  Width="40" Source="/Grandma.png"/>
                                 <StackPanel >
                                     <Label Name="LblGrandma" Content="Grandma"></Label>
@@ -122,7 +125,7 @@
                         </Border>
                         <!--Farm-->
                         <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                            <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FarmP_MouseEnter" MouseLeave="FarmP_MouseLeave">
                                 <Image  Width="40" Source="/farm.png"/>
                                 <StackPanel >
                                     <Label Name="LblFarm" Content="Farm"></Label>
@@ -135,7 +138,7 @@
                         </Border>
                         <!--Mine-->
                         <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="MineP" Background="LightSlateGray" MouseLeftButtonDown="MineP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                            <WrapPanel Name="MineP" Background="LightSlateGray" MouseLeftButtonDown="MineP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="MineP_MouseEnter" MouseLeave="MineP_MouseLeave">
                                 <Image  Width="40" Source="/mine.png"/>
                                 <StackPanel >
                                     <Label Name="LblMine" Content="Mine"></Label>
@@ -148,7 +151,7 @@
                         </Border>
                         <!--Factory-->
                         <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="FactoryP" Background="LightSlateGray" MouseLeftButtonDown="FactoryP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40">
+                            <WrapPanel Name="FactoryP" Background="LightSlateGray" MouseLeftButtonDown="FactoryP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FactoryP_MouseEnter" MouseLeave="FactoryP_MouseLeave">
                                 <Image  Width="40" Source="/factory.png"/>
                                 <StackPanel >
                                     <Label Name="LblFactory" Content="Factory"></Label>

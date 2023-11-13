@@ -95,39 +95,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="cookie.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="cookie.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Clicker.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="Clicker.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Grandma.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="Grandma.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="farm.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="farm.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="mine.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="mine.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="factory.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="factory.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="clickOn.mp3">
+    <Content Include="clickOn.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

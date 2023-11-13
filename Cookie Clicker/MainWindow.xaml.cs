@@ -30,7 +30,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100;
 
         //clicker
         double clickerCost = 15;
@@ -67,14 +67,13 @@ namespace Cookie_Clicker
         int upgradeClicker2Level = 2;
         double cookieCostUpgradeClicker2 = 1500;
 
-
+        MediaPlayer soundClick = new MediaPlayer();
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
         DispatcherTimer gameTimer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
-            Initiate_MediaPlayer();
 
             cookieTimer.Interval = TimeSpan.FromSeconds(1);
             cookieTimer.Tick += CookieTimer_Tick;
@@ -97,18 +96,18 @@ namespace Cookie_Clicker
             LblUpgrade4.Content = upgradeMineLevel + "x" + " Mine";
             LblUpgrade5.Content = upgradeClicker2Level + "x" + " Clicker";
 
-            MediaPlayer soundClick = new MediaPlayer();
 
             CookieRotate();
 
         }
-        private void Initiate_MediaPlayer()
+        private void SoundClick()
         {
-            MediaPlayer soundClick = new MediaPlayer();
-            soundClick.Open(new Uri("clickOn.mp3"));
+            soundClick.Open(new Uri("C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOn.wav", UriKind.RelativeOrAbsolute));
+            soundClick.Play();
         }
         private void CookieRotate()
         {
+
             new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
 
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
@@ -158,6 +157,7 @@ namespace Cookie_Clicker
             LblCookie.Content = (int)cookies + " Cookies";
             DrawCookies();
             CookieBounce();
+            SoundClick();
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
@@ -172,13 +172,17 @@ namespace Cookie_Clicker
             LblCostMine.Content = "Cost: " + mineCost;
             LblCostFactory.Content = "Cost: " + factoryCost;
 
-
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
             MineVerify();
             FactoryVerify();
             UpgradeUnlock();
+        }
+        private void CookieTimer_Tick(object sender, EventArgs e)
+        {
+            //add cookies every second
+            cookies = cookies + cookiesPerSecond;
         }
         private void DrawCookies()
         {
@@ -200,43 +204,90 @@ namespace Cookie_Clicker
 
             LblCookie.Content = cookiesLabel + " Cookies";
         }
-        private void CookieTimer_Tick(object sender, EventArgs e)
+
+        private bool isMouseOverClicker = false;
+
+        private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //add cookies every second
-            cookies = cookies + cookiesPerSecond;
+            isMouseOverClicker = true;
+            ClickerVerify();
         }
+
+        private void ClickerP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverClicker = false;
+            ClickerVerify();
+        }
+
         private void ClickerVerify()
         {
-
-            //verify if cookie count is high enough to purchase Clicker
+            //verify if cookie count is high enough to purchase clicker
             if (cookies < clickerCost)
             {
                 ClickerP.IsEnabled = false;
                 ClickerP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
+            else if (isMouseOverClicker)
+            {
+                ClickerP.IsEnabled = true;
+                ClickerP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
             else
             {
                 ClickerP.IsEnabled = true;
                 ClickerP.Background = new SolidColorBrush(Colors.AliceBlue);
-
             }
         }
+
+        private bool isMouseOverGrandma = false;
+
+        private void GrandmaP_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverGrandma = true;
+            GrandmaVerify();
+        }
+
+        private void GrandmaP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverGrandma = false;
+            GrandmaVerify();
+        }
+
         private void GrandmaVerify()
         {
-
-            //verify if cookie count is high enough to purchase Grandma
+            //verify if cookie count is high enough to purchase grandma
             if (cookies < grandmaCost)
             {
                 GrandmaP.IsEnabled = false;
                 GrandmaP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
+            else if (isMouseOverGrandma)
+            {
+                GrandmaP.IsEnabled = true;
+                GrandmaP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
             else
             {
                 GrandmaP.IsEnabled = true;
                 GrandmaP.Background = new SolidColorBrush(Colors.AliceBlue);
-
             }
         }
+
+        bool isMouseOverFarm = false;
+
+        private void FarmP_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverFarm = true;
+            FarmVerify();
+
+        }
+
+        private void FarmP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverFarm = false;
+            FarmVerify();
+        }
+
         private void FarmVerify()
         {
 
@@ -246,12 +297,29 @@ namespace Cookie_Clicker
                 FarmP.IsEnabled = false;
                 FarmP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
+            else if (isMouseOverFarm)
+            {
+                FarmP.IsEnabled = true;
+                FarmP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
             else
             {
                 FarmP.IsEnabled = true;
                 FarmP.Background = new SolidColorBrush(Colors.AliceBlue);
-
             }
+        }
+
+        bool isMouseOverMine = false;
+        private void MineP_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverMine = true;
+            MineVerify();
+        }
+
+        private void MineP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverMine = false;
+            MineVerify();
         }
         private void MineVerify()
         {
@@ -261,14 +329,32 @@ namespace Cookie_Clicker
                 MineP.IsEnabled = false;
                 MineP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
+            else if (isMouseOverMine) 
+            {
+                MineP.IsEnabled = true;
+                MineP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+
+            }
             else
             {
                 MineP.IsEnabled = true;
                 MineP.Background = new SolidColorBrush(Colors.AliceBlue);
-
             }
         }
 
+        bool isMouseOverFactory = false;
+        private void FactoryP_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverFactory = true;
+            FactoryVerify();
+        }
+
+        private void FactoryP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverFactory = false;
+            FactoryVerify();
+
+        }
         private void FactoryVerify()
         {
 
@@ -278,11 +364,15 @@ namespace Cookie_Clicker
                 FactoryP.IsEnabled = false;
                 FactoryP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
+            else if (isMouseOverFactory)
+            {
+                FactoryP.IsEnabled = true;
+                FactoryP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
             else
             {
                 FactoryP.IsEnabled = true;
                 FactoryP.Background = new SolidColorBrush(Colors.AliceBlue);
-
             }
         }
 
@@ -509,27 +599,10 @@ namespace Cookie_Clicker
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
 
-        private void Upgrade1_MouseEnter(object sender, MouseEventArgs e)
-        {
 
 
-            
-        }
-
-        private void Upgrade2_MouseEnter(object sender, MouseEventArgs e)
-        {
 
 
-        }
 
-        private void Upgrade1_MouseLeave(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void Upgrade2_MouseLeave(object sender, MouseEventArgs e)
-        {
-
-        }
     }
 }
