@@ -74,6 +74,7 @@ namespace Cookie_Clicker
         public MainWindow()
         {
             InitializeComponent();
+            Initiate_MediaPlayer();
 
             cookieTimer.Interval = TimeSpan.FromSeconds(1);
             cookieTimer.Tick += CookieTimer_Tick;
@@ -96,9 +97,15 @@ namespace Cookie_Clicker
             LblUpgrade4.Content = upgradeMineLevel + "x" + " Mine";
             LblUpgrade5.Content = upgradeClicker2Level + "x" + " Clicker";
 
+            MediaPlayer soundClick = new MediaPlayer();
 
             CookieRotate();
 
+        }
+        private void Initiate_MediaPlayer()
+        {
+            MediaPlayer soundClick = new MediaPlayer();
+            soundClick.Open(new Uri("clickOn.mp3"));
         }
         private void CookieRotate()
         {

@@ -112,5 +112,8 @@
   <ItemGroup>
     <Resource Include="factory.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="clickOn.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
