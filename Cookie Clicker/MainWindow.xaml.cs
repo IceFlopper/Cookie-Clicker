@@ -30,7 +30,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1000;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
