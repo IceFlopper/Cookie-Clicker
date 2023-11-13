@@ -26,7 +26,7 @@ namespace Cookie_Clicker
     public partial class MainWindow : Window
     {
 
-
+        
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
@@ -97,6 +97,11 @@ namespace Cookie_Clicker
             LblUpgrade5.Content = upgradeClicker2Level + "x" + " Clicker";
 
 
+            CookieRotate();
+
+        }
+        private void CookieRotate()
+        {
             new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
 
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
@@ -112,7 +117,33 @@ namespace Cookie_Clicker
 
             };
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
+        }
 
+        private void CookieBounce()
+        {
+            ScaleTransform scaleTransform = new ScaleTransform();
+
+            CookieImage.RenderTransform = scaleTransform;
+
+            DoubleAnimation growAnimation = new DoubleAnimation();
+            growAnimation.To = 1.05;
+            growAnimation.Duration = TimeSpan.FromMilliseconds(100);
+
+            DoubleAnimation shrinkAnimation = new DoubleAnimation();
+            shrinkAnimation.To = 0.95;
+            shrinkAnimation.Duration = TimeSpan.FromMilliseconds(100);
+
+            growAnimation.Completed += (s, e) =>
+            {
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
+
+               
+            };
+
+
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -121,11 +152,12 @@ namespace Cookie_Clicker
             cookies = cookies + clickCount;
             LblCookie.Content = (int)cookies + " Cookies";
             DrawCookies();
+            CookieBounce();
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
         {
-            //update labels every 10ms
+            //update game every 10ms
             DrawCookies();
             cookiesPerSecond = Math.Round(cookiesPerSecond, 1);
             LblCookiePerSecond.Content = cookiesPerSecond+ "/s";
@@ -218,7 +250,6 @@ namespace Cookie_Clicker
         }
         private void MineVerify()
         {
-
             //verify if cookie count is high enough to purchase Farm
             if (cookies < mineCost)
             {
