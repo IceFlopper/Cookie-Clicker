@@ -30,7 +30,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 100;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
@@ -469,6 +469,8 @@ namespace Cookie_Clicker
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
 
+        //hover function Upgrade1 Cursor
+
         private bool isMouseOverUpgrade1 = false;
         private void Upgrade1_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -482,6 +484,8 @@ namespace Cookie_Clicker
             UpgradeUnlock();
         }
 
+        //hover function Upgrade2 Clicker
+
         private bool isMouseOverUpgrade2 = false;
         private void Upgrade2_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -494,6 +498,8 @@ namespace Cookie_Clicker
             isMouseOverUpgrade2 = false;
             UpgradeUnlock();
         }
+
+        //hover function Upgrade3 Grandma
 
         private bool isMouseOverUpgrade3 = false;
 
@@ -510,6 +516,8 @@ namespace Cookie_Clicker
         }
         private bool isMouseOverUpgrade4 = false;
 
+        //hover function Upgrade4 Mine
+
         private void Upgrade4_MouseEnter(object sender, MouseEventArgs e)
         {
             isMouseOverUpgrade4 = true;
@@ -522,6 +530,8 @@ namespace Cookie_Clicker
 
         }
         private bool isMouseOverUpgrade5 = false;
+
+        //hover function Upgrade5 Clicker2
 
         private void Upgrade5_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -538,11 +548,13 @@ namespace Cookie_Clicker
         private void UpgradeUnlock()
         {
             //verifies if u have enough cookies to purchase upgrade.
-            if (cookies >= cookieCostUpgradeCursor)
+
+            //upgrade 1 Cursor
+            if (cookies < cookieCostUpgradeCursor)
             {
-                Upgrade1.IsEnabled = true;
-                Upgrade1.Background = new SolidColorBrush(Colors.SandyBrown);
-                LblUpgrade1.Foreground = new SolidColorBrush(Colors.Black);
+                Upgrade1.IsEnabled = false;
+                Upgrade1.Background = new SolidColorBrush(Colors.SaddleBrown);
+                LblUpgrade1.Foreground = new SolidColorBrush(Colors.Wheat);
             }
             else if (isMouseOverUpgrade1)
             {
@@ -552,61 +564,97 @@ namespace Cookie_Clicker
             }
             else
             {
-                Upgrade1.IsEnabled = false;
-                Upgrade1.Background = new SolidColorBrush(Colors.SaddleBrown);
-                LblUpgrade1.Foreground = new SolidColorBrush(Colors.Wheat);
+                Upgrade1.IsEnabled = true;
+
+                Upgrade1.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade1.Foreground = new SolidColorBrush(Colors.Black);
             }
 
-            if (cookies >= cookieCostUpgradeClicker)
-            {
-                Upgrade2.IsEnabled = true;
-                Upgrade2.Background = new SolidColorBrush(Colors.SandyBrown);
-                LblUpgrade2.Foreground = new SolidColorBrush(Colors.Black);
-            }
-            else
+            //upgrade 2 Clicker1
+
+            if (cookies < cookieCostUpgradeClicker)
             {
                 Upgrade2.IsEnabled = false;
                 Upgrade2.Background = new SolidColorBrush(Colors.SaddleBrown);
                 LblUpgrade2.Foreground = new SolidColorBrush(Colors.Wheat);
             }
-            if (cookies >= cookieCostUpgradeGrandma)
+            else if (isMouseOverUpgrade2)
             {
-                Upgrade3.IsEnabled = true;
-                Upgrade3.Background = new SolidColorBrush(Colors.SandyBrown);
-                LblUpgrade3.Foreground = new SolidColorBrush(Colors.Black);
+                Upgrade2.IsEnabled = true;
+                Upgrade2.Background = new SolidColorBrush(Colors.RosyBrown);
+                LblUpgrade2.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
+            {
+                Upgrade2.IsEnabled = true;
+                Upgrade2.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade2.Foreground = new SolidColorBrush(Colors.Black);
+            }
+
+            //upgrade 3 Grandm2x
+
+
+            if (cookies < cookieCostUpgradeGrandma)
             {
                 Upgrade3.IsEnabled = false;
                 Upgrade3.Background = new SolidColorBrush(Colors.SaddleBrown);
                 LblUpgrade3.Foreground = new SolidColorBrush(Colors.Wheat);
             }
-            if (cookies >= cookieCostUpgradeMine)
+            else if (isMouseOverUpgrade3)
             {
-                Upgrade4.IsEnabled = true;
-                Upgrade4.Background = new SolidColorBrush(Colors.SandyBrown);
-                LblUpgrade4.Foreground = new SolidColorBrush(Colors.Black);
+                Upgrade3.IsEnabled = true;
+                Upgrade3.Background = new SolidColorBrush(Colors.RosyBrown);
+                LblUpgrade3.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
+            {
+                Upgrade3.IsEnabled = true;
+                Upgrade3.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade3.Foreground = new SolidColorBrush(Colors.Black);
+            }
+
+            //upgrade 4 Mine2x
+            if (cookies < cookieCostUpgradeGrandma)
             {
                 Upgrade4.IsEnabled = false;
                 Upgrade4.Background = new SolidColorBrush(Colors.SaddleBrown);
                 LblUpgrade4.Foreground = new SolidColorBrush(Colors.Wheat);
             }
+            else if (isMouseOverUpgrade4)
+            {
+                Upgrade4.IsEnabled = true;
+                Upgrade4.Background = new SolidColorBrush(Colors.RosyBrown);
+                LblUpgrade4.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                Upgrade4.IsEnabled = true;
+                Upgrade4.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade4.Foreground = new SolidColorBrush(Colors.Black);
+            }
+
+            //upgrade 5 Clicker2
+
             if (upgradeClicker2Count != 1 && upgradeClickerCount > 0)
             {
                 Upgrade5.Visibility = Visibility.Visible;
-                if (cookies >= cookieCostUpgradeClicker2 && upgradeClickerCount > 0 && upgradeClicker2Count != 1)
-                {
-                    Upgrade5.IsEnabled = true;
-                    Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
-                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
-                }
-                else
+                if (cookies < cookieCostUpgradeGrandma)
                 {
                     Upgrade5.IsEnabled = false;
                     Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
                     LblUpgrade5.Foreground = new SolidColorBrush(Colors.Wheat);
+                }
+                else if (isMouseOverUpgrade5)
+                {
+                    Upgrade5.IsEnabled = true;
+                    Upgrade5.Background = new SolidColorBrush(Colors.RosyBrown);
+                    LblUpgrade4.Foreground = new SolidColorBrush(Colors.Black);
+                }
+                else
+                {
+                    Upgrade5.IsEnabled = true;
+                    Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
+                    LblUpgrade4.Foreground = new SolidColorBrush(Colors.Black);
                 }
             }
 
