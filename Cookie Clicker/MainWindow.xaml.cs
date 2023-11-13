@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -67,7 +68,10 @@ namespace Cookie_Clicker
         int upgradeClicker2Level = 2;
         double cookieCostUpgradeClicker2 = 1500;
 
-        MediaPlayer soundClick = new MediaPlayer();
+        SoundPlayer soundClick = new SoundPlayer();
+        SoundPlayer soundBuy = new SoundPlayer();
+
+
 
         DispatcherTimer cookieTimer = new DispatcherTimer();
         DispatcherTimer gameTimer = new DispatcherTimer();
@@ -102,7 +106,12 @@ namespace Cookie_Clicker
         }
         private void SoundClick()
         {
-            soundClick.Open(new Uri("C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOn.wav", UriKind.RelativeOrAbsolute));
+            soundClick.SoundLocation = "C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOn.wav";
+            soundClick.Play();
+        }
+        private void SoundClickOff()
+        {
+            soundClick.SoundLocation = "C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOff.wav";
             soundClick.Play();
         }
         private void CookieRotate()
@@ -125,6 +134,7 @@ namespace Cookie_Clicker
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
         }
 
+
         private void CookieBounce()
         {
             ScaleTransform scaleTransform = new ScaleTransform();
@@ -132,18 +142,27 @@ namespace Cookie_Clicker
             CookieImage.RenderTransform = scaleTransform;
 
             DoubleAnimation growAnimation = new DoubleAnimation();
-            growAnimation.To = 1.05;
+            growAnimation.To = 0.95;
             growAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
             DoubleAnimation shrinkAnimation = new DoubleAnimation();
-            shrinkAnimation.To = 0.95;
+            shrinkAnimation.To = 1.05;
             shrinkAnimation.Duration = TimeSpan.FromMilliseconds(100);
+
+            DoubleAnimation growAnimation2 = new DoubleAnimation();
+            growAnimation2.To = 1;
+            growAnimation2.Duration = TimeSpan.FromMilliseconds(100);
 
             growAnimation.Completed += (s, e) =>
             {
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
 
+            };
+            shrinkAnimation.Completed += (s, e) =>
+            {
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation2);
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation2);
             };
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
@@ -158,6 +177,16 @@ namespace Cookie_Clicker
             DrawCookies();
             CookieBounce();
             SoundClick();
+        }
+        private void CookieImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            SoundClickOff();
+        }
+
+        private void BuyItemSound()
+        {
+            soundBuy.SoundLocation = "C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\buy1.wav";
+            soundBuy.Play();
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
@@ -385,7 +414,7 @@ namespace Cookie_Clicker
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy clicker
-            ClickerVerify();
+            ClickerVerify(); BuyItemSound();
             //add 1 clicker to clicker count when executed
             clickerCount++;
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
@@ -403,7 +432,7 @@ namespace Cookie_Clicker
         private void GrandmaP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy grandma
-            GrandmaVerify();
+            GrandmaVerify(); BuyItemSound();
             //add 1 grandma to grandma count when executed
             grandmaCount++;
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
@@ -420,7 +449,7 @@ namespace Cookie_Clicker
         private void FarmP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy farm
-            FarmVerify();
+            FarmVerify(); BuyItemSound();
             //add 1 farm to grandma count when executed
             farmCount++;
             LblFarm.Content = "Farm" + "s: " + farmCount;
@@ -437,7 +466,7 @@ namespace Cookie_Clicker
         private void MineP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy mine
-            MineVerify();
+            MineVerify(); BuyItemSound();
             //add 1 mine to mine count when executed
             mineCount++;
             LblMine.Content = "Mine" + "s: " + mineCount;
@@ -454,7 +483,7 @@ namespace Cookie_Clicker
         private void FactoryP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // buy factory
-            FactoryVerify();
+            FactoryVerify(); BuyItemSound();
             // add 1 factory to factory count when executed
             factoryCount++;
             LblFactory.Content = "Factory" + "s: " + factoryCount;
