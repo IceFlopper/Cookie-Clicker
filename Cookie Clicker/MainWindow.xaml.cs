@@ -205,6 +205,7 @@ namespace Cookie_Clicker
             LblCookie.Content = cookiesLabel + " Cookies";
         }
 
+        //hover function Clicker
         private bool isMouseOverClicker = false;
 
         private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
@@ -239,6 +240,7 @@ namespace Cookie_Clicker
             }
         }
 
+        //hover function Grandma
         private bool isMouseOverGrandma = false;
 
         private void GrandmaP_MouseEnter(object sender, MouseEventArgs e)
@@ -273,6 +275,7 @@ namespace Cookie_Clicker
             }
         }
 
+        //hover function Farm
         bool isMouseOverFarm = false;
 
         private void FarmP_MouseEnter(object sender, MouseEventArgs e)
@@ -308,7 +311,8 @@ namespace Cookie_Clicker
                 FarmP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
         }
-
+        
+        //hover function Mine
         bool isMouseOverMine = false;
         private void MineP_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -342,6 +346,7 @@ namespace Cookie_Clicker
             }
         }
 
+        //hover function Factory
         bool isMouseOverFactory = false;
         private void FactoryP_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -464,6 +469,72 @@ namespace Cookie_Clicker
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
 
+        private bool isMouseOverUpgrade1 = false;
+        private void Upgrade1_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade1 = true;
+            UpgradeUnlock();
+        }
+
+        private void Upgrade1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade1 = false;
+            UpgradeUnlock();
+        }
+
+        private bool isMouseOverUpgrade2 = false;
+        private void Upgrade2_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade2 = true;
+            UpgradeUnlock();
+        }
+
+        private void Upgrade2_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade2 = false;
+            UpgradeUnlock();
+        }
+
+        private bool isMouseOverUpgrade3 = false;
+
+        private void Upgrade3_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade3 = true;
+            UpgradeUnlock();
+        }
+        private void Upgrade3_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade3 = false;
+            UpgradeUnlock();
+
+        }
+        private bool isMouseOverUpgrade4 = false;
+
+        private void Upgrade4_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade4 = true;
+            UpgradeUnlock();
+        }
+        private void Upgrade4_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade4 = false;
+            UpgradeUnlock();
+
+        }
+        private bool isMouseOverUpgrade5 = false;
+
+        private void Upgrade5_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade5 = true;
+            UpgradeUnlock();
+        }
+
+        private void Upgrade5_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade5 = false;
+            UpgradeUnlock();
+
+        }
         private void UpgradeUnlock()
         {
             //verifies if u have enough cookies to purchase upgrade.
@@ -471,6 +542,12 @@ namespace Cookie_Clicker
             {
                 Upgrade1.IsEnabled = true;
                 Upgrade1.Background = new SolidColorBrush(Colors.SandyBrown);
+                LblUpgrade1.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else if (isMouseOverUpgrade1)
+            {
+                Upgrade1.IsEnabled = true;
+                Upgrade1.Background = new SolidColorBrush(Colors.RosyBrown);
                 LblUpgrade1.Foreground = new SolidColorBrush(Colors.Black);
             }
             else
@@ -534,6 +611,7 @@ namespace Cookie_Clicker
             }
 
         }
+
         private void Upgrade1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             clickCount = clickCount * upgradeCursorLevel;
@@ -598,10 +676,6 @@ namespace Cookie_Clicker
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
-
-
-
-
 
 
     }

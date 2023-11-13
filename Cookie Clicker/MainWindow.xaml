@@ -30,9 +30,12 @@
                 <!-- Middle Panel -->
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                     <StackPanel Background="Bisque" >
-                        <WrapPanel>
-                            <Label Name="LblMouseEnter"></Label>
-                        </WrapPanel>
+                        <Border BorderThickness="1" BorderBrush="Brown">
+                            <WrapPanel Height="50">
+
+                            </WrapPanel>
+                        </Border>
+
 
                     </StackPanel>
                 </Border>
@@ -69,7 +72,7 @@
 
                             <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeGrandma">
                                 <WrapPanel>
-                                    <StackPanel Name="Upgrade3" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade3_MouseLeftButtonDown" MouseEnter="Upgrade2_MouseEnter" MouseLeave="Upgrade2_MouseLeave">
+                                    <StackPanel Name="Upgrade3" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade3_MouseLeftButtonDown" MouseEnter="Upgrade3_MouseEnter" MouseLeave="Upgrade3_MouseLeave">
                                         <Label Name="LblUpgrade3" Content="2x Grandma" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
                                         <Image Source="Grandma.png" Width="30" Margin="0,-6,0,0"/>
                                     </StackPanel>
@@ -79,7 +82,7 @@
 
                             <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeMine">
                                 <WrapPanel>
-                                    <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade2_MouseEnter" MouseLeave="Upgrade2_MouseLeave">
+                                    <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave">
                                         <Label Name="LblUpgrade4" Content="2x Mine" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
                                         <Image Source="mine.png" Width="30" Margin="0,0,0,0"/>
                                     </StackPanel>
@@ -89,7 +92,7 @@
 
                             <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker2">
                                 <WrapPanel>
-                                    <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" Visibility="Collapsed">
+                                    <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave">
                                         <Label Name="LblUpgrade5" Content="2x Clicker" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
                                         <Image Source="clicker.png" Width="30" Margin="0,0,0,0"/>
                                     </StackPanel>
