@@ -98,6 +98,7 @@ namespace Cookie_Clicker
 
 
             CookieRotate();
+
         }
         private void CookieRotate()
         {
@@ -120,54 +121,27 @@ namespace Cookie_Clicker
 
         private void CookieBounce()
         {
-           TransformGroup transformGroup = new TransformGroup();
+            ScaleTransform scaleTransform = new ScaleTransform();
 
-    // Bounce
-    ScaleTransform scaleTransform = new ScaleTransform();
-    transformGroup.Children.Add(scaleTransform);
+            CookieImage.RenderTransform = scaleTransform;
 
-    DoubleAnimation growAnimation = new DoubleAnimation();
-    growAnimation.To = 1.05;
-    growAnimation.Duration = TimeSpan.FromMilliseconds(100);
+            DoubleAnimation growAnimation = new DoubleAnimation();
+            growAnimation.To = 1.05;
+            growAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-    DoubleAnimation shrinkAnimation = new DoubleAnimation();
-    shrinkAnimation.To = 0.95;
-    shrinkAnimation.Duration = TimeSpan.FromMilliseconds(100);
+            DoubleAnimation shrinkAnimation = new DoubleAnimation();
+            shrinkAnimation.To = 0.95;
+            shrinkAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-    growAnimation.Completed += (s, e) =>
-    {
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
-        scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
-    };
+            growAnimation.Completed += (s, e) =>
+            {
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
 
-    // Rotation
-    RotateTransform rotateTransform = new RotateTransform();
-    transformGroup.Children.Add(rotateTransform);
+            };
 
-    DoubleAnimation rotationAnimation = new DoubleAnimation
-    {
-        From = 0,
-        To = 360,
-        Duration = TimeSpan.FromSeconds(40),
-        RepeatBehavior = RepeatBehavior.Forever
-    };
-
-    // Apply the TransformGroup to the CookieImage
-    CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
-    CookieImage.RenderTransform = transformGroup;
-
-    // Combine animations in a Storyboard
-    Storyboard storyboard = new Storyboard();
-    storyboard.Children.Add(rotationAnimation);
-    storyboard.Children.Add(growAnimation);
-
-    Storyboard.SetTarget(rotationAnimation, rotateTransform);
-    Storyboard.SetTarget(growAnimation, scaleTransform);
-
-    Storyboard.SetTargetProperty(rotationAnimation, new PropertyPath(RotateTransform.AngleProperty));
-    Storyboard.SetTargetProperty(growAnimation, new PropertyPath(ScaleTransform.ScaleXProperty));
-
-    storyboard.Begin();
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
