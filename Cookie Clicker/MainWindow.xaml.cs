@@ -31,7 +31,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100;
 
         //clicker
         double clickerCost = 15;
@@ -660,7 +660,7 @@ namespace Cookie_Clicker
             }
 
             //upgrade 4 Mine2x
-            if (cookies < cookieCostUpgradeGrandma)
+            if (cookies < cookieCostUpgradeMine)
             {
                 Upgrade4.IsEnabled = false;
                 Upgrade4.Background = new SolidColorBrush(Colors.SaddleBrown);
@@ -684,7 +684,7 @@ namespace Cookie_Clicker
             if (upgradeClicker2Count != 1 && upgradeClickerCount > 0)
             {
                 Upgrade5.Visibility = Visibility.Visible;
-                if (cookies < cookieCostUpgradeGrandma)
+                if (cookies < cookieCostUpgradeClicker2)
                 {
                     Upgrade5.IsEnabled = false;
                     Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
@@ -770,7 +770,5 @@ namespace Cookie_Clicker
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
-
-
     }
 }
