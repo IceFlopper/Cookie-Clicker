@@ -73,11 +73,16 @@ namespace Cookie_Clicker
 
 
 
+
         DispatcherTimer cookieTimer = new DispatcherTimer();
         DispatcherTimer gameTimer = new DispatcherTimer();
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            
 
             cookieTimer.Interval = TimeSpan.FromSeconds(1);
             cookieTimer.Tick += CookieTimer_Tick;
@@ -101,64 +106,74 @@ namespace Cookie_Clicker
             LblUpgrade5.Content = upgradeClicker2Level + "x" + " Clicker";
 
 
-            CookieRotate();
+            CookieRotateAndBounce();
 
         }
+
+
         private void SoundClick()
         {
-            soundClick.SoundLocation = "C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOn.wav";
+            soundClick.SoundLocation = "C:\\Users\\Luca\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOn.wav";
             soundClick.Play();
         }
         private void SoundClickOff()
         {
-            soundClick.SoundLocation = "C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOff.wav";
+            soundClick.SoundLocation = "C:\\Users\\Luca\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOff.wav";
             soundClick.Play();
         }
-        private void CookieRotate()
+
+        double currentCookieRotation = 0;
+
+        RotateTransform rotateTransform = new RotateTransform();
+        private void CookieRotateAndBounce()
         {
 
-            new BitmapImage(new Uri("..Cookie Clicker/cookie.png", UriKind.RelativeOrAbsolute));
-
+            ScaleTransform scaleTransform = new ScaleTransform();
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
-            RotateTransform rotateTransform = new RotateTransform();
-            CookieImage.RenderTransform = rotateTransform;
+
+            currentCookieRotation = rotateTransform.Angle;
+
+            CookieImage.RenderTransform = new TransformGroup()
+            {
+                Children = new TransformCollection()
+        {
+            scaleTransform,
+            rotateTransform
+        }
+            };
 
             DoubleAnimation rotationAnimation = new DoubleAnimation
             {
-                From = 0,
-                To = 360,
+                From = currentCookieRotation,
+                To = currentCookieRotation + 360,
                 Duration = TimeSpan.FromSeconds(40),
                 RepeatBehavior = RepeatBehavior.Forever
-
             };
-            rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
-        }
 
+            DoubleAnimation growAnimation = new DoubleAnimation
+            {
+                To = 0.95,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
 
-        private void CookieBounce()
-        {
-            ScaleTransform scaleTransform = new ScaleTransform();
+            DoubleAnimation shrinkAnimation = new DoubleAnimation
+            {
+                To = 1.05,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
 
-            CookieImage.RenderTransform = scaleTransform;
+            DoubleAnimation growAnimation2 = new DoubleAnimation
+            {
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
 
-            DoubleAnimation growAnimation = new DoubleAnimation();
-            growAnimation.To = 0.95;
-            growAnimation.Duration = TimeSpan.FromMilliseconds(100);
-
-            DoubleAnimation shrinkAnimation = new DoubleAnimation();
-            shrinkAnimation.To = 1.05;
-            shrinkAnimation.Duration = TimeSpan.FromMilliseconds(100);
-
-            DoubleAnimation growAnimation2 = new DoubleAnimation();
-            growAnimation2.To = 1;
-            growAnimation2.Duration = TimeSpan.FromMilliseconds(100);
-
-            growAnimation.Completed += (s, e) =>
+            rotationAnimation.Completed += (s, e) =>
             {
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
-
             };
+
             shrinkAnimation.Completed += (s, e) =>
             {
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation2);
@@ -167,6 +182,8 @@ namespace Cookie_Clicker
 
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
+
+            rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -175,7 +192,7 @@ namespace Cookie_Clicker
             cookies = cookies + clickCount;
             LblCookie.Content = (int)cookies + " Cookies";
             DrawCookies();
-            CookieBounce();
+            CookieRotateAndBounce();
             SoundClick();
         }
         private void CookieImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -185,7 +202,7 @@ namespace Cookie_Clicker
 
         private void BuyItemSound()
         {
-            soundBuy.SoundLocation = "C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\buy1.wav";
+            soundBuy.SoundLocation = "C:\\Users\\Luca\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\buy1.wav";
             soundBuy.Play();
         }
 
