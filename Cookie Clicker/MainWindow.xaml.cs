@@ -21,9 +21,7 @@ using System.Windows.Threading;
 
 namespace Cookie_Clicker
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
 
@@ -31,7 +29,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 100;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
@@ -105,21 +103,30 @@ namespace Cookie_Clicker
             LblUpgrade4.Content = upgradeMineLevel + "x" + " Mine";
             LblUpgrade5.Content = upgradeClicker2Level + "x" + " Clicker";
 
-
             CookieRotateAndBounce();
 
         }
 
 
-        private void SoundClick()
+        private void SoundClickOn()
         {
-            soundClick.SoundLocation = "C:\\Users\\Luca\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOn.wav";
+            try
+            {
+            soundClick.SoundLocation = "clickOn.wav";
             soundClick.Play();
+            }
+            catch (Exception)
+            { }
         }
         private void SoundClickOff()
         {
-            soundClick.SoundLocation = "C:\\Users\\Luca\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\clickOff.wav";
+            try
+            {
+            soundClick.SoundLocation = "clickOff.wav";
             soundClick.Play();
+            }
+            catch (Exception)
+            { }
         }
 
         double currentCookieRotation = 0;
@@ -190,10 +197,10 @@ namespace Cookie_Clicker
         {
             //when left click on cookie image add cookie clickCount to cookies
             cookies = cookies + clickCount;
-            LblCookie.Content = (int)cookies + " Cookies";
+            LblCookie.Content = cookies + " Cookies";
             DrawCookies();
             CookieRotateAndBounce();
-            SoundClick();
+            SoundClickOn();
         }
         private void CookieImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -202,8 +209,14 @@ namespace Cookie_Clicker
 
         private void BuyItemSound()
         {
-            soundBuy.SoundLocation = "C:\\Users\\Luca\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\buy1.wav";
-            soundBuy.Play();
+            try
+            {
+                soundBuy.SoundLocation = "buy1.wav";
+                soundBuy.Play();
+            }
+            catch (Exception)
+            { }
+
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
