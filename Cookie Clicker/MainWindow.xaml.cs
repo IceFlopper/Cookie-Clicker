@@ -28,7 +28,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100;
 
         //clicker
         double clickerCost = 15;
@@ -87,14 +87,12 @@ namespace Cookie_Clicker
         public MainWindow()
         {
             InitializeComponent();
-            
+            Thread cookieThread = new Thread(CookieLogic);
+            cookieThread.Start();
+
+
             soundBuy.Volume = 0.4;
 
-            
-
-            cookieTimer.Interval = TimeSpan.FromSeconds(1);
-            cookieTimer.Tick += CookieTimer_Tick;
-            cookieTimer.Start();
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             gameTimer.Tick += gameTimer_tick;
@@ -119,6 +117,35 @@ namespace Cookie_Clicker
             CookieRotateAndBounce();
 
         }
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //when left click on cookie image add cookie clickCount to cookies
+            cookies = cookies + clickCount;
+            LblCookie.Content = cookies + " Cookies";
+            DrawCookies();
+            CookieRotateAndBounce();
+            SoundClickOn();
+        }
+
+
+        private void CookieLogic()
+        {
+            //incremental cookies per second
+            while (true)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    double increment = cookiesPerSecond * 0.001;
+                    cookies += increment;
+                }
+
+
+                Thread.Sleep(10);
+            }
+
+        }
+
+
 
         DoubleAnimation growAnimation = new DoubleAnimation
         {
@@ -199,17 +226,6 @@ namespace Cookie_Clicker
             { throw; }
         }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //when left click on cookie image add cookie clickCount to cookies
-            cookies = cookies + clickCount;
-            LblCookie.Content = cookies + " Cookies";
-            DrawCookies();
-            CookieRotateAndBounce();
-            SoundClickOn();
-        }
-
-
         private void BuyItemSound()
         {
             try
@@ -245,11 +261,7 @@ namespace Cookie_Clicker
             FactoryVerify();
             UpgradeUnlock();
         }
-        private void CookieTimer_Tick(object sender, EventArgs e)
-        {
-            //add cookies every second
-            cookies = cookies + cookiesPerSecond;
-        }
+
         private void DrawCookies()
         {
             //update cookielabel to concatinate to smaller digits
@@ -310,12 +322,6 @@ namespace Cookie_Clicker
                 ClickerP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
         }
-
-        //Button nieuweKnop = new Button();
-        //nieuweKnop.Content = "Nieuwe knop";
-        //nieuweKnop.Name = "BtnNieuweKnop";
-        //nieuweKnop.Background = Brushes.Yellow;
-        //WrpDemo.Children.Add(nieuweKnop);
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy clicker
