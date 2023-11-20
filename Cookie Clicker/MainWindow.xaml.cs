@@ -527,7 +527,7 @@ namespace Cookie_Clicker
             ImgFarm.HorizontalAlignment = HorizontalAlignment.Center;
             ImgFarm.VerticalAlignment = VerticalAlignment.Center;
 
-            WrapPanel existingWrapFarmPanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            WrapPanel existingWrapFarmPanel = (WrapPanel)StackMain.Children[2];
             existingWrapFarmPanel.Children.Add(ImgFarm);
         }
 
@@ -603,7 +603,7 @@ namespace Cookie_Clicker
             ImgMine.HorizontalAlignment = HorizontalAlignment.Center;
             ImgMine.VerticalAlignment = VerticalAlignment.Center;
 
-            WrapPanel existingWrapMinePanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            WrapPanel existingWrapMinePanel = (WrapPanel)StackMain.Children[3];
             existingWrapMinePanel.Children.Add(ImgMine);
         }
 
@@ -680,7 +680,7 @@ namespace Cookie_Clicker
             ImgFactory.HorizontalAlignment = HorizontalAlignment.Center;
             ImgFactory.VerticalAlignment = VerticalAlignment.Center;
 
-            WrapPanel existingWrapFactoryPanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            WrapPanel existingWrapFactoryPanel = (WrapPanel)StackMain.Children[4];
             existingWrapFactoryPanel.Children.Add(ImgFactory);
         }
 
@@ -760,7 +760,7 @@ namespace Cookie_Clicker
             ImgBank.HorizontalAlignment = HorizontalAlignment.Center;
             ImgBank.VerticalAlignment = VerticalAlignment.Center;
 
-            WrapPanel existingWrapBankPanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            WrapPanel existingWrapBankPanel = (WrapPanel)StackMain.Children[5];
             existingWrapBankPanel.Children.Add(ImgBank);
         }
         //function Temple
@@ -839,7 +839,7 @@ namespace Cookie_Clicker
             ImgTemple.HorizontalAlignment = HorizontalAlignment.Center;
             ImgTemple.VerticalAlignment = VerticalAlignment.Center;
 
-            WrapPanel existingWrapTemplePanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            WrapPanel existingWrapTemplePanel = (WrapPanel)StackMain.Children[6];
             existingWrapTemplePanel.Children.Add(ImgTemple);
         }
         //hover function Upgrade1 Cursor
