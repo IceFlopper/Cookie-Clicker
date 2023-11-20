@@ -29,7 +29,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100000000;
 
         //clicker
         double clickerCost = 15;
@@ -48,9 +48,17 @@ namespace Cookie_Clicker
         int mineCount = 0;
         double mineProduction = 30;
         //factory
-        double factoryCost = 100000;
+        double factoryCost = 110000;
         int factoryCount = 0;
         double factoryProduction = 200;
+        //bank
+        double bankCost = 1400000;
+        int bankCount = 0;
+        double bankProduction = 1000;
+        //temple
+        double templeCost = 20000000;
+        int templeCount = 0;
+        double templeProduction = 5000;
 
         //upgrades
         int upgradeCursorLevel = 2;
@@ -80,6 +88,8 @@ namespace Cookie_Clicker
         {
             InitializeComponent();
 
+
+
             
 
             cookieTimer.Interval = TimeSpan.FromSeconds(1);
@@ -96,6 +106,9 @@ namespace Cookie_Clicker
             LblFarmProd.Content = farmProduction + "/s";
             LblMineProd.Content = mineProduction + "/s";
             LblFactoryProd.Content = factoryProduction + "/s";
+            LblBankProd.Content = bankProduction + "/s";
+            LblTempleProd.Content = templeProduction + "/s";
+
             //content for upgrade 
             LblUpgrade1.Content = upgradeCursorLevel + "x" + " Cursor";
             LblUpgrade2.Content = upgradeClickerLevel + "x" +" Clicker";
@@ -116,7 +129,7 @@ namespace Cookie_Clicker
             soundClick.Play();
             }
             catch (Exception)
-            { }
+            { throw; }
         }
         private void SoundClickOff()
         {
@@ -126,8 +139,13 @@ namespace Cookie_Clicker
             soundClick.Play();
             }
             catch (Exception)
-            { }
+            { throw; }
         }
+        //Button nieuweKnop = new Button();
+        //nieuweKnop.Content = "Nieuwe knop";
+        //nieuweKnop.Name = "BtnNieuweKnop";
+        //nieuweKnop.Background = Brushes.Yellow;
+        //WrpDemo.Children.Add(nieuweKnop);
 
         double currentCookieRotation = 0;
 
@@ -230,6 +248,10 @@ namespace Cookie_Clicker
             LblCostFarm.Content = "Cost: " + farmCost;
             LblCostMine.Content = "Cost: " + mineCost;
             LblCostFactory.Content = "Cost: " + factoryCost;
+            LblCostBank.Content = "Cost: " + bankCost;
+            LblCostTemple.Content = "Cost: " + templeCost;
+
+
 
             ClickerVerify();
             GrandmaVerify();
@@ -260,11 +282,16 @@ namespace Cookie_Clicker
             {
                 cookiesLabel = $"{(cookiesCount / 1000000000.0):F3}B";
             }
+            else if (cookiesCount > 99999999999 && cookiesCount < 99999999999999)
+            {
+                cookiesLabel = $"{(cookiesCount / 100000000000.0):F4}T";
+            }
+
 
             LblCookie.Content = cookiesLabel + " Cookies";
         }
 
-        //hover function Clicker
+        //function Clicker
         private bool isMouseOverClicker = false;
 
         private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
@@ -299,7 +326,24 @@ namespace Cookie_Clicker
             }
         }
 
-        //hover function Grandma
+        private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy clicker
+            ClickerVerify(); BuyItemSound();
+            //add 1 clicker to clicker count when executed
+            clickerCount++;
+            LblClicker.Content = "Clicker" + "s: " + clickerCount;
+
+            cookies = cookies - clickerCost;
+            clickerCost = clickerCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + clickerProduction;
+
+            clickerCost = Math.Round(clickerCost);
+            double clickerProductionRounded = Math.Round(clickerProduction, 2);
+            LblClickerProd.Content = clickerProductionRounded + "/s";
+        }
+
+        //function Grandma
         private bool isMouseOverGrandma = false;
 
         private void GrandmaP_MouseEnter(object sender, MouseEventArgs e)
@@ -334,7 +378,24 @@ namespace Cookie_Clicker
             }
         }
 
-        //hover function Farm
+        private void GrandmaP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy grandma
+            GrandmaVerify(); BuyItemSound();
+            //add 1 grandma to grandma count when executed
+            grandmaCount++;
+            LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
+
+            cookies = cookies - grandmaCost;
+            grandmaCost = grandmaCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + grandmaProduction;
+
+            grandmaCost = Math.Round(grandmaCost);
+            double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
+            LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
+        }
+
+        //function Farm
         bool isMouseOverFarm = false;
 
         private void FarmP_MouseEnter(object sender, MouseEventArgs e)
@@ -370,8 +431,25 @@ namespace Cookie_Clicker
                 FarmP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
         }
-        
-        //hover function Mine
+
+        private void FarmP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy farm
+            FarmVerify(); BuyItemSound();
+            //add 1 farm to grandma count when executed
+            farmCount++;
+            LblFarm.Content = "Farm" + "s: " + farmCount;
+
+            cookies = cookies - farmCost;
+            farmCost = farmCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + farmProduction;
+
+            farmCost = Math.Round(farmCost);
+            double farmProudctionRounded = Math.Round(farmProduction, 2);
+            LblFarmProd.Content = farmProudctionRounded + "/s";
+        }
+
+        //function Mine
         bool isMouseOverMine = false;
         private void MineP_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -404,8 +482,25 @@ namespace Cookie_Clicker
                 MineP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
         }
+        private void MineP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //buy mine
+            MineVerify(); BuyItemSound();
+            //add 1 mine to mine count when executed
+            mineCount++;
+            LblMine.Content = "Mine" + "s: " + mineCount;
 
-        //hover function Factory
+            cookies = cookies - mineCost;
+            mineCost = mineCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + mineProduction;
+
+            mineCost = Math.Round(mineCost);
+            double mineProductionRounded = Math.Round(mineProduction, 2);
+            LblMineProd.Content = mineProductionRounded + "/s";
+        }
+
+
+        //function Factory
         bool isMouseOverFactory = false;
         private void FactoryP_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -439,77 +534,6 @@ namespace Cookie_Clicker
                 FactoryP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
         }
-
-
-        private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //buy clicker
-            ClickerVerify(); BuyItemSound();
-            //add 1 clicker to clicker count when executed
-            clickerCount++;
-            LblClicker.Content = "Clicker" + "s: " + clickerCount;
-
-            cookies = cookies - clickerCost;
-            clickerCost = clickerCost * 1.25;
-            cookiesPerSecond = cookiesPerSecond + clickerProduction;
-
-            clickerProduction = clickerProduction * 1.10;
-            clickerCost = Math.Round(clickerCost);
-            double clickerProductionRounded = Math.Round(clickerProduction, 2);
-            LblClickerProd.Content = clickerProductionRounded + "/s";
-        }
-
-        private void GrandmaP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //buy grandma
-            GrandmaVerify(); BuyItemSound();
-            //add 1 grandma to grandma count when executed
-            grandmaCount++;
-            LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
-
-            cookies = cookies - grandmaCost;
-            grandmaCost = grandmaCost * 1.25;
-            cookiesPerSecond = cookiesPerSecond + grandmaProduction;
-
-            grandmaProduction = grandmaProduction * 1.10;
-            grandmaCost = Math.Round(grandmaCost);
-            double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
-            LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
-        }
-        private void FarmP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //buy farm
-            FarmVerify(); BuyItemSound();
-            //add 1 farm to grandma count when executed
-            farmCount++;
-            LblFarm.Content = "Farm" + "s: " + farmCount;
-
-            cookies = cookies - farmCost;
-            farmCost = farmCost * 1.25;
-            cookiesPerSecond = cookiesPerSecond + farmProduction;
-
-            farmProduction = farmProduction * 1.10;
-            farmCost = Math.Round(farmCost);
-            double farmProudctionRounded = Math.Round(farmProduction, 2);
-            LblFarmProd.Content = farmProudctionRounded + "/s";
-        }
-        private void MineP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //buy mine
-            MineVerify(); BuyItemSound();
-            //add 1 mine to mine count when executed
-            mineCount++;
-            LblMine.Content = "Mine" + "s: " + mineCount;
-
-            cookies = cookies - mineCost;
-            mineCost = mineCost * 1.25;
-            cookiesPerSecond = cookiesPerSecond + mineProduction;
-
-            mineProduction = mineProduction * 1.10;
-            mineCost = Math.Round(mineCost);
-            double mineProductionRounded = Math.Round(mineProduction, 2);
-            LblMineProd.Content = mineProductionRounded + "/s";
-        }
         private void FactoryP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // buy factory
@@ -522,12 +546,118 @@ namespace Cookie_Clicker
             factoryCost = factoryCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + factoryProduction;
 
-            factoryProduction = factoryProduction * 1.10;
             factoryCost = Math.Round(factoryCost);
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
 
+        //function Bank
+        bool isMouseOverBank = false;
+
+        private void BankP_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverBank = true;
+            BankVerify();
+        }
+
+        private void BankP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverBank = false;
+            BankVerify();
+        }
+
+        private void BankVerify()
+        {
+            //verify if cookie count is high enough to purchase Bank
+            if (cookies < bankCost)
+            {
+                BankP.IsEnabled = false;
+                BankP.Background = new SolidColorBrush(Colors.LightSlateGray);
+            }
+            else if (isMouseOverBank)
+            {
+                BankP.IsEnabled = true;
+                BankP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
+            else
+            {
+                BankP.IsEnabled = true;
+                BankP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+        }
+
+        private void BankP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // buy bank
+            BankVerify();
+            BuyItemSound();
+
+            // add 1 bank to bank count when executed
+            bankCount++;
+            LblBank.Content = "Bank" + "s: " + bankCount;
+
+            cookies = cookies - bankCost;
+            bankCost = bankCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + bankProduction;
+
+            bankCost = Math.Round(bankCost);
+            double bankProductionRounded = Math.Round(bankProduction, 2);
+            LblBankProd.Content = bankProductionRounded + "/s";
+        }
+
+        //function Temple
+        bool isMouseOverTemple = false;
+
+        private void TempleP_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverTemple = true;
+            TempleVerify();
+        }
+
+        private void TempleP_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverTemple = false;
+            TempleVerify();
+        }
+
+        private void TempleVerify()
+        {
+            // Verify if cookie count is high enough to purchase Temple
+            if (cookies < templeCost)
+            {
+                TempleP.IsEnabled = false;
+                TempleP.Background = new SolidColorBrush(Colors.LightSlateGray);
+            }
+            else if (isMouseOverTemple)
+            {
+                TempleP.IsEnabled = true;
+                TempleP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
+            else
+            {
+                TempleP.IsEnabled = true;
+                TempleP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+        }
+
+        private void TempleP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Buy Temple
+            TempleVerify();
+            BuyItemSound();
+
+            // Add 1 Temple to Temple count when executed
+            templeCount++;
+            LblTemple.Content = "Temple" + "s: " + templeCount;
+
+            cookies = cookies - templeCost;
+            templeCost = templeCost * 1.25;
+            cookiesPerSecond = cookiesPerSecond + templeProduction;
+
+            templeCost = Math.Round(templeCost);
+            double templeProductionRounded = Math.Round(templeProduction, 2);
+            LblTempleProd.Content = templeProductionRounded + "/s";
+        }
         //hover function Upgrade1 Cursor
 
         private bool isMouseOverUpgrade1 = false;
@@ -783,5 +913,7 @@ namespace Cookie_Clicker
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
+
+
     }
 }

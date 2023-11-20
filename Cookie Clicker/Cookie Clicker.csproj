@@ -142,18 +142,24 @@
     <Resource Include="factory.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="buy1.wav" />
-    <Content Include="click1.wav" />
-    <Content Include="click2.wav" />
-    <Content Include="click3.wav" />
-    <Content Include="click4.wav" />
-    <Content Include="click5.wav" />
-    <Content Include="click6.wav" />
-    <Content Include="click7.wav" />
-    <Content Include="clickOff.wav" />
-    <Content Include="clickOn.wav">
+    <Resource Include="bank.png" />
+    <EmbeddedResource Include="buy1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
+    <EmbeddedResource Include="click1.wav" />
+    <EmbeddedResource Include="click2.wav" />
+    <EmbeddedResource Include="click3.wav" />
+    <EmbeddedResource Include="click4.wav" />
+    <EmbeddedResource Include="click5.wav" />
+    <EmbeddedResource Include="click6.wav" />
+    <EmbeddedResource Include="click7.wav" />
+    <Resource Include="temple.png" />
+    <EmbeddedResource Include="clickOff.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clickOn.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
