@@ -36,155 +36,176 @@
                     </StackPanel>
                 </Border>
                 <!-- Store -->
-                <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1,0,0,0">
-                    <StackPanel Background="Beige" >
-                        <Border BorderBrush="Black" BorderThickness="0,0,0,2">
-                            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                            </WrapPanel>
-                        </Border>
+                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,0">
+                    <!--  Store panel and upgrade panel  -->
+                    <StackPanel>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="2">
+                            <StackPanel>
+                                <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                                    </WrapPanel>
+                                </Border>
 
-                        <WrapPanel>
-                            <!--Upgrade Cursor-->
-                            <Border BorderBrush="Bisque" BorderThickness="2">
                                 <WrapPanel>
-                                    <StackPanel Name="Upgrade1" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade1_MouseLeftButtonDown" MouseEnter="Upgrade1_MouseEnter" MouseLeave="Upgrade1_MouseLeave">
-                                        <Label Name="LblUpgrade1" Content="2x Cursor" FontSize="9"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
-                                        <Image Source="Clicker.png" Width="30"/>
-                                    </StackPanel>
+                                    <!--Upgrade Cursor-->
+                                    <Border BorderBrush="Bisque" BorderThickness="2">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade1" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade1_MouseLeftButtonDown" MouseEnter="Upgrade1_MouseEnter" MouseLeave="Upgrade1_MouseLeave">
+                                                <Label Name="LblUpgrade1" Content="2x Cursor" FontSize="9"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
+                                                <Image Source="Clicker.png" Width="30"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--First Upgrade Clicker-->
+
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker1">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade2" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade2_MouseLeftButtonDown" MouseEnter="Upgrade2_MouseEnter" MouseLeave="Upgrade2_MouseLeave">
+                                                <Label Name="LblUpgrade2" Content="2x Clicker" FontSize="9"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
+                                                <Image Source="Clicker.png" Width="30" Margin="0,0,0,0"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Upgrade Grandma-->
+
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeGrandma">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade3" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade3_MouseLeftButtonDown" MouseEnter="Upgrade3_MouseEnter" MouseLeave="Upgrade3_MouseLeave">
+                                                <Label Name="LblUpgrade3" Content="2x Grandma" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
+                                                <Image Source="Grandma.png" Width="30" Margin="0,-6,0,0"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Upgrade Mine-->
+
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeMine">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave">
+                                                <Label Name="LblUpgrade4" Content="2x Mine" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
+                                                <Image Source="mine.png" Width="30" Margin="0,0,0,0"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Second Upgrade Clicker-->
+
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker2">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave">
+                                                <Label Name="LblUpgrade5" Content="2x Clicker" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Black"></Label>
+                                                <Image Source="clicker.png" Width="30" Margin="0,0,0,0"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
                                 </WrapPanel>
-                            </Border>
-                            <!--First Upgrade Clicker-->
+                            </StackPanel>
 
-                            <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker1">
-                                <WrapPanel>
-                                    <StackPanel Name="Upgrade2" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade2_MouseLeftButtonDown" MouseEnter="Upgrade2_MouseEnter" MouseLeave="Upgrade2_MouseLeave">
-                                        <Label Name="LblUpgrade2" Content="2x Clicker" FontSize="9"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
-                                        <Image Source="Clicker.png" Width="30" Margin="0,0,0,0"/>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </Border>
-                            <!--Upgrade Grandma-->
-
-                            <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeGrandma">
-                                <WrapPanel>
-                                    <StackPanel Name="Upgrade3" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade3_MouseLeftButtonDown" MouseEnter="Upgrade3_MouseEnter" MouseLeave="Upgrade3_MouseLeave">
-                                        <Label Name="LblUpgrade3" Content="2x Grandma" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
-                                        <Image Source="Grandma.png" Width="30" Margin="0,-6,0,0"/>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </Border>
-                            <!--Upgrade Mine-->
-
-                            <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeMine">
-                                <WrapPanel>
-                                    <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave">
-                                        <Label Name="LblUpgrade4" Content="2x Mine" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
-                                        <Image Source="mine.png" Width="30" Margin="0,0,0,0"/>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </Border>
-                            <!--Second Upgrade Clicker-->
-
-                            <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker2">
-                                <WrapPanel>
-                                    <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave">
-                                        <Label Name="LblUpgrade5" Content="2x Clicker" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
-                                        <Image Source="clicker.png" Width="30" Margin="0,0,0,0"/>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </Border>
-                        </WrapPanel>
-
-                        <!--Clicker-->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="ClickerP_MouseEnter" MouseLeave="ClickerP_MouseLeave" >
-                                <Image Source="Clicker.png" Width="40"/>
-                                <StackPanel >
-                                    <Label Name="LblClicker" Content="Clicker"></Label>
-                                    <Label Name="LblClickerProd" Content="" Margin="0,-10,0,0"></Label>
-
-                                </StackPanel>
-                                <Label Name="LblCostClicker" Content="Cost: 15" ></Label>
-
-                            </WrapPanel>
-                        </Border>
-                        <!--Grandma-->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="GrandmaP_MouseEnter" MouseLeave="GrandmaP_MouseLeave">
-                                <Image  Width="40" Source="/Grandma.png"/>
-                                <StackPanel >
-                                    <Label Name="LblGrandma" Content="Grandma"></Label>
-                                    <Label Name="LblGrandmaProd" Content="" Margin="0,-10,0,0"></Label>
-
-                                </StackPanel>
-                                <Label Name="LblCostGrandma" Content="Cost: 150" ></Label>
-
-                            </WrapPanel>
-                        </Border>
-                        <!--Farm-->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FarmP_MouseEnter" MouseLeave="FarmP_MouseLeave">
-                                <Image  Width="40" Source="/farm.png"/>
-                                <StackPanel >
-                                    <Label Name="LblFarm" Content="Farm"></Label>
-                                    <Label Name="LblFarmProd" Content="" Margin="0,-10,0,0"></Label>
-
-                                </StackPanel>
-                                <Label Name="LblCostFarm" Content="Cost: 1100" ></Label>
-
-                            </WrapPanel>
-                        </Border>
-                        <!--Mine-->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="MineP" Background="LightSlateGray" MouseLeftButtonDown="MineP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="MineP_MouseEnter" MouseLeave="MineP_MouseLeave">
-                                <Image  Width="40" Source="/mine.png"/>
-                                <StackPanel >
-                                    <Label Name="LblMine" Content="Mine"></Label>
-                                    <Label Name="LblMineProd" Content="" Margin="0,-10,0,0"></Label>
-
-                                </StackPanel>
-                                <Label Name="LblCostMine" Content="Cost: 9000" ></Label>
-
-                            </WrapPanel>
-                        </Border>
-                        <!--Factory-->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="FactoryP" Background="LightSlateGray" MouseLeftButtonDown="FactoryP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FactoryP_MouseEnter" MouseLeave="FactoryP_MouseLeave">
-                                <Image  Width="40" Source="/factory.png"/>
-                                <StackPanel >
-                                    <Label Name="LblFactory" Content="Factory"></Label>
-                                    <Label Name="LblFactoryProd" Content="" Margin="0,-10,0,0"></Label>
-                                </StackPanel>
-                                <Label Name="LblCostFactory" Content="Cost: 100000" ></Label>
-                            </WrapPanel>
-                        </Border>
-                        <!-- Bank -->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="BankP" Background="LightSlateGray" MouseLeftButtonDown="BankP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="BankP_MouseEnter" MouseLeave="BankP_MouseLeave">
-                                <Image Width="40" Source="/bank.png"/>
-                                <StackPanel>
-                                    <Label Name="LblBank" Content="Bank"></Label>
-                                    <Label Name="LblBankProd" Content="" Margin="0,-10,0,0"></Label>
-                                </StackPanel>
-                                <Label Name="LblCostBank" Content="Cost: 100000"></Label>
-                            </WrapPanel>
-                        </Border>
-                        <!-- Temple -->
-                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
-                            <WrapPanel Name="TempleP" Background="LightSlateGray" MouseLeftButtonDown="TempleP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="TempleP_MouseEnter" MouseLeave="TempleP_MouseLeave">
-                                <Image Width="40" Source="/temple.png"/>
-                                <StackPanel>
-                                    <Label Name="LblTemple" Content="Temple"></Label>
-                                    <Label Name="LblTempleProd" Content="" Margin="0,-10,0,0"></Label>
-                                </StackPanel>
-                                <Label Name="LblCostTemple" Content="Cost: 100000"></Label>
-                            </WrapPanel>
                         </Border>
 
 
+
+                        <!--  Items panel and scroller  -->
+
+                        <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0">
+
+
+                            <ScrollViewer Height="210">
+                                <StackPanel Background="Beige" >
+
+                                    <!--Clicker-->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="ClickerP_MouseEnter" MouseLeave="ClickerP_MouseLeave" >
+                                            <Image Source="Clicker.png" Width="40"/>
+                                            <StackPanel >
+                                                <Label Name="LblClicker" Content="Clicker"></Label>
+                                                <Label Name="LblClickerProd" Content="" Margin="0,-10,0,0"></Label>
+
+                                            </StackPanel>
+                                            <Label Name="LblCostClicker" Content="Cost: 15" ></Label>
+
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Grandma-->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="GrandmaP_MouseEnter" MouseLeave="GrandmaP_MouseLeave">
+                                            <Image  Width="40" Source="/Grandma.png"/>
+                                            <StackPanel >
+                                                <Label Name="LblGrandma" Content="Grandma"></Label>
+                                                <Label Name="LblGrandmaProd" Content="" Margin="0,-10,0,0"></Label>
+
+                                            </StackPanel>
+                                            <Label Name="LblCostGrandma" Content="Cost: 150" ></Label>
+
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Farm-->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FarmP_MouseEnter" MouseLeave="FarmP_MouseLeave">
+                                            <Image  Width="40" Source="/farm.png"/>
+                                            <StackPanel >
+                                                <Label Name="LblFarm" Content="Farm"></Label>
+                                                <Label Name="LblFarmProd" Content="" Margin="0,-10,0,0"></Label>
+
+                                            </StackPanel>
+                                            <Label Name="LblCostFarm" Content="Cost: 1100" ></Label>
+
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Mine-->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="MineP" Background="LightSlateGray" MouseLeftButtonDown="MineP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="MineP_MouseEnter" MouseLeave="MineP_MouseLeave">
+                                            <Image  Width="40" Source="/mine.png"/>
+                                            <StackPanel >
+                                                <Label Name="LblMine" Content="Mine"></Label>
+                                                <Label Name="LblMineProd" Content="" Margin="0,-10,0,0"></Label>
+
+                                            </StackPanel>
+                                            <Label Name="LblCostMine" Content="Cost: 9000" ></Label>
+
+                                        </WrapPanel>
+                                    </Border>
+                                    <!--Factory-->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="FactoryP" Background="LightSlateGray" MouseLeftButtonDown="FactoryP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FactoryP_MouseEnter" MouseLeave="FactoryP_MouseLeave">
+                                            <Image  Width="40" Source="/factory.png"/>
+                                            <StackPanel >
+                                                <Label Name="LblFactory" Content="Factory"></Label>
+                                                <Label Name="LblFactoryProd" Content="" Margin="0,-10,0,0"></Label>
+                                            </StackPanel>
+                                            <Label Name="LblCostFactory" Content="Cost: 100000" ></Label>
+                                        </WrapPanel>
+                                    </Border>
+                                    <!-- Bank -->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="BankP" Background="LightSlateGray" MouseLeftButtonDown="BankP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="BankP_MouseEnter" MouseLeave="BankP_MouseLeave">
+                                            <Image Width="40" Source="/bank.png"/>
+                                            <StackPanel>
+                                                <Label Name="LblBank" Content="Bank"></Label>
+                                                <Label Name="LblBankProd" Content="" Margin="0,-10,0,0"></Label>
+                                            </StackPanel>
+                                            <Label Name="LblCostBank" Content="Cost: 100000"></Label>
+                                        </WrapPanel>
+                                    </Border>
+                                    <!-- Temple -->
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                        <WrapPanel Name="TempleP" Background="LightSlateGray" MouseLeftButtonDown="TempleP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="TempleP_MouseEnter" MouseLeave="TempleP_MouseLeave">
+                                            <Image Width="40" Source="/temple.png"/>
+                                            <StackPanel>
+                                                <Label Name="LblTemple" Content="Temple"></Label>
+                                                <Label Name="LblTempleProd" Content="" Margin="0,-10,0,0"></Label>
+                                            </StackPanel>
+                                            <Label Name="LblCostTemple" Content="Cost: 100000"></Label>
+                                        </WrapPanel>
+                                    </Border>
+
+
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
                     </StackPanel>
                 </Border>
+              
+            
 
             </Grid>
 

@@ -25,7 +25,6 @@ namespace Cookie_Clicker
     public partial class MainWindow : Window
     {
 
-        
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
@@ -64,14 +63,14 @@ namespace Cookie_Clicker
         int upgradeCursorLevel = 2;
         double cookieCostUpgradeCursor = 100;
         int upgradeClickerCount = 0;
-        int upgradeClickerLevel = 2;
+        int upgradeClickerLevel = 3;
         double cookieCostUpgradeClicker = 250;
         int upgradeGrandmaLevel = 2;
         double cookieCostUpgradeGrandma = 750;
         int upgradeMineLevel = 2;
         double cookieCostUpgradeMine = 20000;
         int upgradeClicker2Count = 0;
-        int upgradeClicker2Level = 2;
+        int upgradeClicker2Level = 3;
         double cookieCostUpgradeClicker2 = 1500;
 
         SoundPlayer soundClick = new SoundPlayer();
