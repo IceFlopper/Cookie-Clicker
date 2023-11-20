@@ -159,7 +159,28 @@
                                 <Label Name="LblCostFactory" Content="Cost: 100000" ></Label>
                             </WrapPanel>
                         </Border>
-
+                        <!-- Bank -->
+                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                            <WrapPanel Name="BankP" Background="LightSlateGray" MouseLeftButtonDown="BankP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="BankP_MouseEnter" MouseLeave="BankP_MouseLeave">
+                                <Image Width="40" Source="/bank.png"/>
+                                <StackPanel>
+                                    <Label Name="LblBank" Content="Bank"></Label>
+                                    <Label Name="LblBankProd" Content="" Margin="0,-10,0,0"></Label>
+                                </StackPanel>
+                                <Label Name="LblCostBank" Content="Cost: 100000"></Label>
+                            </WrapPanel>
+                        </Border>
+                        <!-- Temple -->
+                        <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                            <WrapPanel Name="TempleP" Background="LightSlateGray" MouseLeftButtonDown="TempleP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="TempleP_MouseEnter" MouseLeave="TempleP_MouseLeave">
+                                <Image Width="40" Source="/temple.png"/>
+                                <StackPanel>
+                                    <Label Name="LblTemple" Content="Temple"></Label>
+                                    <Label Name="LblTempleProd" Content="" Margin="0,-10,0,0"></Label>
+                                </StackPanel>
+                                <Label Name="LblCostTemple" Content="Cost: 100000"></Label>
+                            </WrapPanel>
+                        </Border>
 
 
                     </StackPanel>
