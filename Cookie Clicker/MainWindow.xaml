@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="610"
+        Title="MainWindow" Height="300" Width="620"
         Icon="cookie.png" >
     <Viewbox>
         <Grid>
@@ -14,7 +14,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="220"></ColumnDefinition>
                     <ColumnDefinition Width="220"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions >
@@ -24,12 +24,18 @@
                     <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
                         <Label Name="LblCookiePerSecond" Content="0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
                         <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
-                        <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseLeftButtonUp="CookieImage_MouseLeftButtonUp"/>
+                        <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                     </StackPanel>
                 </Border>
                 <!-- Middle Panel -->
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                     <StackPanel Background="Bisque" >
+                        <ScrollViewer Name="ScrollMain" VerticalScrollBarVisibility="Auto" MaxHeight="300" Height="300">
+                            <StackPanel Name="StackMain">
+                                
+                            </StackPanel>
+                            
+                        </ScrollViewer>
 
 
 
@@ -109,7 +115,7 @@
                         <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0">
 
 
-                            <ScrollViewer Height="210">
+                            <ScrollViewer Height="210" >
                                 <StackPanel Background="Beige" >
 
                                     <!--Clicker-->

@@ -28,7 +28,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 100000000;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
@@ -73,8 +73,9 @@ namespace Cookie_Clicker
         int upgradeClicker2Level = 3;
         double cookieCostUpgradeClicker2 = 1500;
 
-        SoundPlayer soundClick = new SoundPlayer();
-        SoundPlayer soundBuy = new SoundPlayer();
+        MediaPlayer soundClick = new MediaPlayer();
+        MediaPlayer soundBuy = new MediaPlayer();
+        
 
 
 
@@ -86,8 +87,8 @@ namespace Cookie_Clicker
         public MainWindow()
         {
             InitializeComponent();
-
-
+            
+            soundBuy.Volume = 0.4;
 
             
 
@@ -119,32 +120,25 @@ namespace Cookie_Clicker
 
         }
 
+        DoubleAnimation growAnimation = new DoubleAnimation
+        {
+            To = 0.90,
+            Duration = TimeSpan.FromMilliseconds(100)
+        };
 
-        private void SoundClickOn()
+        DoubleAnimation shrinkAnimation = new DoubleAnimation
         {
-            try
-            {
-            soundClick.SoundLocation = "clickOn.wav";
-            soundClick.Play();
-            }
-            catch (Exception)
-            { throw; }
-        }
-        private void SoundClickOff()
+            To = 1.10,
+            Duration = TimeSpan.FromMilliseconds(100)
+        };
+
+        DoubleAnimation growAnimation2 = new DoubleAnimation
         {
-            try
-            {
-            soundClick.SoundLocation = "clickOff.wav";
-            soundClick.Play();
-            }
-            catch (Exception)
-            { throw; }
-        }
-        //Button nieuweKnop = new Button();
-        //nieuweKnop.Content = "Nieuwe knop";
-        //nieuweKnop.Name = "BtnNieuweKnop";
-        //nieuweKnop.Background = Brushes.Yellow;
-        //WrpDemo.Children.Add(nieuweKnop);
+            To = 1,
+            Duration = TimeSpan.FromMilliseconds(100)
+        };
+
+
 
         double currentCookieRotation = 0;
 
@@ -174,22 +168,15 @@ namespace Cookie_Clicker
                 RepeatBehavior = RepeatBehavior.Forever
             };
 
-            DoubleAnimation growAnimation = new DoubleAnimation
-            {
-                To = 0.95,
-                Duration = TimeSpan.FromMilliseconds(100)
-            };
 
-            DoubleAnimation shrinkAnimation = new DoubleAnimation
-            {
-                To = 1.05,
-                Duration = TimeSpan.FromMilliseconds(100)
-            };
 
-            DoubleAnimation growAnimation2 = new DoubleAnimation
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
+
+            shrinkAnimation.Completed += (s, e) =>
             {
-                To = 1,
-                Duration = TimeSpan.FromMilliseconds(100)
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation2);
+                scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation2);
             };
 
             rotationAnimation.Completed += (s, e) =>
@@ -198,16 +185,18 @@ namespace Cookie_Clicker
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
             };
 
-            shrinkAnimation.Completed += (s, e) =>
-            {
-                scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation2);
-                scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation2);
-            };
-
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
-            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
 
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
+        }
+        private void SoundClickOn()
+        {
+            try
+            {
+                soundClick.Open(new Uri("clickOn.wav", UriKind.RelativeOrAbsolute));
+                soundClick.Play();
+            }
+            catch (Exception)
+            { throw; }
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -219,16 +208,13 @@ namespace Cookie_Clicker
             CookieRotateAndBounce();
             SoundClickOn();
         }
-        private void CookieImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            SoundClickOff();
-        }
+
 
         private void BuyItemSound()
         {
             try
             {
-                soundBuy.SoundLocation = "buy1.wav";
+                soundBuy.Open(new Uri ("buy1.wav", UriKind.RelativeOrAbsolute));
                 soundBuy.Play();
             }
             catch (Exception)
@@ -271,7 +257,7 @@ namespace Cookie_Clicker
             string cookiesLabel = cookiesCount.ToString();
             if (cookiesCount > 9999 && cookiesCount < 999999)
             {
-                cookiesLabel = $"{(cookiesCount / 1000.0):F1}K";
+                cookiesLabel = $"{(cookiesCount / 1000.0):F3}";
             }
             else if (cookiesCount > 999999 && cookiesCount < 999999999)
             {
@@ -325,6 +311,11 @@ namespace Cookie_Clicker
             }
         }
 
+        //Button nieuweKnop = new Button();
+        //nieuweKnop.Content = "Nieuwe knop";
+        //nieuweKnop.Name = "BtnNieuweKnop";
+        //nieuweKnop.Background = Brushes.Yellow;
+        //WrpDemo.Children.Add(nieuweKnop);
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //buy clicker
@@ -340,7 +331,38 @@ namespace Cookie_Clicker
             clickerCost = Math.Round(clickerCost);
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
+
+            //add thing in middle
+            ClickerMain();
+
+            
         }
+
+        private bool wrapPanelClickerCreated = false;
+        private void ClickerMain()
+        {
+            if (!wrapPanelClickerCreated)
+            {
+                WrapPanel WrapClicker = new WrapPanel();
+                WrapClicker.Height = 60;
+                WrapClicker.Background = new SolidColorBrush(Colors.AliceBlue);
+                StackMain.Children.Add(WrapClicker);
+
+                wrapPanelClickerCreated = true;
+            }
+           
+            Image ImgClicker = new Image();
+            ImgClicker.Source = new BitmapImage(new Uri("Clicker.png", UriKind.RelativeOrAbsolute));
+            ImgClicker.Width = 40;
+            ImgClicker.Height = 40;
+            ImgClicker.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgClicker.VerticalAlignment = VerticalAlignment.Center;
+
+
+            WrapPanel existingWrapPanelClicker = (WrapPanel)StackMain.Children[0];
+            existingWrapPanelClicker.Children.Add(ImgClicker);
+        }
+
 
         //function Grandma
         private bool isMouseOverGrandma = false;
@@ -392,7 +414,35 @@ namespace Cookie_Clicker
             grandmaCost = Math.Round(grandmaCost);
             double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
+
+            //add thing in middle
+            GrandmaMain();
         }
+        private bool wrapPanelGrandmaCreated = false;
+        private void GrandmaMain()
+        {
+            if (!wrapPanelGrandmaCreated)
+            {
+                WrapPanel WrapGrandma = new WrapPanel();
+                WrapGrandma.Height = 60;
+                WrapGrandma.Background = new SolidColorBrush(Colors.Brown);
+                StackMain.Children.Add(WrapGrandma);
+
+                wrapPanelGrandmaCreated = true;
+            }
+
+            Image ImgGrandma = new Image();
+            ImgGrandma.Source = new BitmapImage(new Uri("Grandma.png", UriKind.RelativeOrAbsolute));
+            ImgGrandma.Width = 40;
+            ImgGrandma.Height = 40;
+            ImgGrandma.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgGrandma.VerticalAlignment = VerticalAlignment.Center;
+
+
+            WrapPanel existingWrapGrandmaPanel = (WrapPanel)StackMain.Children[1];
+            existingWrapGrandmaPanel.Children.Add(ImgGrandma);
+        }
+
 
         //function Farm
         bool isMouseOverFarm = false;
@@ -446,6 +496,33 @@ namespace Cookie_Clicker
             farmCost = Math.Round(farmCost);
             double farmProudctionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProudctionRounded + "/s";
+
+            FarmMain();
+        }
+
+        private bool wrapPanelFarmCreated = false;
+
+        private void FarmMain()
+        {
+            if (!wrapPanelFarmCreated)
+            {
+                WrapPanel WrapFarm = new WrapPanel();
+                WrapFarm.Height = 60;
+                WrapFarm.Background = new SolidColorBrush(Colors.Brown);
+                StackMain.Children.Add(WrapFarm);
+
+                wrapPanelFarmCreated = true;
+            }
+
+            Image ImgFarm = new Image();
+            ImgFarm.Source = new BitmapImage(new Uri("Farm.png", UriKind.RelativeOrAbsolute));
+            ImgFarm.Width = 40;
+            ImgFarm.Height = 40;
+            ImgFarm.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgFarm.VerticalAlignment = VerticalAlignment.Center;
+
+            WrapPanel existingWrapFarmPanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            existingWrapFarmPanel.Children.Add(ImgFarm);
         }
 
         //function Mine
@@ -496,8 +573,33 @@ namespace Cookie_Clicker
             mineCost = Math.Round(mineCost);
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
-        }
 
+            MineMain();
+        }
+        private bool wrapPanelMineCreated = false;
+
+        private void MineMain()
+        {
+            if (!wrapPanelMineCreated)
+            {
+                WrapPanel WrapMine = new WrapPanel();
+                WrapMine.Height = 60;
+                WrapMine.Background = new SolidColorBrush(Colors.Brown);
+                StackMain.Children.Add(WrapMine);
+
+                wrapPanelMineCreated = true;
+            }
+
+            Image ImgMine = new Image();
+            ImgMine.Source = new BitmapImage(new Uri("Mine.png", UriKind.RelativeOrAbsolute));
+            ImgMine.Width = 40;
+            ImgMine.Height = 40;
+            ImgMine.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgMine.VerticalAlignment = VerticalAlignment.Center;
+
+            WrapPanel existingWrapMinePanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            existingWrapMinePanel.Children.Add(ImgMine);
+        }
 
         //function Factory
         bool isMouseOverFactory = false;
@@ -548,6 +650,32 @@ namespace Cookie_Clicker
             factoryCost = Math.Round(factoryCost);
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
+
+            FactoryMain();
+        }
+        private bool wrapPanelFactoryCreated = false;
+
+        private void FactoryMain()
+        {
+            if (!wrapPanelFactoryCreated)
+            {
+                WrapPanel WrapFactory = new WrapPanel();
+                WrapFactory.Height = 60;
+                WrapFactory.Background = new SolidColorBrush(Colors.Brown);
+                StackMain.Children.Add(WrapFactory);
+
+                wrapPanelFactoryCreated = true;
+            }
+
+            Image ImgFactory = new Image();
+            ImgFactory.Source = new BitmapImage(new Uri("Factory.png", UriKind.RelativeOrAbsolute));
+            ImgFactory.Width = 40;
+            ImgFactory.Height = 40;
+            ImgFactory.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgFactory.VerticalAlignment = VerticalAlignment.Center;
+
+            WrapPanel existingWrapFactoryPanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            existingWrapFactoryPanel.Children.Add(ImgFactory);
         }
 
         //function Bank
@@ -602,8 +730,33 @@ namespace Cookie_Clicker
             bankCost = Math.Round(bankCost);
             double bankProductionRounded = Math.Round(bankProduction, 2);
             LblBankProd.Content = bankProductionRounded + "/s";
-        }
 
+            BankMain();
+        }
+        private bool wrapPanelBankCreated = false;
+
+        private void BankMain()
+        {
+            if (!wrapPanelBankCreated)
+            {
+                WrapPanel WrapBank = new WrapPanel();
+                WrapBank.Height = 60;
+                WrapBank.Background = new SolidColorBrush(Colors.Brown);
+                StackMain.Children.Add(WrapBank);
+
+                wrapPanelBankCreated = true;
+            }
+
+            Image ImgBank = new Image();
+            ImgBank.Source = new BitmapImage(new Uri("Bank.png", UriKind.RelativeOrAbsolute));
+            ImgBank.Width = 40;
+            ImgBank.Height = 40;
+            ImgBank.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgBank.VerticalAlignment = VerticalAlignment.Center;
+
+            WrapPanel existingWrapBankPanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            existingWrapBankPanel.Children.Add(ImgBank);
+        }
         //function Temple
         bool isMouseOverTemple = false;
 
@@ -656,6 +809,32 @@ namespace Cookie_Clicker
             templeCost = Math.Round(templeCost);
             double templeProductionRounded = Math.Round(templeProduction, 2);
             LblTempleProd.Content = templeProductionRounded + "/s";
+
+            TempleMain();
+        }
+        private bool wrapPanelTempleCreated = false;
+
+        private void TempleMain()
+        {
+            if (!wrapPanelTempleCreated)
+            {
+                WrapPanel WrapTemple = new WrapPanel();
+                WrapTemple.Height = 60;
+                WrapTemple.Background = new SolidColorBrush(Colors.Brown);
+                StackMain.Children.Add(WrapTemple);
+
+                wrapPanelTempleCreated = true;
+            }
+
+            Image ImgTemple = new Image();
+            ImgTemple.Source = new BitmapImage(new Uri("Temple.png", UriKind.RelativeOrAbsolute));
+            ImgTemple.Width = 40;
+            ImgTemple.Height = 40;
+            ImgTemple.HorizontalAlignment = HorizontalAlignment.Center;
+            ImgTemple.VerticalAlignment = VerticalAlignment.Center;
+
+            WrapPanel existingWrapTemplePanel = (WrapPanel)StackMain.Children[StackMain.Children.Count - 1];
+            existingWrapTemplePanel.Children.Add(ImgTemple);
         }
         //hover function Upgrade1 Cursor
 
@@ -865,7 +1044,6 @@ namespace Cookie_Clicker
             cookies = cookies - cookieCostUpgradeClicker;
             LblClickerProd.Content = clickerProduction + "/s";
 
-            Upgrade2.Visibility = Visibility.Collapsed;
             BorderUpgradeClicker1.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
@@ -880,7 +1058,6 @@ namespace Cookie_Clicker
             LblGrandmaProd.Content = grandmaProduction + "/s";
 
             BorderUpgradeGrandma.Visibility = Visibility.Collapsed;
-            Upgrade3.Visibility = Visibility.Collapsed;
             double grandmaProductionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProductionRounded + "/s";
         }
@@ -893,7 +1070,6 @@ namespace Cookie_Clicker
             LblMineProd.Content = mineProduction + "/s";
 
             BorderUpgradeMine.Visibility = Visibility.Collapsed;
-            Upgrade4.Visibility = Visibility.Collapsed;
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
         }
@@ -908,7 +1084,6 @@ namespace Cookie_Clicker
             LblClickerProd.Content = clickerProduction + "/s";
 
             BorderUpgradeClicker2.Visibility = Visibility.Collapsed;
-            Upgrade5.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
