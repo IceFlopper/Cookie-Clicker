@@ -28,7 +28,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 100;
+        double clickCount = 10000000000;
 
         //clicker
         double clickerCost = 15;
@@ -55,7 +55,7 @@ namespace Cookie_Clicker
         int bankCount = 0;
         double bankProduction = 1000;
         //temple
-        double templeCost = 20000000;
+        double templeCost = 2000000;
         int templeCount = 0;
         double templeProduction = 5000;
 
@@ -147,23 +147,7 @@ namespace Cookie_Clicker
 
 
 
-        DoubleAnimation growAnimation = new DoubleAnimation
-        {
-            To = 0.90,
-            Duration = TimeSpan.FromMilliseconds(100)
-        };
 
-        DoubleAnimation shrinkAnimation = new DoubleAnimation
-        {
-            To = 1.10,
-            Duration = TimeSpan.FromMilliseconds(100)
-        };
-
-        DoubleAnimation growAnimation2 = new DoubleAnimation
-        {
-            To = 1,
-            Duration = TimeSpan.FromMilliseconds(100)
-        };
 
 
 
@@ -172,7 +156,6 @@ namespace Cookie_Clicker
         RotateTransform rotateTransform = new RotateTransform();
         private void CookieRotateAndBounce()
         {
-
             ScaleTransform scaleTransform = new ScaleTransform();
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
 
@@ -181,10 +164,28 @@ namespace Cookie_Clicker
             CookieImage.RenderTransform = new TransformGroup()
             {
                 Children = new TransformCollection()
-                {
-                    scaleTransform,
-                    rotateTransform
-                }
+        {
+            scaleTransform,
+            rotateTransform
+        }
+            };
+
+            DoubleAnimation growAnimation = new DoubleAnimation
+            {
+                To = 0.95,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            DoubleAnimation shrinkAnimation = new DoubleAnimation
+            {
+                To = 1.05,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            DoubleAnimation growAnimation2 = new DoubleAnimation
+            {
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(100)
             };
 
             DoubleAnimation rotationAnimation = new DoubleAnimation
@@ -195,23 +196,21 @@ namespace Cookie_Clicker
                 RepeatBehavior = RepeatBehavior.Forever
             };
 
-
-
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
 
-            shrinkAnimation.Completed += (s, e) =>
+
+            growAnimation.Completed += (s, e) =>
             {
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation2);
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation2);
             };
 
-            rotationAnimation.Completed += (s, e) =>
+            growAnimation2.Completed += (s, e) =>
             {
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
             };
-
 
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotationAnimation);
         }
@@ -259,13 +258,16 @@ namespace Cookie_Clicker
             FarmVerify();
             MineVerify();
             FactoryVerify();
+            BankVerify();
+            TempleVerify();
+
             UpgradeUnlock();
         }
 
         private void DrawCookies()
         {
             //update cookielabel to concatinate to smaller digits
-            double cookiesCount = (int)cookies;
+            double cookiesCount = (long)cookies;
             string cookiesLabel = cookiesCount.ToString();
             if (cookiesCount > 9999 && cookiesCount < 999999)
             {
@@ -277,11 +279,11 @@ namespace Cookie_Clicker
             }
             else if (cookiesCount > 999999999 && cookiesCount < 999999999999)
             {
-                cookiesLabel = $"{(cookiesCount / 1000000000.0):F3}B";
+                cookiesLabel = $"{(cookiesCount / 1000000000.0):F2}B";
             }
             else if (cookiesCount > 99999999999 && cookiesCount < 99999999999999)
             {
-                cookiesLabel = $"{(cookiesCount / 100000000000.0):F4}T";
+                cookiesLabel = $"{(cookiesCount / 1000000000000.0):F2}T";
             }
 
 
@@ -431,7 +433,7 @@ namespace Cookie_Clicker
             {
                 WrapPanel WrapGrandma = new WrapPanel();
                 WrapGrandma.Height = 60;
-                WrapGrandma.Background = new SolidColorBrush(Colors.Brown);
+                WrapGrandma.Background = new SolidColorBrush(Colors.Bisque);
                 StackMain.Children.Add(WrapGrandma);
 
                 wrapPanelGrandmaCreated = true;
@@ -514,7 +516,7 @@ namespace Cookie_Clicker
             {
                 WrapPanel WrapFarm = new WrapPanel();
                 WrapFarm.Height = 60;
-                WrapFarm.Background = new SolidColorBrush(Colors.Brown);
+                WrapFarm.Background = new SolidColorBrush(Colors.LightCoral);
                 StackMain.Children.Add(WrapFarm);
 
                 wrapPanelFarmCreated = true;
@@ -590,7 +592,7 @@ namespace Cookie_Clicker
             {
                 WrapPanel WrapMine = new WrapPanel();
                 WrapMine.Height = 60;
-                WrapMine.Background = new SolidColorBrush(Colors.Brown);
+                WrapMine.Background = new SolidColorBrush(Colors.Purple);
                 StackMain.Children.Add(WrapMine);
 
                 wrapPanelMineCreated = true;
@@ -667,7 +669,7 @@ namespace Cookie_Clicker
             {
                 WrapPanel WrapFactory = new WrapPanel();
                 WrapFactory.Height = 60;
-                WrapFactory.Background = new SolidColorBrush(Colors.Brown);
+                WrapFactory.Background = new SolidColorBrush(Colors.IndianRed);
                 StackMain.Children.Add(WrapFactory);
 
                 wrapPanelFactoryCreated = true;

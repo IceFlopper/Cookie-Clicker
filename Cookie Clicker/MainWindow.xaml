@@ -115,7 +115,7 @@
                         <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0">
 
 
-                            <ScrollViewer Height="210" >
+                            <ScrollViewer Height="220" >
                                 <StackPanel Background="Beige" >
 
                                     <!--Clicker-->
