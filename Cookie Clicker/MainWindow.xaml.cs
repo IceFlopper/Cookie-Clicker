@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.VisualBasic;
 
 namespace Cookie_Clicker
 {
@@ -99,6 +100,8 @@ namespace Cookie_Clicker
         public MainWindow()
         {
             InitializeComponent();
+            
+
             Thread cookieThread = new Thread(CookieLogic);
             cookieThread.Start();
 
@@ -131,6 +134,10 @@ namespace Cookie_Clicker
             CookieRotateAndBounce();
 
         }
+
+
+
+        
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //when left click on cookie image add cookie clickCount to cookies
