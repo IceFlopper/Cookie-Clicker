@@ -28,7 +28,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 10000000000;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
@@ -71,9 +71,11 @@ namespace Cookie_Clicker
         int upgradeGrandmaLevel = 2;
         double cookieCostUpgradeGrandma = 750;
         //farmUpgrade
+        int upgradeFarmCount = 0;
         int upgradeFarmLevel = 2;
         double cookieCostUpgradeFarm = 1500;
         //mineupgrade
+        int upgradeMineCount = 0;
         int upgradeMineLevel = 2;
         double cookieCostUpgradeMine = 20000;
         //clicker2upgrade
@@ -83,9 +85,6 @@ namespace Cookie_Clicker
 
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
-        
-
-
 
 
         DispatcherTimer gameTimer = new DispatcherTimer();
@@ -1033,24 +1032,31 @@ namespace Cookie_Clicker
             }
 
             //upgrade 5 Mine2x
-            if (cookies < cookieCostUpgradeMine)
+            if (cookies > cookieCostUpgradeMine)
             {
-                Upgrade5.IsEnabled = false;
-                Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
-                LblUpgrade5.Foreground = new SolidColorBrush(Colors.Wheat);
+                Upgrade5.Visibility = Visibility.Visible;
+
+                if (cookies < cookieCostUpgradeMine)
+                {
+                    Upgrade5.IsEnabled = false;
+                    Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
+                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Wheat);
+                }
+                else if (isMouseOverUpgrade5)
+                {
+                    Upgrade5.IsEnabled = true;
+                    Upgrade5.Background = new SolidColorBrush(Colors.RosyBrown);
+                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
+                }
+                else
+                {
+                    Upgrade5.IsEnabled = true;
+                    Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
+                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
+                }
+
             }
-            else if (isMouseOverUpgrade5)
-            {
-                Upgrade5.IsEnabled = true;
-                Upgrade5.Background = new SolidColorBrush(Colors.RosyBrown);
-                LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
-            }
-            else
-            {
-                Upgrade5.IsEnabled = true;
-                Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
-                LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
-            }
+            
 
 
             //upgrade 6 Clicker2
@@ -1058,6 +1064,7 @@ namespace Cookie_Clicker
             if (upgradeClicker2Count != 1 && upgradeClickerCount > 0)
             {
                 Upgrade6.Visibility = Visibility.Visible;
+
                 if (cookies < cookieCostUpgradeClicker2)
                 {
                     Upgrade6.IsEnabled = false;
@@ -1152,6 +1159,7 @@ namespace Cookie_Clicker
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
+
 
 
     }
