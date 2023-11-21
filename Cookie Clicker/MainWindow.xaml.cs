@@ -136,9 +136,9 @@ namespace Cookie_Clicker
             //when left click on cookie image add cookie clickCount to cookies
             cookies = cookies + clickCount;
             LblCookie.Content = cookies + " Cookies";
-            DrawCookies();
             CookieRotateAndBounce();
             SoundClickOn();
+            DrawCookies();
         }
 
 
@@ -248,19 +248,18 @@ namespace Cookie_Clicker
         private void gameTimer_tick(object sender, EventArgs e)
         {
             //update game every 10ms
-            DrawCookies();
             cookiesPerSecond = Math.Round(cookiesPerSecond, 1);
-            LblCookiePerSecond.Content = cookiesPerSecond + "/s";
-            LblCostClicker.Content = "Cost: " + clickerCost;
-            LblCostGrandma.Content = "Cost: " + grandmaCost;
-            LblCostFarm.Content = "Cost: " + farmCost;
-            LblCostMine.Content = "Cost: " + mineCost;
-            LblCostFactory.Content = "Cost: " + factoryCost;
-            LblCostBank.Content = "Cost: " + bankCost;
-            LblCostTemple.Content = "Cost: " + templeCost;
 
 
-
+            DrawCookies();
+            DrawCookiesPerSecond();
+            DrawCookiesClickerCost();
+            DrawCookiesGrandmaCost();
+            DrawCookiesFarmCost();
+            DrawCookiesMineCost();
+            DrawCookiesFactoryCost();
+            DrawCookiesBankCost();
+            DrawCookiesTempleCost();    
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
@@ -282,38 +281,82 @@ namespace Cookie_Clicker
                 ScrollItems.MaxHeight = 221;
             }
         }
+        public class CookieFormatter
+        {
+            public static string FormatCookies(double cCount)
+            {
+                if (cCount > 9999 && cCount < 999999)
+                {
+                    return $"{(cCount / 1000.0):F3}";
+                }
+                else if (cCount > 999999 && cCount < 999999999)
+                {
+                    return $"{(cCount / 1000000.0):F3}M";
+                }
+                else if (cCount > 999999999 && cCount < 999999999999)
+                {
+                    return $"{(cCount / 1000000000.0):F3}B";
+                }
+                else if (cCount > 99999999999 && cCount < 999999999999999)
+                {
+                    return $"{(cCount / 1000000000000.0):F3}T";
+                }
+                else if (cCount > 9999999999999 && cCount < 999999999999999999)
+                {
+                    return $"{(cCount / 1000000000000000.0):F3}q";
+                }
+                else
+                {
+                    return cCount.ToString();
+                }
+            }
+        }
         private void DrawCookies()
         {
-            //update cookielabel to concatinate to smaller digits
-            double cookiesCount = (long)cookies;
-            string cookiesLabel = cookiesCount.ToString();
-            if (cookiesCount > 9999 && cookiesCount < 999999)
-            {
-                cookiesLabel = $"{(cookiesCount / 1000.0):F3}";
-            }
-            else if (cookiesCount > 999999 && cookiesCount < 999999999)
-            {
-                cookiesLabel = $"{(cookiesCount / 1000000.0):F2}M";
-            }
-            else if (cookiesCount > 999999999 && cookiesCount < 999999999999)
-            {
-                cookiesLabel = $"{(cookiesCount / 1000000000.0):F2}B";
-            }
-            else if (cookiesCount > 99999999999 && cookiesCount < 999999999999999)
-            {
-                cookiesLabel = $"{(cookiesCount / 1000000000000.0):F2}T";
-            }
-            else if (cookiesCount > 9999999999999 && cookiesCount < 999999999999999999)
-            {
-                cookiesLabel = $"{(cookiesCount / 1000000000000000.0):F2}q";
-            }
-
-
-
-
+            string cookiesLabel = CookieFormatter.FormatCookies(cookies);
             LblCookie.Content = cookiesLabel + " Cookies";
-        }
 
+        }
+        private void DrawCookiesClickerCost()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(clickerCost);
+            LblCostClicker.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesGrandmaCost()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(grandmaCost);
+            LblCostGrandma.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesFarmCost()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(farmCost);
+            LblCostFarm.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesMineCost()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(mineCost);
+            LblCostMine.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesFactoryCost()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(factoryCost);
+            LblCostFactory.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesBankCost()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(bankCost);
+            LblCostBank.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesTempleCost()
+        {
+            string cookiesLabel =  CookieFormatter.FormatCookies(templeCost);
+            LblCostTemple.Content = "Cost: " + cookiesLabel;
+        }
+        private void DrawCookiesPerSecond()
+        {
+            string cookiesLabel = CookieFormatter.FormatCookies(cookiesPerSecond);
+            LblCookiePerSecond.Content = cookiesLabel + "/s";
+        }
         //function Clicker
         private bool isMouseOverClicker = false;
 
@@ -744,29 +787,44 @@ namespace Cookie_Clicker
             FactoryMain();
         }
         private bool wrapPanelFactoryCreated = false;
+        private bool scrollviewerFactoryCreated = false;
+        private ScrollViewer scrollFactory;
+        private WrapPanel wrapFactory;
 
         private void FactoryMain()
         {
-            if (!wrapPanelFactoryCreated)
+            if (!scrollviewerFactoryCreated)
             {
-                WrapPanel WrapFactory = new WrapPanel();
-                WrapFactory.Height = wrapHeight;
-                WrapFactory.Background = new SolidColorBrush(Colors.IndianRed);
-                StackMain.Children.Add(WrapFactory);
-
-                wrapPanelFactoryCreated = true;
+                scrollFactory = new ScrollViewer();
+                scrollFactory.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+                scrollFactory.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                StackMain.Children.Add(scrollFactory);
+                scrollviewerFactoryCreated = true;
             }
 
-            Image ImgFactory = new Image();
-            ImgFactory.Source = new BitmapImage(new Uri("Factory.png", UriKind.RelativeOrAbsolute));
-            ImgFactory.Width = 40;
-            ImgFactory.Height = 40;
-            ImgFactory.HorizontalAlignment = HorizontalAlignment.Center;
-            ImgFactory.VerticalAlignment = VerticalAlignment.Center;
+            if (!wrapPanelFactoryCreated)
+            {
+                wrapFactory = new WrapPanel();
+                wrapFactory.Height = wrapHeight;
+                wrapFactory.Background = new SolidColorBrush(Colors.AliceBlue);
 
-            WrapPanel existingWrapFactoryPanel = (WrapPanel)StackMain.Children[4];
-            existingWrapFactoryPanel.Children.Add(ImgFactory);
+                if (scrollFactory != null)
+                {
+                    scrollFactory.Content = wrapFactory;
+                    wrapPanelFactoryCreated = true;
+                }
+            }
+
+            Image imgFactory = new Image();
+            imgFactory.Source = new BitmapImage(new Uri("factory.png", UriKind.RelativeOrAbsolute));
+            imgFactory.Width = 40;
+            imgFactory.Height = 40;
+            imgFactory.HorizontalAlignment = HorizontalAlignment.Center;
+            imgFactory.VerticalAlignment = VerticalAlignment.Center;
+
+            wrapFactory.Children.Add(imgFactory);
         }
+
 
         //function Bank
         bool isMouseOverBank = false;
@@ -824,29 +882,44 @@ namespace Cookie_Clicker
             BankMain();
         }
         private bool wrapPanelBankCreated = false;
+        private bool scrollviewerBankCreated = false;
+        private ScrollViewer scrollBank;
+        private WrapPanel wrapBank;
 
         private void BankMain()
         {
-            if (!wrapPanelBankCreated)
+            if (!scrollviewerBankCreated)
             {
-                WrapPanel WrapBank = new WrapPanel();
-                WrapBank.Height = wrapHeight;
-                WrapBank.Background = new SolidColorBrush(Colors.Brown);
-                StackMain.Children.Add(WrapBank);
-
-                wrapPanelBankCreated = true;
+                scrollBank = new ScrollViewer();
+                scrollBank.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+                scrollBank.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                StackMain.Children.Add(scrollBank);
+                scrollviewerBankCreated = true;
             }
 
-            Image ImgBank = new Image();
-            ImgBank.Source = new BitmapImage(new Uri("Bank.png", UriKind.RelativeOrAbsolute));
-            ImgBank.Width = 40;
-            ImgBank.Height = 40;
-            ImgBank.HorizontalAlignment = HorizontalAlignment.Center;
-            ImgBank.VerticalAlignment = VerticalAlignment.Center;
+            if (!wrapPanelBankCreated)
+            {
+                wrapBank = new WrapPanel();
+                wrapBank.Height = wrapHeight;
+                wrapBank.Background = new SolidColorBrush(Colors.AliceBlue);
 
-            WrapPanel existingWrapBankPanel = (WrapPanel)StackMain.Children[5];
-            existingWrapBankPanel.Children.Add(ImgBank);
+                if (scrollBank != null)
+                {
+                    scrollBank.Content = wrapBank;
+                    wrapPanelBankCreated = true;
+                }
+            }
+
+            Image imgBank = new Image();
+            imgBank.Source = new BitmapImage(new Uri("bank.png", UriKind.RelativeOrAbsolute));
+            imgBank.Width = 40;
+            imgBank.Height = 40;
+            imgBank.HorizontalAlignment = HorizontalAlignment.Center;
+            imgBank.VerticalAlignment = VerticalAlignment.Center;
+
+            wrapBank.Children.Add(imgBank);
         }
+
         //function Temple
         bool isMouseOverTemple = false;
 
@@ -903,28 +976,42 @@ namespace Cookie_Clicker
             TempleMain();
         }
         private bool wrapPanelTempleCreated = false;
+        private bool scrollviewerTempleCreated = false;
+        private ScrollViewer scrollTemple;
+        private WrapPanel wrapTemple;
 
         private void TempleMain()
         {
-            if (!wrapPanelTempleCreated)
+            if (!scrollviewerTempleCreated)
             {
-                WrapPanel WrapTemple = new WrapPanel();
-                WrapTemple.Height = wrapHeight;
-                WrapTemple.Background = new SolidColorBrush(Colors.Brown);
-                StackMain.Children.Add(WrapTemple);
-
-                wrapPanelTempleCreated = true;
+                scrollTemple = new ScrollViewer();
+                scrollTemple.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+                scrollTemple.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                StackMain.Children.Add(scrollTemple);
+                scrollviewerTempleCreated = true;
             }
 
-            Image ImgTemple = new Image();
-            ImgTemple.Source = new BitmapImage(new Uri("Temple.png", UriKind.RelativeOrAbsolute));
-            ImgTemple.Width = 40;
-            ImgTemple.Height = 40;
-            ImgTemple.HorizontalAlignment = HorizontalAlignment.Center;
-            ImgTemple.VerticalAlignment = VerticalAlignment.Center;
+            if (!wrapPanelTempleCreated)
+            {
+                wrapTemple = new WrapPanel();
+                wrapTemple.Height = wrapHeight;
+                wrapTemple.Background = new SolidColorBrush(Colors.AliceBlue);
 
-            WrapPanel existingWrapTemplePanel = (WrapPanel)StackMain.Children[6];
-            existingWrapTemplePanel.Children.Add(ImgTemple);
+                if (scrollTemple != null)
+                {
+                    scrollTemple.Content = wrapTemple;
+                    wrapPanelTempleCreated = true;
+                }
+            }
+
+            Image imgTemple = new Image();
+            imgTemple.Source = new BitmapImage(new Uri("temple.png", UriKind.RelativeOrAbsolute));
+            imgTemple.Width = 40;
+            imgTemple.Height = 40;
+            imgTemple.HorizontalAlignment = HorizontalAlignment.Center;
+            imgTemple.VerticalAlignment = VerticalAlignment.Center;
+
+            wrapTemple.Children.Add(imgTemple);
         }
         //hover function Upgrade1 Cursor
 

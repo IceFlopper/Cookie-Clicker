@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="620"
+        Title="MainWindow" Height="300" Width="640"
         Icon="cookie.png" >
     <Viewbox>
         <Grid>
@@ -45,7 +45,7 @@
                 <!-- Store -->
                 <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,0" >
                     <!--  Store panel and upgrade panel  -->
-                    <StackPanel MaxWidth="210" MaxHeight="300">
+                    <StackPanel MaxWidth="240" MaxHeight="300">
                         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="2">
                             <StackPanel >
                                 <Border BorderBrush="Black" BorderThickness="0,0,0,2">
@@ -134,7 +134,7 @@
                         <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0">
 
 
-                            <ScrollViewer Name="ScrollItems">
+                            <ScrollViewer  Name="ScrollItems">
                                 <StackPanel Background="Beige" >
 
                                     <!--Clicker-->
