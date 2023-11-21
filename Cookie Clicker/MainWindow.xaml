@@ -83,12 +83,22 @@
                                             </StackPanel>
                                         </WrapPanel>
                                     </Border>
+                                    <!-- Upgrade Farm -->
+
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFarm">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave">
+                                                <Label Name="LblUpgrade4" Content="2x Farm" FontSize="8" Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
+                                                <Image Source="farm.png" Width="30" Margin="0,0,0,0"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
                                     <!--Upgrade Mine-->
 
                                     <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeMine">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave">
-                                                <Label Name="LblUpgrade4" Content="2x Mine" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
+                                            <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave">
+                                                <Label Name="LblUpgrade5" Content="2x Mine" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
                                                 <Image Source="mine.png" Width="30" Margin="0,0,0,0"/>
                                             </StackPanel>
                                         </WrapPanel>
@@ -97,8 +107,8 @@
 
                                     <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker2">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave">
-                                                <Label Name="LblUpgrade5" Content="2x Clicker" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Black"></Label>
+                                            <StackPanel Name="Upgrade6" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade6_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade6_MouseEnter" MouseLeave="Upgrade6_MouseLeave">
+                                                <Label Name="LblUpgrade6" Content="2x Clicker" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Black"></Label>
                                                 <Image Source="clicker.png" Width="30" Margin="0,0,0,0"/>
                                             </StackPanel>
                                         </WrapPanel>
