@@ -29,7 +29,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 10000000;
+        double clickCount = 10000;
 
         //clicker
         double clickerCost = 15;
@@ -257,7 +257,6 @@ namespace Cookie_Clicker
             //update game every 10ms
             cookiesPerSecond = Math.Round(cookiesPerSecond, 1);
 
-
             DrawCookies();
             DrawCookiesPerSecond();
             DrawCookiesClickerCost();
@@ -290,8 +289,9 @@ namespace Cookie_Clicker
         }
         public class CookieFormatter
         {
-            public static string FormatCookies(double cCount)
+            public static string FormatCookies(long cCount)
             {
+
                 if (cCount > 9999 && cCount < 999999)
                 {
                     return $"{(cCount / 1000.0):F3}";
@@ -320,48 +320,49 @@ namespace Cookie_Clicker
         }
         private void DrawCookies()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(cookies);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)cookies);
             LblCookie.Content = cookiesLabel + " Cookies";
 
         }
         private void DrawCookiesClickerCost()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(clickerCost);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)clickerCost);
             LblCostClicker.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesGrandmaCost()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(grandmaCost);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)grandmaCost);
             LblCostGrandma.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesFarmCost()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(farmCost);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)farmCost);
             LblCostFarm.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesMineCost()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(mineCost);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)mineCost);
             LblCostMine.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesFactoryCost()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(factoryCost);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)factoryCost);
             LblCostFactory.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesBankCost()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(bankCost);
+            string cookiesLabel = CookieFormatter.FormatCookies((long)bankCost);
             LblCostBank.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesTempleCost()
         {
-            string cookiesLabel =  CookieFormatter.FormatCookies(templeCost);
+            string cookiesLabel =  CookieFormatter.FormatCookies((long)templeCost);
             LblCostTemple.Content = "Cost: " + cookiesLabel;
         }
         private void DrawCookiesPerSecond()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies(cookiesPerSecond);
+
+            string cookiesLabel = $"{cookiesPerSecond:F1}";
             LblCookiePerSecond.Content = cookiesLabel + "/s";
         }
         //function Clicker
