@@ -28,7 +28,7 @@ namespace Cookie_Clicker
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100000;
 
         //clicker
         double clickerCost = 15;
@@ -73,15 +73,19 @@ namespace Cookie_Clicker
         //farmUpgrade
         int upgradeFarmCount = 0;
         int upgradeFarmLevel = 2;
-        double cookieCostUpgradeFarm = 1500;
+        double cookieCostUpgradeFarm = 5000;
         //mineupgrade
         int upgradeMineCount = 0;
         int upgradeMineLevel = 2;
-        double cookieCostUpgradeMine = 20000;
+        double cookieCostUpgradeMine = 30000;
         //clicker2upgrade
         int upgradeClicker2Count = 0;
         int upgradeClicker2Level = 3;
-        double cookieCostUpgradeClicker2 = 1500;
+        double cookieCostUpgradeClicker2 = 1250;
+        //factoryupgrade
+        int upgradeFactoryCount = 0;
+        int upgradeFactoryLevel = 2;
+        double cookieCostUpgradeFactory = 200000;
 
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
@@ -944,6 +948,21 @@ namespace Cookie_Clicker
             UpgradeUnlock();
 
         }
+        //hover function Upgrade7 Factory
+        private bool isMouseOverUpgrade7 = false;
+
+        private void Upgrade7_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade7 = true;
+            UpgradeUnlock();
+        }
+
+        private void Upgrade7_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMouseOverUpgrade7 = false;
+            UpgradeUnlock();
+        }
+
         private void UpgradeUnlock()
         {
             //verifies if u have enough cookies to purchase upgrade.
@@ -1084,6 +1103,32 @@ namespace Cookie_Clicker
                     LblUpgrade6.Foreground = new SolidColorBrush(Colors.Black);
                 }
             }
+            //upgrade 7 Factory
+
+            if (cookies > cookieCostUpgradeFactory)
+            {
+                Upgrade7.Visibility = Visibility.Visible;
+
+                if (cookies < cookieCostUpgradeFactory)
+                {
+                    Upgrade7.IsEnabled = false;
+                    Upgrade7.Background = new SolidColorBrush(Colors.SaddleBrown);
+                    LblUpgrade7.Foreground = new SolidColorBrush(Colors.Wheat);
+                }
+                else if (isMouseOverUpgrade7)
+                {
+                    Upgrade7.IsEnabled = true;
+                    Upgrade7.Background = new SolidColorBrush(Colors.RosyBrown);
+                    LblUpgrade7.Foreground = new SolidColorBrush(Colors.Black);
+                }
+                else
+                {
+                    Upgrade7.IsEnabled = true;
+                    Upgrade7.Background = new SolidColorBrush(Colors.SandyBrown);
+                    LblUpgrade7.Foreground = new SolidColorBrush(Colors.Black);
+                }
+            }
+
 
         }
 
@@ -1158,6 +1203,20 @@ namespace Cookie_Clicker
             BorderUpgradeClicker2.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
+        }
+
+        private void Upgrade7_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+            cookiesPerSecond = cookiesPerSecond - (factoryProduction * factoryCount);
+            factoryProduction = factoryProduction * upgradeFactoryLevel;
+            cookiesPerSecond = cookiesPerSecond + (factoryProduction * factoryCount);
+            cookies = cookies - cookieCostUpgradeFactory;
+            LblFactoryProd.Content = factoryProduction + "/s";
+
+            BorderUpgradeFactory.Visibility = Visibility.Collapsed;
+            double factoryProductionRounded = Math.Round(factoryProduction, 2);
+            LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
 
 

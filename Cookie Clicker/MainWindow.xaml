@@ -113,6 +113,14 @@
                                             </StackPanel>
                                         </WrapPanel>
                                     </Border>
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFactory">
+                                        <WrapPanel>
+                                            <StackPanel Name="Upgrade7" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade7_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade7_MouseEnter" MouseLeave="Upgrade7_MouseLeave">
+                                                <Label Name="LblUpgrade7" Content="2x Factory" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Black"></Label>
+                                                <Image Source="factory.png" Width="30" Margin="0,0,0,0"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </Border>
                                 </WrapPanel>
                             </StackPanel>
 
