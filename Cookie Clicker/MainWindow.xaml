@@ -12,10 +12,11 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
+                    
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="220"></ColumnDefinition>
-                    <ColumnDefinition Width="220"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions >
 
@@ -29,7 +30,7 @@
                 </Border>
                 <!-- Middle Panel -->
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
-                    <StackPanel Background="Bisque" >
+                    <StackPanel Background="Bisque" Width="230">
                         <ScrollViewer Name="ScrollMain" VerticalScrollBarVisibility="Auto" MaxHeight="300" Height="300">
                             <StackPanel Name="StackMain">
                                 
@@ -42,18 +43,18 @@
                     </StackPanel>
                 </Border>
                 <!-- Store -->
-                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,0">
+                <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,0" >
                     <!--  Store panel and upgrade panel  -->
-                    <StackPanel>
+                    <StackPanel MaxWidth="210" MaxHeight="300">
                         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="2">
-                            <StackPanel>
+                            <StackPanel >
                                 <Border BorderBrush="Black" BorderThickness="0,0,0,2">
                                     <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                         <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                                     </WrapPanel>
                                 </Border>
 
-                                <WrapPanel>
+                                <WrapPanel Name="WrapUpgrades">
                                     <!--Upgrade Cursor-->
                                     <Border BorderBrush="Bisque" BorderThickness="2">
                                         <WrapPanel>
@@ -95,9 +96,9 @@
                                     </Border>
                                     <!--Upgrade Mine-->
 
-                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeMine">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeMine" Visibility="Collapsed">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave" Visibility="Collapsed">
+                                            <StackPanel Name="Upgrade5" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade5_MouseLeftButtonDown" MouseEnter="Upgrade5_MouseEnter" MouseLeave="Upgrade5_MouseLeave" >
                                                 <Label Name="LblUpgrade5" Content="2x Mine" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
                                                 <Image Source="mine.png" Width="30" Margin="0,0,0,0"/>
                                             </StackPanel>
@@ -105,17 +106,17 @@
                                     </Border>
                                     <!--Second Upgrade Clicker-->
 
-                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker2">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker2" Visibility="Collapsed">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade6" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade6_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade6_MouseEnter" MouseLeave="Upgrade6_MouseLeave">
+                                            <StackPanel Name="Upgrade6" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade6_MouseLeftButtonDown"  MouseEnter="Upgrade6_MouseEnter" MouseLeave="Upgrade6_MouseLeave">
                                                 <Label Name="LblUpgrade6" Content="2x Clicker" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Black"></Label>
                                                 <Image Source="clicker.png" Width="30" Margin="0,0,0,0"/>
                                             </StackPanel>
                                         </WrapPanel>
                                     </Border>
-                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFactory">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFactory" Visibility="Collapsed">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade7" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade7_MouseLeftButtonDown" Visibility="Collapsed" MouseEnter="Upgrade7_MouseEnter" MouseLeave="Upgrade7_MouseLeave">
+                                            <StackPanel Name="Upgrade7" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade7_MouseLeftButtonDown"  MouseEnter="Upgrade7_MouseEnter" MouseLeave="Upgrade7_MouseLeave">
                                                 <Label Name="LblUpgrade7" Content="2x Factory" FontSize="8"  Margin="-5" HorizontalAlignment="Center" Foreground="Black"></Label>
                                                 <Image Source="factory.png" Width="30" Margin="0,0,0,0"/>
                                             </StackPanel>
@@ -133,7 +134,7 @@
                         <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0">
 
 
-                            <ScrollViewer Height="220" >
+                            <ScrollViewer Name="ScrollItems">
                                 <StackPanel Background="Beige" >
 
                                     <!--Clicker-->
