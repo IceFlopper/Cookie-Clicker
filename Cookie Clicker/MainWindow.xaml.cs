@@ -25,11 +25,11 @@ namespace Cookie_Clicker
 
     public partial class MainWindow : Window
     {
-
+        int clicks = 0;
         private double cookies = 0;
-        private double cookiesPerSecond = 0;
+        private double cookiesPerSecond = 0.1;
         //amount gained per click
-        double clickCount = 10000;
+        double clickCount = 1;
 
         //clicker
         double clickerCost = 15;
@@ -62,6 +62,7 @@ namespace Cookie_Clicker
 
         //upgrades
         //cursorupgrade
+        int upgradeCursorCostMultiplier = 5;
         int upgradeCursorLevel = 2;
         double cookieCostUpgradeCursor = 100;
         //Clickerupgrade
@@ -70,7 +71,7 @@ namespace Cookie_Clicker
         double cookieCostUpgradeClicker = 250;
         //grandmaupgrade
         int upgradeGrandmaCount = 0;
-        int upgradeGrandmaLevel = 2;
+        int upgradeGrandmaLevel = 3;
         double cookieCostUpgradeGrandma = 750;
         //farmUpgrade
         int upgradeFarmCount = 0;
@@ -94,6 +95,7 @@ namespace Cookie_Clicker
 
 
         DispatcherTimer gameTimer = new DispatcherTimer();
+        DispatcherTimer secondsTimer = new DispatcherTimer();
 
         //height for wrap panels
         int wrapHeight = 50;
@@ -112,6 +114,10 @@ namespace Cookie_Clicker
             gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             gameTimer.Tick += gameTimer_tick;
             gameTimer.Start();
+
+            secondsTimer.Interval = TimeSpan.FromSeconds(1);
+            secondsTimer.Tick += SecondsCounter;
+            secondsTimer.Start();
 
             //content for clickerproduction
             LblClickerProd.Content = clickerProduction + "/s";
@@ -137,7 +143,17 @@ namespace Cookie_Clicker
 
 
 
-        
+        private void DevBtn_Click(object sender, RoutedEventArgs e)
+        {
+            clickCount += 1000000;
+        }
+
+        int seconds = 0;
+        private void SecondsCounter(object sender, EventArgs e)
+        {
+            seconds++;
+            LblSeconds.Content = "Seconds" + seconds.ToString();
+        }
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //when left click on cookie image add cookie clickCount to cookies
@@ -146,9 +162,12 @@ namespace Cookie_Clicker
             CookieRotateAndBounce();
             SoundClickOn();
             DrawCookies();
+            clicks++;
+            LblClicks.Content = "Clicks" + clicks;
         }
 
         
+        double tick = 0;
         private void CookieLogic()
         {
             //incremental cookies per second
@@ -160,31 +179,19 @@ namespace Cookie_Clicker
                     cookies += increment;
                 }
 
-
+                tick += 1;
                 Thread.Sleep(10);
-            }
 
+            }
         }
 
         double currentCookieRotation = 0;
 
+
+
         RotateTransform rotateTransform = new RotateTransform();
         private void CookieRotateAndBounce()
         {
-            ScaleTransform scaleTransform = new ScaleTransform();
-            CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
-
-            currentCookieRotation = rotateTransform.Angle;
-
-            CookieImage.RenderTransform = new TransformGroup()
-            {
-                Children = new TransformCollection()
-        {
-            scaleTransform,
-            rotateTransform
-        }
-            };
-
             DoubleAnimation growAnimation = new DoubleAnimation
             {
                 To = 0.95,
@@ -202,7 +209,19 @@ namespace Cookie_Clicker
                 To = 1,
                 Duration = TimeSpan.FromMilliseconds(100)
             };
+            ScaleTransform scaleTransform = new ScaleTransform();
+            CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
 
+            currentCookieRotation = rotateTransform.Angle;
+
+            CookieImage.RenderTransform = new TransformGroup()
+            {
+                Children = new TransformCollection()
+        {
+            scaleTransform,
+            rotateTransform
+        }
+            };
             DoubleAnimation rotationAnimation = new DoubleAnimation
             {
                 From = currentCookieRotation,
@@ -252,20 +271,13 @@ namespace Cookie_Clicker
 
         }
 
+
         private void gameTimer_tick(object sender, EventArgs e)
         {
             //update game every 10ms
-            cookiesPerSecond = Math.Round(cookiesPerSecond, 1);
+            LblTick.Content = "Ticks" + tick;
 
             DrawCookies();
-            DrawCookiesPerSecond();
-            DrawCookiesClickerCost();
-            DrawCookiesGrandmaCost();
-            DrawCookiesFarmCost();
-            DrawCookiesMineCost();
-            DrawCookiesFactoryCost();
-            DrawCookiesBankCost();
-            DrawCookiesTempleCost();    
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
@@ -289,10 +301,13 @@ namespace Cookie_Clicker
         }
         public class CookieFormatter
         {
-            public static string FormatCookies(long cCount)
+            public static string FormatCookies(double cCount)
             {
-
-                if (cCount > 9999 && cCount < 999999)
+                if (cCount > 10 && cCount < 9999)
+                {
+                    return $"{(cCount):F0}";
+                }
+                else if (cCount > 9999 && cCount < 999999)
                 {
                     return $"{(cCount / 1000.0):F3}";
                 }
@@ -318,54 +333,25 @@ namespace Cookie_Clicker
                 }
             }
         }
+
+        private string DrawLabel(double amount, string prefix = "", string suffix = "")
+        {
+            string label = CookieFormatter.FormatCookies(amount);
+            return prefix + label + suffix;
+        }
         private void DrawCookies()
         {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)cookies);
-            LblCookie.Content = cookiesLabel + " Cookies";
+            LblCookie.Content = DrawLabel((long)cookies, "", " Cookies"); ;
+            LblCostClicker.Content = DrawLabel((long)clickerCost, "Cost: ");
+            LblCostGrandma.Content = DrawLabel((long)grandmaCost, "Cost: ");
+            LblCostFarm.Content = DrawLabel((long)farmCost, "Cost: ");
+            LblCostMine.Content = DrawLabel((long)mineCost, "Cost: ");
+            LblCostFactory.Content = DrawLabel((long)factoryCost, "Cost: ");
+            LblCostBank.Content = DrawLabel((long)bankCost, "Cost: ");
+            LblCostTemple.Content = DrawLabel((long)templeCost, "Cost: ");
+            LblCookiePerSecond.Content = DrawLabel(cookiesPerSecond, "", "/s");
 
         }
-        private void DrawCookiesClickerCost()
-        {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)clickerCost);
-            LblCostClicker.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesGrandmaCost()
-        {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)grandmaCost);
-            LblCostGrandma.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesFarmCost()
-        {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)farmCost);
-            LblCostFarm.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesMineCost()
-        {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)mineCost);
-            LblCostMine.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesFactoryCost()
-        {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)factoryCost);
-            LblCostFactory.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesBankCost()
-        {
-            string cookiesLabel = CookieFormatter.FormatCookies((long)bankCost);
-            LblCostBank.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesTempleCost()
-        {
-            string cookiesLabel =  CookieFormatter.FormatCookies((long)templeCost);
-            LblCostTemple.Content = "Cost: " + cookiesLabel;
-        }
-        private void DrawCookiesPerSecond()
-        {
-
-            string cookiesLabel = $"{cookiesPerSecond:F1}";
-            LblCookiePerSecond.Content = cookiesLabel + "/s";
-        }
-        //function Clicker
         private bool isMouseOverClicker = false;
 
         private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
@@ -535,7 +521,7 @@ namespace Cookie_Clicker
             {
                 wrapGrandma = new WrapPanel();
                 wrapGrandma.Height = wrapHeight;
-                wrapGrandma.Background = new SolidColorBrush(Colors.AliceBlue);
+                wrapGrandma.Background = new SolidColorBrush(Colors.DarkRed);
 
                 if (scrollGrandma != null)
                 {
@@ -631,7 +617,7 @@ namespace Cookie_Clicker
             {
                 wrapFarm = new WrapPanel();
                 wrapFarm.Height = wrapHeight;
-                wrapFarm.Background = new SolidColorBrush(Colors.AliceBlue);
+                wrapFarm.Background = new SolidColorBrush(Colors.DarkOliveGreen);
 
                 if (scrollFarm != null)
                 {
@@ -722,7 +708,7 @@ namespace Cookie_Clicker
             {
                 wrapMine = new WrapPanel();
                 wrapMine.Height = wrapHeight;
-                wrapMine.Background = new SolidColorBrush(Colors.AliceBlue);
+                wrapMine.Background = new SolidColorBrush(Colors.Gray);
 
                 if (scrollMine != null)
                 {
@@ -814,7 +800,7 @@ namespace Cookie_Clicker
             {
                 wrapFactory = new WrapPanel();
                 wrapFactory.Height = wrapHeight;
-                wrapFactory.Background = new SolidColorBrush(Colors.AliceBlue);
+                wrapFactory.Background = new SolidColorBrush(Colors.OrangeRed);
 
                 if (scrollFactory != null)
                 {
@@ -909,7 +895,7 @@ namespace Cookie_Clicker
             {
                 wrapBank = new WrapPanel();
                 wrapBank.Height = wrapHeight;
-                wrapBank.Background = new SolidColorBrush(Colors.AliceBlue);
+                wrapBank.Background = new SolidColorBrush(Colors.YellowGreen);
 
                 if (scrollBank != null)
                 {
@@ -1003,7 +989,7 @@ namespace Cookie_Clicker
             {
                 wrapTemple = new WrapPanel();
                 wrapTemple.Height = wrapHeight;
-                wrapTemple.Background = new SolidColorBrush(Colors.AliceBlue);
+                wrapTemple.Background = new SolidColorBrush(Colors.GreenYellow);
 
                 if (scrollTemple != null)
                 {
@@ -1301,7 +1287,7 @@ namespace Cookie_Clicker
         {
             clickCount = clickCount * upgradeCursorLevel;
             cookies = cookies - cookieCostUpgradeCursor;
-            cookieCostUpgradeCursor = cookieCostUpgradeCursor * 3.5;
+            cookieCostUpgradeCursor = cookieCostUpgradeCursor * upgradeCursorCostMultiplier;
         }
 
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1386,7 +1372,6 @@ namespace Cookie_Clicker
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
-
 
 
     }
