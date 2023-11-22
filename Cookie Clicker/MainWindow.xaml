@@ -6,8 +6,17 @@
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="640"
-        Icon="cookie.png" >
-    <Viewbox>
+        Icon="cookie.png" 
+        >
+    <!--<Window.Resources>
+        <Style x:Name="ScrollbarStyle" TargetType="ScrollBar">
+            <Setter Property="" Value="5"> </Setter>
+
+
+        </Style>
+    </Window.Resources>-->
+    <Viewbox Loaded="Viewbox_Loaded">
+        
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
@@ -23,7 +32,17 @@
                 <!-- Cookie panel -->
                 <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0">
                     <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Name="CookieStackPanel">
-                        <Label Name="LblCookiePerSecond" Content="0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
+                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label Name="LblBakeryName" Content="DefaultName" ></Label>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="Seconds" Name="LblSeconds"></Label>
+                            <Label Content="Tick" Name="LblTick"></Label>
+                            <Label Content="Clicks" Name="LblClicks"></Label>
+                        <Button Name="DevBtn" Content="Dev" Click="DevBtn_Click"></Button>
+                            
+                        </WrapPanel>
+                        <Label Name="LblCookiePerSecond" Content="0.0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
                         <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
                         <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                     </StackPanel>
