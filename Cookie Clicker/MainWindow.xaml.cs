@@ -29,7 +29,7 @@ namespace Cookie_Clicker
 
         int clicks = 0;
         private double cookies = 0;
-        private double cookiesPerSecond = 0;
+        private double cookiesPerSecond = 0.1;
         //amount gained per click
         double clickCount = 1;
 
