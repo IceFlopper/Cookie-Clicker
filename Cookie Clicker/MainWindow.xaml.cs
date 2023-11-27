@@ -65,12 +65,13 @@ namespace Cookie_Clicker
 
         //upgrades
         //cursorupgrade
+        int upgradeCursorCount = 0;
         int upgradeCursorCostMultiplier = 5;
         int upgradeCursorLevel = 2;
         double cookieCostUpgradeCursor = 100;
         //Clickerupgrade
         int upgradeClickerCount = 0;
-        int upgradeClickerLevel = 3;
+        int upgradeClickerLevel = 5;
         double cookieCostUpgradeClicker = 250;
         //grandmaupgrade
         int upgradeGrandmaCount = 0;
@@ -86,7 +87,7 @@ namespace Cookie_Clicker
         double cookieCostUpgradeMine = 30000;
         //clicker2upgrade
         int upgradeClicker2Count = 0;
-        int upgradeClicker2Level = 3;
+        int upgradeClicker2Level = 5;
         double cookieCostUpgradeClicker2 = 1250;
         //factoryupgrade
         int upgradeFactoryCount = 0;
@@ -1331,15 +1332,24 @@ namespace Cookie_Clicker
         //Cursor upgrade
         private void Upgrade1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            upgradeCursorCount++;
+
             clickCount = clickCount * upgradeCursorLevel;
             cookies = cookies - cookieCostUpgradeCursor;
             cookieCostUpgradeCursor = cookieCostUpgradeCursor * upgradeCursorCostMultiplier;
+            if (upgradeCursorCount >= 5)
+            {
+                upgradeCursorLevel = 3;
+            }
+            LblUpgrade1.Content = upgradeCursorLevel + "x" + " Cursor";
+
         }
 
         //Clicker upgrade
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             upgradeClickerCount++;
+
 
             cookiesPerSecond = cookiesPerSecond - (clickerProduction * clickerCount);
             clickerProduction = clickerProduction * upgradeClickerLevel;
@@ -1431,6 +1441,7 @@ namespace Cookie_Clicker
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
+
 
 
     }

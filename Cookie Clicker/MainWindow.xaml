@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="640"
+        Title="Cookie Clicker" Height="300" Width="640"
         Icon="cookie.png" 
         >
     <!--<Window.Resources>
