@@ -714,8 +714,6 @@ namespace Cookie_Clicker
                 scrollMine.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollMine.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                 StackMain.Children.Insert(3, scrollMine);
-
-                StackMain.Children.Insert(3, scrollMine);
                 scrollviewerMineCreated = true;
             }
 
