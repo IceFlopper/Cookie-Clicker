@@ -224,12 +224,6 @@ namespace Cookie_Clicker
                 To = 1.05,
                 Duration = TimeSpan.FromMilliseconds(100)
             };
-
-            DoubleAnimation growAnimation2 = new DoubleAnimation
-            {
-                To = 1,
-                Duration = TimeSpan.FromMilliseconds(100)
-            };
             ScaleTransform scaleTransform = new ScaleTransform();
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
 
@@ -254,14 +248,7 @@ namespace Cookie_Clicker
             scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation);
             scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation);
 
-
             growAnimation.Completed += (s, e) =>
-            {
-                scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, growAnimation2);
-                scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, growAnimation2);
-            };
-
-            growAnimation2.Completed += (s, e) =>
             {
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
                 scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
