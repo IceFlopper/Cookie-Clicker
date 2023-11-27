@@ -33,7 +33,7 @@
                 <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0">
                     <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Name="CookieStackPanel">
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Label Name="LblBakeryName" Content="DefaultName" ></Label>
+                            <Label Name="LblBakeryName" Content="PXL - Bakery" ></Label>
                         </WrapPanel>
                         <WrapPanel>
                             <Label Content="Seconds" Name="LblSeconds"></Label>
@@ -67,10 +67,11 @@
                     <StackPanel MaxWidth="240" MaxHeight="300">
                         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="2">
                             <StackPanel >
-                                <Border BorderBrush="Black" BorderThickness="0,0,0,2">
-                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Border BorderBrush="Black" BorderThickness="0,0,0,2" Name="StoreBorder">
+                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Name="StorePanel">
                                         <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                                     </WrapPanel>
+                                    
                                 </Border>
 
                                 <WrapPanel Name="WrapUpgrades">

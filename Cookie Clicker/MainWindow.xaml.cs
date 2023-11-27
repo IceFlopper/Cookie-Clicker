@@ -26,10 +26,11 @@ namespace Cookie_Clicker
     public partial class MainWindow : Window
     {
 
+        //all variables for the game
 
         int clicks = 0;
         private double cookies = 0;
-        private double cookiesPerSecond = 0.1;
+        private double cookiesPerSecond = 0;
         //amount gained per click
         double clickCount = 1;
 
@@ -92,29 +93,35 @@ namespace Cookie_Clicker
         int upgradeFactoryLevel = 2;
         double cookieCostUpgradeFactory = 200000;
 
+
+        //players for the sounds
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
 
-
+        //timers for game logic and updating
         DispatcherTimer gameTimer = new DispatcherTimer();
         DispatcherTimer secondsTimer = new DispatcherTimer();
 
         //height for wrap panels
         int wrapHeight = 50;
+        int imgSize = 45;
+
         public MainWindow()
         {
             InitializeComponent();
-            
 
+            //thread for thread.sleep in CookieLogic
             Thread cookieThread = new Thread(CookieLogic);
             cookieThread.Start();
 
-            
+
             soundBuy.Volume = 0.4;
 
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             gameTimer.Tick += gameTimer_tick;
+            //gameTimer.Tick += CookieLogic;
+
             gameTimer.Start();
 
             secondsTimer.Interval = TimeSpan.FromSeconds(1);
@@ -138,7 +145,7 @@ namespace Cookie_Clicker
             LblUpgrade5.Content = upgradeMineLevel + "x" + " Mine";
             LblUpgrade6.Content = upgradeClicker2Level + "x" + " Clicker";
 
-
+            
             CookieRotateAndBounce();
 
         }
@@ -204,6 +211,7 @@ namespace Cookie_Clicker
         RotateTransform rotateTransform = new RotateTransform();
         private void CookieRotateAndBounce()
         {
+            //cookie rotation and bounce effect
             DoubleAnimation growAnimation = new DoubleAnimation
             {
                 To = 0.95,
@@ -302,6 +310,7 @@ namespace Cookie_Clicker
         }
         private void UIupdate()
         {
+            //fix UI sizing dynamically
             if (WrapUpgrades.ActualHeight > 50)
             {
                 ScrollItems.MaxHeight = Math.Max(175, 175);
@@ -315,6 +324,7 @@ namespace Cookie_Clicker
         {
             public static string FormatCookies(double cCount)
             {
+                //format cookies to be easier to read
                 if (cCount > 10 && cCount < 9999)
                 {
                     return $"{(cCount):F0}";
@@ -353,6 +363,7 @@ namespace Cookie_Clicker
         }
         private void DrawCookies()
         {
+            //update all labels with formatting.
             LblCookie.Content = DrawLabel((long)cookies, "", " Cookies"); ;
             LblCostClicker.Content = DrawLabel((long)clickerCost, "Cost: ");
             LblCostGrandma.Content = DrawLabel((long)grandmaCost, "Cost: ");
@@ -364,6 +375,8 @@ namespace Cookie_Clicker
             LblCookiePerSecond.Content = DrawLabel(cookiesPerSecond, "", "/s");
 
         }
+
+        //all functionality for Clicker object
         private bool isMouseOverClicker = false;
 
         private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
@@ -425,12 +438,12 @@ namespace Cookie_Clicker
         private WrapPanel wrapClicker;
         private void ClickerMain()
         {
-            if (!wrapPanelClickerCreated)
+            if (!scrollviewerClickerCreated)
             {
                 scrollClicker = new ScrollViewer();
                 scrollClicker.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollClicker.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollClicker);
+                StackMain.Children.Insert(0, scrollClicker);
                 scrollviewerClickerCreated = true; 
             }
 
@@ -449,8 +462,8 @@ namespace Cookie_Clicker
 
                 Image ImgClicker = new Image();
             ImgClicker.Source = new BitmapImage(new Uri("Clicker.png", UriKind.RelativeOrAbsolute));
-            ImgClicker.Width = 40;
-            ImgClicker.Height = 40;
+            ImgClicker.Width = imgSize;
+            ImgClicker.Height = imgSize;
             ImgClicker.HorizontalAlignment = HorizontalAlignment.Center;
             ImgClicker.VerticalAlignment = VerticalAlignment.Center;
 
@@ -459,7 +472,7 @@ namespace Cookie_Clicker
         }
 
 
-        //function Grandma
+        //all functionality for Grandma object
         private bool isMouseOverGrandma = false;
 
         private void GrandmaP_MouseEnter(object sender, MouseEventArgs e)
@@ -525,7 +538,7 @@ namespace Cookie_Clicker
                 scrollGrandma = new ScrollViewer();
                 scrollGrandma.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollGrandma.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollGrandma);
+                StackMain.Children.Insert(1, scrollGrandma);
                 scrollviewerGrandmaCreated = true;
             }
 
@@ -544,8 +557,8 @@ namespace Cookie_Clicker
 
             Image imgGrandma = new Image();
             imgGrandma.Source = new BitmapImage(new Uri("Grandma.png", UriKind.RelativeOrAbsolute));
-            imgGrandma.Width = 40;
-            imgGrandma.Height = 40;
+            imgGrandma.Width = imgSize;
+            imgGrandma.Height = imgSize;
             imgGrandma.HorizontalAlignment = HorizontalAlignment.Center;
             imgGrandma.VerticalAlignment = VerticalAlignment.Center;
 
@@ -553,7 +566,7 @@ namespace Cookie_Clicker
         }
 
 
-        //function Farm
+        //all functionality for Farm object
         bool isMouseOverFarm = false;
 
         private void FarmP_MouseEnter(object sender, MouseEventArgs e)
@@ -621,7 +634,7 @@ namespace Cookie_Clicker
                 scrollFarm = new ScrollViewer();
                 scrollFarm.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollFarm.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollFarm);
+                StackMain.Children.Insert(2, scrollFarm);
                 scrollviewerFarmCreated = true;
             }
 
@@ -640,8 +653,8 @@ namespace Cookie_Clicker
 
             Image imgFarm = new Image();
             imgFarm.Source = new BitmapImage(new Uri("farm.png", UriKind.RelativeOrAbsolute));
-            imgFarm.Width = 40;
-            imgFarm.Height = 40;
+            imgFarm.Width = imgSize;
+            imgFarm.Height = imgSize;
             imgFarm.HorizontalAlignment = HorizontalAlignment.Center;
             imgFarm.VerticalAlignment = VerticalAlignment.Center;
 
@@ -649,7 +662,7 @@ namespace Cookie_Clicker
         }
 
 
-        //function Mine
+        //all functionality for Mine object
         bool isMouseOverMine = false;
         private void MineP_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -712,7 +725,9 @@ namespace Cookie_Clicker
                 scrollMine = new ScrollViewer();
                 scrollMine.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollMine.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollMine);
+                StackMain.Children.Insert(3, scrollMine);
+
+                StackMain.Children.Insert(3, scrollMine);
                 scrollviewerMineCreated = true;
             }
 
@@ -731,8 +746,8 @@ namespace Cookie_Clicker
 
             Image imgMine = new Image();
             imgMine.Source = new BitmapImage(new Uri("mine.png", UriKind.RelativeOrAbsolute));
-            imgMine.Width = 40;
-            imgMine.Height = 40;
+            imgMine.Width = imgSize;
+            imgMine.Height = imgSize;
             imgMine.HorizontalAlignment = HorizontalAlignment.Center;
             imgMine.VerticalAlignment = VerticalAlignment.Center;
 
@@ -740,7 +755,7 @@ namespace Cookie_Clicker
         }
 
 
-        //function Factory
+        //all functionality for Factory object
         bool isMouseOverFactory = false;
         private void FactoryP_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -804,7 +819,7 @@ namespace Cookie_Clicker
                 scrollFactory = new ScrollViewer();
                 scrollFactory.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollFactory.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollFactory);
+                StackMain.Children.Insert(4, scrollFactory);
                 scrollviewerFactoryCreated = true;
             }
 
@@ -823,8 +838,8 @@ namespace Cookie_Clicker
 
             Image imgFactory = new Image();
             imgFactory.Source = new BitmapImage(new Uri("factory.png", UriKind.RelativeOrAbsolute));
-            imgFactory.Width = 40;
-            imgFactory.Height = 40;
+            imgFactory.Width = imgSize;
+            imgFactory.Height = imgSize;
             imgFactory.HorizontalAlignment = HorizontalAlignment.Center;
             imgFactory.VerticalAlignment = VerticalAlignment.Center;
 
@@ -832,7 +847,7 @@ namespace Cookie_Clicker
         }
 
 
-        //function Bank
+        //all functionality for Bank object
         bool isMouseOverBank = false;
 
         private void BankP_MouseEnter(object sender, MouseEventArgs e)
@@ -899,7 +914,7 @@ namespace Cookie_Clicker
                 scrollBank = new ScrollViewer();
                 scrollBank.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollBank.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollBank);
+                StackMain.Children.Insert(5, scrollBank);
                 scrollviewerBankCreated = true;
             }
 
@@ -918,15 +933,15 @@ namespace Cookie_Clicker
 
             Image imgBank = new Image();
             imgBank.Source = new BitmapImage(new Uri("bank.png", UriKind.RelativeOrAbsolute));
-            imgBank.Width = 40;
-            imgBank.Height = 40;
+            imgBank.Width = imgSize;
+            imgBank.Height = imgSize;
             imgBank.HorizontalAlignment = HorizontalAlignment.Center;
             imgBank.VerticalAlignment = VerticalAlignment.Center;
 
             wrapBank.Children.Add(imgBank);
         }
 
-        //function Temple
+        //all functionality for Temple object
         bool isMouseOverTemple = false;
 
         private void TempleP_MouseEnter(object sender, MouseEventArgs e)
@@ -993,7 +1008,7 @@ namespace Cookie_Clicker
                 scrollTemple = new ScrollViewer();
                 scrollTemple.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollTemple.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                StackMain.Children.Add(scrollTemple);
+                StackMain.Children.Insert(6, scrollTemple);
                 scrollviewerTempleCreated = true;
             }
 
@@ -1012,8 +1027,8 @@ namespace Cookie_Clicker
 
             Image imgTemple = new Image();
             imgTemple.Source = new BitmapImage(new Uri("temple.png", UriKind.RelativeOrAbsolute));
-            imgTemple.Width = 40;
-            imgTemple.Height = 40;
+            imgTemple.Width = imgSize;
+            imgTemple.Height = imgSize;
             imgTemple.HorizontalAlignment = HorizontalAlignment.Center;
             imgTemple.VerticalAlignment = VerticalAlignment.Center;
 
@@ -1218,6 +1233,7 @@ namespace Cookie_Clicker
             {
                 BorderUpgradeMine.Visibility = Visibility.Visible;
 
+
                 if (cookies < cookieCostUpgradeMine)
                 {
                     Upgrade5.IsEnabled = false;
@@ -1236,9 +1252,17 @@ namespace Cookie_Clicker
                     Upgrade5.Background = new SolidColorBrush(Colors.SandyBrown);
                     LblUpgrade5.Foreground = new SolidColorBrush(Colors.Black);
                 }
-
             }
-            
+            else
+            {
+                if (cookies < cookieCostUpgradeMine)
+                {
+                    Upgrade5.IsEnabled = false;
+                    Upgrade5.Background = new SolidColorBrush(Colors.SaddleBrown);
+                    LblUpgrade5.Foreground = new SolidColorBrush(Colors.Wheat);
+                }
+            }
+
 
 
             //upgrade 6 Clicker2
@@ -1278,7 +1302,7 @@ namespace Cookie_Clicker
                     Upgrade7.Background = new SolidColorBrush(Colors.SaddleBrown);
                     LblUpgrade7.Foreground = new SolidColorBrush(Colors.Wheat);
                 }
-                else if (isMouseOverUpgrade7)
+                if (isMouseOverUpgrade7)
                 {
                     Upgrade7.IsEnabled = true;
                     Upgrade7.Background = new SolidColorBrush(Colors.RosyBrown);
@@ -1291,10 +1315,20 @@ namespace Cookie_Clicker
                     LblUpgrade7.Foreground = new SolidColorBrush(Colors.Black);
                 }
             }
+            else
+            {
+                if (cookies < cookieCostUpgradeFactory)
+                {
+                    Upgrade7.IsEnabled = false;
+                    Upgrade7.Background = new SolidColorBrush(Colors.SaddleBrown);
+                    LblUpgrade7.Foreground = new SolidColorBrush(Colors.Wheat);
+                }
+            }
 
 
         }
 
+        //Cursor upgrade
         private void Upgrade1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             clickCount = clickCount * upgradeCursorLevel;
@@ -1302,6 +1336,7 @@ namespace Cookie_Clicker
             cookieCostUpgradeCursor = cookieCostUpgradeCursor * upgradeCursorCostMultiplier;
         }
 
+        //Clicker upgrade
         private void Upgrade2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             upgradeClickerCount++;
@@ -1317,6 +1352,7 @@ namespace Cookie_Clicker
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
 
+        //Grandma upgrade
         private void Upgrade3_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             
@@ -1330,6 +1366,9 @@ namespace Cookie_Clicker
             double grandmaProductionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProductionRounded + "/s";
         }
+
+        //Farm upgrade
+
         private void Upgrade4_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             upgradeFarmCount++;
@@ -1343,6 +1382,9 @@ namespace Cookie_Clicker
             double farmProductionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProductionRounded + "/s";
         }
+
+        //Mine upgrade
+
         private void Upgrade5_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             upgradeMineCount++;
@@ -1356,6 +1398,9 @@ namespace Cookie_Clicker
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
         }
+
+        //Clicker2 upgrade
+
         private void Upgrade6_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             upgradeClicker2Count++;
@@ -1370,6 +1415,8 @@ namespace Cookie_Clicker
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
         }
+
+        //Factory upgrade
 
         private void Upgrade7_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
