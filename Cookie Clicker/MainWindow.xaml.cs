@@ -286,6 +286,7 @@ namespace Cookie_Clicker
             LblTick.Content = "Ticks" + tick;
 
             DrawCookies();
+            Tooltips();
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
@@ -361,7 +362,13 @@ namespace Cookie_Clicker
             LblCostBank.Content = DrawLabel((long)bankCost, "Cost: ");
             LblCostTemple.Content = DrawLabel((long)templeCost, "Cost: ");
             LblCookiePerSecond.Content = DrawLabel(cookiesPerSecond, "", "/s");
-
+            TooltipUpgrade1.Content = DrawLabel(cookieCostUpgradeCursor, "Costs: ");
+            TooltipUpgrade2.Content = DrawLabel(cookieCostUpgradeClicker, "Costs: ");
+            TooltipUpgrade3.Content = DrawLabel(cookieCostUpgradeGrandma, "Costs: ");
+            TooltipUpgrade4.Content = DrawLabel(cookieCostUpgradeFarm, "Costs: ");
+            TooltipUpgrade5.Content = DrawLabel(cookieCostUpgradeMine, "Costs: ");
+            TooltipUpgrade6.Content = DrawLabel(cookieCostUpgradeClicker2, "Costs: ");
+            TooltipUpgrade7.Content = DrawLabel(cookieCostUpgradeFactory, "Costs: ");
         }
 
         //all functionality for Clicker object
@@ -415,16 +422,21 @@ namespace Cookie_Clicker
             LblClickerProd.Content = clickerProductionRounded + "/s";
 
             //add thing in middle
-            ClickerMain();
+            ClickerWrap();
+            ClickerImageSpawn();
+            scrollClicker.Visibility = Visibility.Visible;
+
 
 
         }
 
         private bool wrapPanelClickerCreated = false;
         private bool scrollviewerClickerCreated = false;
+        private bool imgClickerCreated = false;
         private ScrollViewer scrollClicker;
         private WrapPanel wrapClicker;
-        private void ClickerMain()
+
+        private void ClickerWrap()
         {
             if (!scrollviewerClickerCreated)
             {
@@ -432,7 +444,7 @@ namespace Cookie_Clicker
                 scrollClicker.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 scrollClicker.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                 StackMain.Children.Insert(0, scrollClicker);
-                scrollviewerClickerCreated = true; 
+                scrollviewerClickerCreated = true;
             }
 
             if (!wrapPanelClickerCreated)
@@ -443,10 +455,13 @@ namespace Cookie_Clicker
 
                 if (scrollClicker != null)
                 {
-                    scrollClicker.Content = wrapClicker; 
+                    scrollClicker.Content = wrapClicker;
                     wrapPanelClickerCreated = true;
                 }
             }
+        }
+        private void ClickerImageSpawn()
+        {
 
                 Image ImgClicker = new Image();
             ImgClicker.Source = new BitmapImage(new Uri("Clicker.png", UriKind.RelativeOrAbsolute));
@@ -457,6 +472,7 @@ namespace Cookie_Clicker
 
 
             wrapClicker.Children.Add(ImgClicker);
+            imgClickerCreated = true;
         }
 
 
@@ -512,14 +528,19 @@ namespace Cookie_Clicker
             LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
 
             //add thing in middle
-            GrandmaMain();
+            ClickerWrap();
+            GrandmaWrap();
+            GrandmaImageSpawn();
+            scrollGrandma.Visibility = Visibility.Visible;
+
         }
         private bool wrapPanelGrandmaCreated = false;
         private bool scrollviewerGrandmaCreated = false;
+        private bool imgGrandmaCreated = false;
         private ScrollViewer scrollGrandma;
         private WrapPanel wrapGrandma;
 
-        private void GrandmaMain()
+        private void GrandmaWrap()
         {
             if (!scrollviewerGrandmaCreated)
             {
@@ -538,10 +559,15 @@ namespace Cookie_Clicker
 
                 if (scrollGrandma != null)
                 {
+                    if (imgClickerCreated == false)
+                    {scrollClicker.Visibility = Visibility.Collapsed;}
                     scrollGrandma.Content = wrapGrandma;
                     wrapPanelGrandmaCreated = true;
                 }
             }
+        }
+        private void GrandmaImageSpawn()
+        {
 
             Image imgGrandma = new Image();
             imgGrandma.Source = new BitmapImage(new Uri("Grandma.png", UriKind.RelativeOrAbsolute));
@@ -551,6 +577,7 @@ namespace Cookie_Clicker
             imgGrandma.VerticalAlignment = VerticalAlignment.Center;
 
             wrapGrandma.Children.Add(imgGrandma);
+            imgGrandmaCreated = true;
         }
 
 
@@ -606,16 +633,22 @@ namespace Cookie_Clicker
             farmCost = Math.Round(farmCost);
             double farmProudctionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProudctionRounded + "/s";
+            ClickerWrap();
+            GrandmaWrap();
+            FarmWrap();
+            FarmImageSpawn();
 
-            FarmMain();
+            scrollFarm.Visibility = Visibility.Visible;
+
         }
 
         private bool wrapPanelFarmCreated = false;
         private bool scrollviewerFarmCreated = false;
+        private bool imgFarmCreated = false;
         private ScrollViewer scrollFarm;
         private WrapPanel wrapFarm;
 
-        private void FarmMain()
+        private void FarmWrap()
         {
             if (!scrollviewerFarmCreated)
             {
@@ -634,10 +667,18 @@ namespace Cookie_Clicker
 
                 if (scrollFarm != null)
                 {
+                    if (imgClickerCreated == false)
+                    {scrollClicker.Visibility = Visibility.Collapsed;}
+                    if (imgGrandmaCreated == false)
+                    {scrollGrandma.Visibility = Visibility.Collapsed;}
+
                     scrollFarm.Content = wrapFarm;
                     wrapPanelFarmCreated = true;
                 }
             }
+        }
+        private void FarmImageSpawn()
+        {
 
             Image imgFarm = new Image();
             imgFarm.Source = new BitmapImage(new Uri("farm.png", UriKind.RelativeOrAbsolute));
@@ -647,6 +688,7 @@ namespace Cookie_Clicker
             imgFarm.VerticalAlignment = VerticalAlignment.Center;
 
             wrapFarm.Children.Add(imgFarm);
+            imgFarmCreated = true;
         }
 
 
@@ -699,14 +741,21 @@ namespace Cookie_Clicker
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
 
-            MineMain();
+            ClickerWrap();
+            GrandmaWrap();
+            FarmWrap();
+            MineWrap();
+            MineImageSpawn();
+
+            scrollMine.Visibility = Visibility.Visible;
         }
         private bool wrapPanelMineCreated = false;
         private bool scrollviewerMineCreated = false;
+        private bool imgMineCreated = false;
         private ScrollViewer scrollMine;
         private WrapPanel wrapMine;
 
-        private void MineMain()
+        private void MineWrap()
         {
             if (!scrollviewerMineCreated)
             {
@@ -725,10 +774,20 @@ namespace Cookie_Clicker
 
                 if (scrollMine != null)
                 {
+                    if (imgClickerCreated == false)
+                    { scrollClicker.Visibility = Visibility.Collapsed;}
+                    if (imgGrandmaCreated == false)
+                    { scrollGrandma.Visibility = Visibility.Collapsed;}
+                    if (imgFarmCreated == false)
+                    {  scrollFarm.Visibility = Visibility.Collapsed;}
                     scrollMine.Content = wrapMine;
                     wrapPanelMineCreated = true;
                 }
             }
+        }
+        private void MineImageSpawn()
+        {
+
 
             Image imgMine = new Image();
             imgMine.Source = new BitmapImage(new Uri("mine.png", UriKind.RelativeOrAbsolute));
@@ -738,6 +797,7 @@ namespace Cookie_Clicker
             imgMine.VerticalAlignment = VerticalAlignment.Center;
 
             wrapMine.Children.Add(imgMine);
+            imgMineCreated = true;
         }
 
 
@@ -791,14 +851,22 @@ namespace Cookie_Clicker
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
 
-            FactoryMain();
+            ClickerWrap();
+            GrandmaWrap();
+            FarmWrap();
+            MineWrap();
+            FactoryWrap();
+            FactoryImageSpawn();
+
+            scrollFactory.Visibility = Visibility.Visible;
         }
         private bool wrapPanelFactoryCreated = false;
         private bool scrollviewerFactoryCreated = false;
+        private bool imgFactoryCreated = false;
         private ScrollViewer scrollFactory;
         private WrapPanel wrapFactory;
 
-        private void FactoryMain()
+        private void FactoryWrap()
         {
             if (!scrollviewerFactoryCreated)
             {
@@ -817,10 +885,23 @@ namespace Cookie_Clicker
 
                 if (scrollFactory != null)
                 {
+                    if (imgClickerCreated == false) 
+                    { scrollClicker.Visibility = Visibility.Collapsed; }
+                    if (imgGrandmaCreated == false) 
+                    { scrollGrandma.Visibility = Visibility.Collapsed; }
+                    if (imgFarmCreated == false)
+                    { scrollFarm.Visibility = Visibility.Collapsed; }
+                    if (imgMineCreated == false)
+                    { scrollMine.Visibility = Visibility.Collapsed; }
+                    
                     scrollFactory.Content = wrapFactory;
                     wrapPanelFactoryCreated = true;
                 }
             }
+        }
+        private void FactoryImageSpawn()
+        {
+
 
             Image imgFactory = new Image();
             imgFactory.Source = new BitmapImage(new Uri("factory.png", UriKind.RelativeOrAbsolute));
@@ -830,6 +911,7 @@ namespace Cookie_Clicker
             imgFactory.VerticalAlignment = VerticalAlignment.Center;
 
             wrapFactory.Children.Add(imgFactory);
+            imgFactoryCreated = true;
         }
 
 
@@ -886,14 +968,23 @@ namespace Cookie_Clicker
             double bankProductionRounded = Math.Round(bankProduction, 2);
             LblBankProd.Content = bankProductionRounded + "/s";
 
-            BankMain();
+            ClickerWrap();
+            GrandmaWrap();
+            FarmWrap();
+            MineWrap();
+            FactoryWrap();
+            BankWrap();
+            BankImageSpawn();
+
+            scrollBank.Visibility = Visibility.Visible;
         }
         private bool wrapPanelBankCreated = false;
         private bool scrollviewerBankCreated = false;
+        private bool imgBankCreated = false;
         private ScrollViewer scrollBank;
         private WrapPanel wrapBank;
 
-        private void BankMain()
+        private void BankWrap()
         {
             if (!scrollviewerBankCreated)
             {
@@ -912,11 +1003,23 @@ namespace Cookie_Clicker
 
                 if (scrollBank != null)
                 {
+                    if (imgClickerCreated == false)
+                    { scrollClicker.Visibility = Visibility.Collapsed; }
+                    if (imgGrandmaCreated == false)
+                    { scrollGrandma.Visibility = Visibility.Collapsed; }
+                    if (imgFarmCreated == false)
+                    { scrollFarm.Visibility = Visibility.Collapsed; }
+                    if (imgMineCreated == false)
+                    { scrollMine.Visibility = Visibility.Collapsed; }
+                    if (imgFactoryCreated == false)
+                    { scrollFactory.Visibility = Visibility.Collapsed; }
                     scrollBank.Content = wrapBank;
                     wrapPanelBankCreated = true;
                 }
             }
-
+        }
+        private void BankImageSpawn()
+        {
             Image imgBank = new Image();
             imgBank.Source = new BitmapImage(new Uri("bank.png", UriKind.RelativeOrAbsolute));
             imgBank.Width = imgSize;
@@ -925,6 +1028,7 @@ namespace Cookie_Clicker
             imgBank.VerticalAlignment = VerticalAlignment.Center;
 
             wrapBank.Children.Add(imgBank);
+            imgBankCreated = true;
         }
 
         //all functionality for Temple object
@@ -980,14 +1084,24 @@ namespace Cookie_Clicker
             double templeProductionRounded = Math.Round(templeProduction, 2);
             LblTempleProd.Content = templeProductionRounded + "/s";
 
-            TempleMain();
+            ClickerWrap();
+            GrandmaWrap();
+            FarmWrap();
+            MineWrap();
+            FactoryWrap();
+            BankWrap();
+            TempleWrap();
+            TempleImageSpawn();
+            scrollTemple.Visibility = Visibility.Visible;
         }
         private bool wrapPanelTempleCreated = false;
         private bool scrollviewerTempleCreated = false;
+        private bool imgTempleCreated = false;
         private ScrollViewer scrollTemple;
         private WrapPanel wrapTemple;
 
-        private void TempleMain()
+
+        private void TempleWrap()
         {
             if (!scrollviewerTempleCreated)
             {
@@ -1006,10 +1120,26 @@ namespace Cookie_Clicker
 
                 if (scrollTemple != null)
                 {
+                    if (imgClickerCreated == false)
+                    { scrollClicker.Visibility = Visibility.Collapsed; }
+                    if (imgGrandmaCreated == false)
+                    { scrollGrandma.Visibility = Visibility.Collapsed; }
+                    if (imgFarmCreated == false)
+                    { scrollFarm.Visibility = Visibility.Collapsed; }
+                    if (imgMineCreated == false)
+                    { scrollMine.Visibility = Visibility.Collapsed; }
+                    if (imgFactoryCreated == false)
+                    { scrollFactory.Visibility = Visibility.Collapsed; }
+                    if (imgBankCreated == false)
+                    { scrollBank.Visibility = Visibility.Collapsed; }
                     scrollTemple.Content = wrapTemple;
                     wrapPanelTempleCreated = true;
                 }
             }
+        }
+        private void TempleImageSpawn()
+        {
+
 
             Image imgTemple = new Image();
             imgTemple.Source = new BitmapImage(new Uri("temple.png", UriKind.RelativeOrAbsolute));
@@ -1019,6 +1149,7 @@ namespace Cookie_Clicker
             imgTemple.VerticalAlignment = VerticalAlignment.Center;
 
             wrapTemple.Children.Add(imgTemple);
+            imgTempleCreated = true;
         }
         //hover function Upgrade1 Cursor
 
@@ -1427,7 +1558,12 @@ namespace Cookie_Clicker
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
 
+        private void Tooltips()
+        {
 
+
+
+        }
 
     }
 }
