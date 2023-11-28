@@ -94,9 +94,10 @@
                                     <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker1">
                                         <WrapPanel>
                                             <StackPanel Name="Upgrade2" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade2_MouseLeftButtonDown" MouseEnter="Upgrade2_MouseEnter" MouseLeave="Upgrade2_MouseLeave">
-                                                <StackPanel.ToolTip>
+                                                <StackPanel.ToolTip >
                                                     <ToolTip Content="Costs:" Name="TooltipUpgrade2">
                                                         <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+
                                                     </ToolTip>
                                                 </StackPanel.ToolTip>
                                                 <Label Name="LblUpgrade2" Content="2x Clicker" FontSize="9"  Margin="-5" HorizontalAlignment="Center" Foreground="Wheat"></Label>
@@ -168,7 +169,7 @@
                                         <WrapPanel>
                                             <StackPanel Name="Upgrade7" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade7_MouseLeftButtonDown"  MouseEnter="Upgrade7_MouseEnter" MouseLeave="Upgrade7_MouseLeave">
                                                 <StackPanel.ToolTip>
-                                                    <ToolTip Content="Costs:" Name="TooltipUpgrade7">
+                                                    <ToolTip Content="Costs:" Name="TooltipUpgrade7" >
                                                         <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
                                                     </ToolTip>
                                                 </StackPanel.ToolTip>

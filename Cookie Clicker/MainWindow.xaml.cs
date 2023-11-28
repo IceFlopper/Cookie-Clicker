@@ -152,16 +152,26 @@ namespace Cookie_Clicker
         }
         private void Viewbox_Loaded(object sender, RoutedEventArgs e)
         {
-            string bakeryName = Interaction.InputBox("Enter Bakery Name", "Bakery Name", "");
-            if (!string.IsNullOrEmpty(bakeryName))
-            {
-                LblBakeryName.Content = "Bakery: " + bakeryName;
-            }
-            else
-            {
+            string bakeryName = "";
 
+            while (string.IsNullOrEmpty(bakeryName) || bakeryName.Length > 20)
+            {
+                bakeryName = Interaction.InputBox("Enter Bakery Name", "Bakery Name", "");
+
+                if (string.IsNullOrEmpty(bakeryName))
+                {
+                    return;
+                }
+                if (bakeryName.Length > 20)
+                {
+                    MessageBox.Show("Name must be equal or less than 20 characters or empty!");
+                }
             }
+
+            LblBakeryName.Content = "Bakery: " + bakeryName;
         }
+
+
 
         private void DevBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -206,8 +216,6 @@ namespace Cookie_Clicker
         }
 
         double currentCookieRotation = 0;
-
-
 
         RotateTransform rotateTransform = new RotateTransform();
         private void CookieRotateAndBounce()
@@ -279,14 +287,12 @@ namespace Cookie_Clicker
 
         }
 
-
         private void gameTimer_tick(object sender, EventArgs e)
         {
             //update game every 10ms
             LblTick.Content = "Ticks" + tick;
 
             DrawCookies();
-            Tooltips();
             ClickerVerify();
             GrandmaVerify();
             FarmVerify();
@@ -1557,13 +1563,5 @@ namespace Cookie_Clicker
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
-
-        private void Tooltips()
-        {
-
-
-
-        }
-
     }
 }
