@@ -88,7 +88,7 @@ namespace Cookie_Clicker
         //clicker2upgrade
         int upgradeClicker2Count = 0;
         int upgradeClicker2Level = 5;
-        double cookieCostUpgradeClicker2 = 1250;
+        double cookieCostUpgradeClicker2 = 10000;
         //factoryupgrade
         int upgradeFactoryCount = 0;
         int upgradeFactoryLevel = 2;
@@ -156,7 +156,7 @@ namespace Cookie_Clicker
 
             while (string.IsNullOrEmpty(bakeryName) || bakeryName.Length > 20)
             {
-                bakeryName = Interaction.InputBox("Enter Bakery Name", "Bakery Name", "");
+                bakeryName = Interaction.InputBox("What's your name? (below 20 characters)", "Bakery name", "");
 
                 if (string.IsNullOrEmpty(bakeryName))
                 {
@@ -205,12 +205,12 @@ namespace Cookie_Clicker
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    double increment = cookiesPerSecond * 0.01;
+                    double increment = cookiesPerSecond * 0.005;
                     cookies += increment;
                 }
 
                 tick += 1;
-                Thread.Sleep(100);
+                Thread.Sleep(50);
 
             }
         }
