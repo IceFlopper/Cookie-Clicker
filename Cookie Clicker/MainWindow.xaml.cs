@@ -168,7 +168,7 @@ namespace Cookie_Clicker
                 }
             }
 
-            LblBakeryName.Content = "Bakery: " + bakeryName;
+            LblBakeryName.Content = bakeryName + "'s Bakery";
         }
 
 
@@ -320,7 +320,8 @@ namespace Cookie_Clicker
             public static string FormatCookies(double cCount)
             {
                 //format cookies to be easier to read
-                if (cCount > 10 && cCount < 9999)
+                
+                if(cCount > 10 && cCount < 9999)
                 {
                     return $"{(cCount):F0}";
                 }
@@ -367,7 +368,8 @@ namespace Cookie_Clicker
             LblCostFactory.Content = DrawLabel((long)factoryCost, "Cost: ");
             LblCostBank.Content = DrawLabel((long)bankCost, "Cost: ");
             LblCostTemple.Content = DrawLabel((long)templeCost, "Cost: ");
-            LblCookiePerSecond.Content = DrawLabel(cookiesPerSecond, "", "/s");
+            LblCookiePerSecond.Content = DrawLabel(Math.Round(cookiesPerSecond, 2), "", "/s");
+
             TooltipUpgrade1.Content = DrawLabel(cookieCostUpgradeCursor, "Costs: ");
             TooltipUpgrade2.Content = DrawLabel(cookieCostUpgradeClicker, "Costs: ");
             TooltipUpgrade3.Content = DrawLabel(cookieCostUpgradeGrandma, "Costs: ");
@@ -422,6 +424,7 @@ namespace Cookie_Clicker
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
+            clickerProduction = clickerProduction * 1.10;
 
             clickerCost = Math.Round(clickerCost);
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
@@ -528,6 +531,8 @@ namespace Cookie_Clicker
             cookies = cookies - grandmaCost;
             grandmaCost = grandmaCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
+            grandmaProduction = grandmaProduction * 1.10;
+
 
             grandmaCost = Math.Round(grandmaCost);
             double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
@@ -635,6 +640,7 @@ namespace Cookie_Clicker
             cookies = cookies - farmCost;
             farmCost = farmCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + farmProduction;
+            farmProduction = farmProduction * 1.10;
 
             farmCost = Math.Round(farmCost);
             double farmProudctionRounded = Math.Round(farmProduction, 2);
@@ -742,6 +748,7 @@ namespace Cookie_Clicker
             cookies = cookies - mineCost;
             mineCost = mineCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + mineProduction;
+            mineProduction = mineProduction * 1.10;
 
             mineCost = Math.Round(mineCost);
             double mineProductionRounded = Math.Round(mineProduction, 2);
@@ -852,6 +859,7 @@ namespace Cookie_Clicker
             cookies = cookies - factoryCost;
             factoryCost = factoryCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + factoryProduction;
+            factoryProduction = factoryProduction * 1.10;
 
             factoryCost = Math.Round(factoryCost);
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
@@ -969,6 +977,7 @@ namespace Cookie_Clicker
             cookies = cookies - bankCost;
             bankCost = bankCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + bankProduction;
+            bankProduction = bankProduction * 1.10;
 
             bankCost = Math.Round(bankCost);
             double bankProductionRounded = Math.Round(bankProduction, 2);
@@ -1085,6 +1094,7 @@ namespace Cookie_Clicker
             cookies = cookies - templeCost;
             templeCost = templeCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + templeProduction;
+            templeProduction = templeProduction * 1.10;
 
             templeCost = Math.Round(templeCost);
             double templeProductionRounded = Math.Round(templeProduction, 2);
