@@ -152,6 +152,7 @@ namespace Cookie_Clicker
         }
         private void Viewbox_Loaded(object sender, RoutedEventArgs e)
         {
+            //make inputbo for bakery name label
             string bakeryName = "";
 
             while (string.IsNullOrEmpty(bakeryName) || bakeryName.Length > 20)
@@ -266,25 +267,16 @@ namespace Cookie_Clicker
         }
         private void SoundClickOn()
         {
-            try
-            {
+            //cookie click sound
                 soundClick.Open(new Uri("clickOn.wav", UriKind.RelativeOrAbsolute));
                 soundClick.Play();
-            }
-            catch (Exception)
-            { throw; }
         }
 
         private void BuyItemSound()
         {
-            try
-            {
+            //buy item click sound
                 soundBuy.Open(new Uri("buy1.wav", UriKind.RelativeOrAbsolute));
                 soundBuy.Play();
-            }
-            catch (Exception)
-            { }
-
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
@@ -354,6 +346,7 @@ namespace Cookie_Clicker
 
         private string DrawLabel(double amount, string prefix = "", string suffix = "")
         {
+            //cookie formatter main function
             string label = CookieFormatter.FormatCookies(amount);
             return prefix + label + suffix;
         }
@@ -384,12 +377,14 @@ namespace Cookie_Clicker
 
         private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverClicker = true;
             ClickerVerify();
         }
 
         private void ClickerP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverClicker = false;
             ClickerVerify();
         }
@@ -420,17 +415,17 @@ namespace Cookie_Clicker
             //add 1 clicker to clicker count when executed
             clickerCount++;
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
             clickerProduction = clickerProduction * 1.10;
-
+            //round cost of production
             clickerCost = Math.Round(clickerCost);
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
 
-            //add thing in middle
+            //show investment in middle
             ClickerWrap();
             ClickerImageSpawn();
             scrollClicker.Visibility = Visibility.Visible;
@@ -447,6 +442,8 @@ namespace Cookie_Clicker
 
         private void ClickerWrap()
         {
+            //make clicker UI elemnt in middle of screen and create children if needed
+
             if (!scrollviewerClickerCreated)
             {
                 scrollClicker = new ScrollViewer();
@@ -471,8 +468,9 @@ namespace Cookie_Clicker
         }
         private void ClickerImageSpawn()
         {
+            //create image element inside the wrap UI element
 
-                Image ImgClicker = new Image();
+            Image ImgClicker = new Image();
             ImgClicker.Source = new BitmapImage(new Uri("Clicker.png", UriKind.RelativeOrAbsolute));
             ImgClicker.Width = imgSize;
             ImgClicker.Height = imgSize;
@@ -490,12 +488,14 @@ namespace Cookie_Clicker
 
         private void GrandmaP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverGrandma = true;
             GrandmaVerify();
         }
 
         private void GrandmaP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverGrandma = false;
             GrandmaVerify();
         }
@@ -527,18 +527,17 @@ namespace Cookie_Clicker
             //add 1 grandma to grandma count when executed
             grandmaCount++;
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - grandmaCost;
             grandmaCost = grandmaCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
             grandmaProduction = grandmaProduction * 1.10;
-
-
+            //round cost of production
             grandmaCost = Math.Round(grandmaCost);
             double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
 
-            //add thing in middle
+            //show investment in middle
             ClickerWrap();
             GrandmaWrap();
             GrandmaImageSpawn();
@@ -553,6 +552,8 @@ namespace Cookie_Clicker
 
         private void GrandmaWrap()
         {
+            //make grandma UI elemnt in middle of screen and create children if needed
+
             if (!scrollviewerGrandmaCreated)
             {
                 scrollGrandma = new ScrollViewer();
@@ -579,6 +580,7 @@ namespace Cookie_Clicker
         }
         private void GrandmaImageSpawn()
         {
+            //create image element inside the wrap UI element
 
             Image imgGrandma = new Image();
             imgGrandma.Source = new BitmapImage(new Uri("Grandma.png", UriKind.RelativeOrAbsolute));
@@ -597,6 +599,7 @@ namespace Cookie_Clicker
 
         private void FarmP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverFarm = true;
             FarmVerify();
 
@@ -604,6 +607,7 @@ namespace Cookie_Clicker
 
         private void FarmP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverFarm = false;
             FarmVerify();
         }
@@ -636,15 +640,17 @@ namespace Cookie_Clicker
             //add 1 farm to grandma count when executed
             farmCount++;
             LblFarm.Content = "Farm" + "s: " + farmCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - farmCost;
             farmCost = farmCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + farmProduction;
             farmProduction = farmProduction * 1.10;
-
+            //round cost of production
             farmCost = Math.Round(farmCost);
             double farmProudctionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProudctionRounded + "/s";
+
+            //show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -662,6 +668,7 @@ namespace Cookie_Clicker
 
         private void FarmWrap()
         {
+            //make farm UI elemnt in middle of screen and create children if needed
             if (!scrollviewerFarmCreated)
             {
                 scrollFarm = new ScrollViewer();
@@ -691,6 +698,7 @@ namespace Cookie_Clicker
         }
         private void FarmImageSpawn()
         {
+            //create image element inside the wrap UI element
 
             Image imgFarm = new Image();
             imgFarm.Source = new BitmapImage(new Uri("farm.png", UriKind.RelativeOrAbsolute));
@@ -708,12 +716,14 @@ namespace Cookie_Clicker
         bool isMouseOverMine = false;
         private void MineP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverMine = true;
             MineVerify();
         }
 
         private void MineP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverMine = false;
             MineVerify();
         }
@@ -744,16 +754,17 @@ namespace Cookie_Clicker
             //add 1 mine to mine count when executed
             mineCount++;
             LblMine.Content = "Mine" + "s: " + mineCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - mineCost;
             mineCost = mineCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + mineProduction;
             mineProduction = mineProduction * 1.10;
-
+            //round cost of production
             mineCost = Math.Round(mineCost);
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
 
+            //show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -770,6 +781,8 @@ namespace Cookie_Clicker
 
         private void MineWrap()
         {
+            //make mine UI elemnt in middle of screen and create children if needed
+
             if (!scrollviewerMineCreated)
             {
                 scrollMine = new ScrollViewer();
@@ -800,7 +813,7 @@ namespace Cookie_Clicker
         }
         private void MineImageSpawn()
         {
-
+            //create image element inside the wrap UI element
 
             Image imgMine = new Image();
             imgMine.Source = new BitmapImage(new Uri("mine.png", UriKind.RelativeOrAbsolute));
@@ -818,12 +831,14 @@ namespace Cookie_Clicker
         bool isMouseOverFactory = false;
         private void FactoryP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverFactory = true;
             FactoryVerify();
         }
 
         private void FactoryP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverFactory = false;
             FactoryVerify();
 
@@ -855,16 +870,16 @@ namespace Cookie_Clicker
             // add 1 factory to factory count when executed
             factoryCount++;
             LblFactory.Content = "Factory" + "s: " + factoryCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - factoryCost;
             factoryCost = factoryCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + factoryProduction;
             factoryProduction = factoryProduction * 1.10;
-
+            //round cost of production
             factoryCost = Math.Round(factoryCost);
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
-
+            //show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -882,6 +897,8 @@ namespace Cookie_Clicker
 
         private void FactoryWrap()
         {
+            //make factory UI elemnt in middle of screen and create children if needed
+
             if (!scrollviewerFactoryCreated)
             {
                 scrollFactory = new ScrollViewer();
@@ -915,7 +932,7 @@ namespace Cookie_Clicker
         }
         private void FactoryImageSpawn()
         {
-
+            //create image element inside the wrap UI element
 
             Image imgFactory = new Image();
             imgFactory.Source = new BitmapImage(new Uri("factory.png", UriKind.RelativeOrAbsolute));
@@ -934,12 +951,14 @@ namespace Cookie_Clicker
 
         private void BankP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverBank = true;
             BankVerify();
         }
 
         private void BankP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverBank = false;
             BankVerify();
         }
@@ -973,16 +992,16 @@ namespace Cookie_Clicker
             // add 1 bank to bank count when executed
             bankCount++;
             LblBank.Content = "Bank" + "s: " + bankCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - bankCost;
             bankCost = bankCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + bankProduction;
             bankProduction = bankProduction * 1.10;
-
+            //round cost of production
             bankCost = Math.Round(bankCost);
             double bankProductionRounded = Math.Round(bankProduction, 2);
             LblBankProd.Content = bankProductionRounded + "/s";
-
+            //show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -1001,6 +1020,8 @@ namespace Cookie_Clicker
 
         private void BankWrap()
         {
+            //make bank UI elemnt in middle of screen and create children if needed
+
             if (!scrollviewerBankCreated)
             {
                 scrollBank = new ScrollViewer();
@@ -1035,6 +1056,8 @@ namespace Cookie_Clicker
         }
         private void BankImageSpawn()
         {
+            //create image element inside the wrap UI element
+
             Image imgBank = new Image();
             imgBank.Source = new BitmapImage(new Uri("bank.png", UriKind.RelativeOrAbsolute));
             imgBank.Width = imgSize;
@@ -1051,12 +1074,14 @@ namespace Cookie_Clicker
 
         private void TempleP_MouseEnter(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect in
             isMouseOverTemple = true;
             TempleVerify();
         }
 
         private void TempleP_MouseLeave(object sender, MouseEventArgs e)
         {
+            //upgrade hover effect out
             isMouseOverTemple = false;
             TempleVerify();
         }
@@ -1090,16 +1115,16 @@ namespace Cookie_Clicker
             // Add 1 Temple to Temple count when executed
             templeCount++;
             LblTemple.Content = "Temple" + "s: " + templeCount;
-
+            //increase cost and increase production for scaling
             cookies = cookies - templeCost;
             templeCost = templeCost * 1.25;
             cookiesPerSecond = cookiesPerSecond + templeProduction;
             templeProduction = templeProduction * 1.10;
-
+            //round cost of production
             templeCost = Math.Round(templeCost);
             double templeProductionRounded = Math.Round(templeProduction, 2);
             LblTempleProd.Content = templeProductionRounded + "/s";
-
+            //show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -1119,6 +1144,8 @@ namespace Cookie_Clicker
 
         private void TempleWrap()
         {
+            //make temple UI elemnt in middle of screen and create children if needed
+
             if (!scrollviewerTempleCreated)
             {
                 scrollTemple = new ScrollViewer();
@@ -1155,7 +1182,7 @@ namespace Cookie_Clicker
         }
         private void TempleImageSpawn()
         {
-
+            //create image element inside the wrap UI element
 
             Image imgTemple = new Image();
             imgTemple.Source = new BitmapImage(new Uri("temple.png", UriKind.RelativeOrAbsolute));
