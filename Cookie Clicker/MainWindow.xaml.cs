@@ -31,6 +31,8 @@ namespace Cookie_Clicker
         int clicks = 0;
         private double cookies = 0;
         private double cookiesPerSecond = 0;
+        double prodMultiplier = 1.05;
+        double costMultiplier = 1.25;
         //amount gained per click
         double clickCount = 1;
 
@@ -157,7 +159,7 @@ namespace Cookie_Clicker
 
             while (string.IsNullOrEmpty(bakeryName) || bakeryName.Length > 20)
             {
-                bakeryName = Interaction.InputBox("What's your name? (below 20 characters)", "Bakery name", "");
+                bakeryName = Interaction.InputBox("What's your bakery name? (below 20 characters)", "Bakery name", "");
 
                 if (string.IsNullOrEmpty(bakeryName))
                 {
@@ -206,13 +208,12 @@ namespace Cookie_Clicker
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    double increment = cookiesPerSecond * 0.005;
+                    double increment = cookiesPerSecond * 0.0025;
                     cookies += increment;
                 }
 
                 tick += 1;
-                Thread.Sleep(50);
-
+                Thread.Sleep(25);
             }
         }
 
@@ -417,9 +418,9 @@ namespace Cookie_Clicker
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
             //increase cost and increase production for scaling
             cookies = cookies - clickerCost;
-            clickerCost = clickerCost * 1.25;
+            clickerCost = clickerCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
-            clickerProduction = clickerProduction * 1.10;
+            clickerProduction = clickerProduction * prodMultiplier;
             //round cost of production
             clickerCost = Math.Round(clickerCost);
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
@@ -529,9 +530,9 @@ namespace Cookie_Clicker
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
             //increase cost and increase production for scaling
             cookies = cookies - grandmaCost;
-            grandmaCost = grandmaCost * 1.25;
+            grandmaCost = grandmaCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
-            grandmaProduction = grandmaProduction * 1.10;
+            grandmaProduction = grandmaProduction * prodMultiplier;
             //round cost of production
             grandmaCost = Math.Round(grandmaCost);
             double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
@@ -642,9 +643,9 @@ namespace Cookie_Clicker
             LblFarm.Content = "Farm" + "s: " + farmCount;
             //increase cost and increase production for scaling
             cookies = cookies - farmCost;
-            farmCost = farmCost * 1.25;
+            farmCost = farmCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + farmProduction;
-            farmProduction = farmProduction * 1.10;
+            farmProduction = farmProduction * prodMultiplier;
             //round cost of production
             farmCost = Math.Round(farmCost);
             double farmProudctionRounded = Math.Round(farmProduction, 2);
@@ -756,9 +757,9 @@ namespace Cookie_Clicker
             LblMine.Content = "Mine" + "s: " + mineCount;
             //increase cost and increase production for scaling
             cookies = cookies - mineCost;
-            mineCost = mineCost * 1.25;
+            mineCost = mineCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + mineProduction;
-            mineProduction = mineProduction * 1.10;
+            mineProduction = mineProduction * prodMultiplier;
             //round cost of production
             mineCost = Math.Round(mineCost);
             double mineProductionRounded = Math.Round(mineProduction, 2);
@@ -872,9 +873,9 @@ namespace Cookie_Clicker
             LblFactory.Content = "Factory" + "s: " + factoryCount;
             //increase cost and increase production for scaling
             cookies = cookies - factoryCost;
-            factoryCost = factoryCost * 1.25;
+            factoryCost = factoryCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + factoryProduction;
-            factoryProduction = factoryProduction * 1.10;
+            factoryProduction = factoryProduction * prodMultiplier;
             //round cost of production
             factoryCost = Math.Round(factoryCost);
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
@@ -994,9 +995,9 @@ namespace Cookie_Clicker
             LblBank.Content = "Bank" + "s: " + bankCount;
             //increase cost and increase production for scaling
             cookies = cookies - bankCost;
-            bankCost = bankCost * 1.25;
+            bankCost = bankCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + bankProduction;
-            bankProduction = bankProduction * 1.10;
+            bankProduction = bankProduction * prodMultiplier;
             //round cost of production
             bankCost = Math.Round(bankCost);
             double bankProductionRounded = Math.Round(bankProduction, 2);
@@ -1117,9 +1118,9 @@ namespace Cookie_Clicker
             LblTemple.Content = "Temple" + "s: " + templeCount;
             //increase cost and increase production for scaling
             cookies = cookies - templeCost;
-            templeCost = templeCost * 1.25;
+            templeCost = templeCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + templeProduction;
-            templeProduction = templeProduction * 1.10;
+            templeProduction = templeProduction * prodMultiplier;
             //round cost of production
             templeCost = Math.Round(templeCost);
             double templeProductionRounded = Math.Round(templeProduction, 2);
