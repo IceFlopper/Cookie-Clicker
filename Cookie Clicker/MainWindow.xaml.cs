@@ -100,6 +100,7 @@ namespace Cookie_Clicker
         //players for the sounds
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
+        MediaPlayer soundAchievement = new MediaPlayer();
 
         //timers for game logic and updating
         DispatcherTimer gameTimer = new DispatcherTimer();
@@ -119,6 +120,7 @@ namespace Cookie_Clicker
 
 
             soundBuy.Volume = 0.4;
+            soundAchievement.Volume = 0.6;
 
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(10);
@@ -276,8 +278,15 @@ namespace Cookie_Clicker
         private void BuyItemSound()
         {
             //buy item click sound
-                soundBuy.Open(new Uri("buy1.wav", UriKind.RelativeOrAbsolute));
-                soundBuy.Play();
+            soundBuy.Open(new Uri("buy1.wav", UriKind.RelativeOrAbsolute));
+            soundBuy.Play();
+        }
+
+        private void PlayAchievementSound() 
+        {
+            //unlock achievement sound
+            soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
+            soundAchievement.Play();
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
@@ -1806,6 +1815,7 @@ namespace Cookie_Clicker
             {
                 AchievementsScrollviewer.Visibility = Visibility.Visible;
                 AchievementsP.Visibility = Visibility.Visible;
+                PlayAchievementSound();
                 LblScore.Content = "Score: " + achievementScore.ToString();
                 achievementsOpened = true;
 
@@ -1828,6 +1838,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 50;
                     Achievement1.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: You made a cookie! (clicked for the first time - 50)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1841,6 +1852,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 250;
                     Achievement2.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: You clicked 100 times! (100 clicks - 250)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1854,6 +1866,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 2500;
                     Achievement3.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Thats 1000 times.. Are you okay? (1000 clicks - 2500)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1867,6 +1880,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 100;
                     Achievement4.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Production expands! (1 cookies per second - 100)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1880,6 +1894,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 250;
                     Achievement5.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: More than 100 per second! (10 cookies per second - 250)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1893,6 +1908,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 500;
                     Achievement6.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Thats a lot of cookies! (100 cookies per second - 500)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1906,6 +1922,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 1000;
                     Achievement7.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Industrial Revolution! (1000 cookies per second - 1000)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1919,6 +1936,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 5000;
                     Achievement8.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Industrial Revolution! (10000 cookies per second - 5000)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1932,6 +1950,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 100;
                     Achievement9.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: You bought your first investment! (Bought first investment - 100)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1944,6 +1963,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 150;
                     Achievement10.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Use grandma's as slaves! (Bought a grandma - 150)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1956,6 +1976,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 200;
                     Achievement11.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Agricultural Revolution! (Bought a farm - 200)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1968,6 +1989,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 250;
                     Achievement12.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Cookies discovered underground! (Bought a mine - 250)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1980,6 +2002,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 300;
                     Achievement13.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Churning out cookies! (Bought a factory - 300)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -1992,6 +2015,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 350;
                     Achievement14.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Cookies being traded in stocks! (Bought a bank - 350)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -2004,6 +2028,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 400;
                     Achievement15.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Cookies being worshipped by millions! (Bought a temple - 400)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -2016,6 +2041,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 100;
                     Achievement16.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: You discovered upgrades! (Bought an upgrade - 200)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
                 }
@@ -2028,6 +2054,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 100;
                     Achievement17.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Having fun? (Played for 10 minutes - 100)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -2040,6 +2067,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 500;
                     Achievement18.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: REALLY having fun?! (Played for 60 minutes - 500)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -2052,6 +2080,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 50;
                     Achievement19.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Here we are! (Opened achievements - 50)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
@@ -2064,6 +2093,7 @@ namespace Cookie_Clicker
                 {
                     achievementScore += 1000;
                     Achievement20.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
                     MessageBox.Show("Achievement: Enjoy!! (Found first golden cookie - 1000)");
                     LblScore.Content = "Score: " + achievementScore.ToString();
 
