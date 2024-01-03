@@ -34,7 +34,7 @@ namespace Cookie_Clicker
         double prodMultiplier = 1.05;
         double costMultiplier = 1.25;
         //amount gained per click
-        double clickCount = 100;
+        double clickCount = 10000;
 
         //clicker
         double clickerCost = 15;
@@ -1924,7 +1924,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelClickerCreated == true && achievement9Achieved == false)
+            if (imgClickerCreated == true && achievement9Achieved == false)
             {
                 achievement9Achieved = true;
 
@@ -1937,7 +1937,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelGrandmaCreated == true && achievement10Achieved == false)
+            if (imgGrandmaCreated == true && achievement10Achieved == false)
             {
                 achievement10Achieved = true;
                 if (achievement10Achieved)
@@ -1949,7 +1949,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelFarmCreated == true && achievement11Achieved == false)
+            if (imgFarmCreated == true && achievement11Achieved == false)
             {
                 achievement11Achieved = true;
                 if (achievement11Achieved)
@@ -1961,7 +1961,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelMineCreated == true && achievement12Achieved == false)
+            if (imgMineCreated == true && achievement12Achieved == false)
             {
                 achievement12Achieved = true;
                 if (achievement12Achieved)
@@ -1973,7 +1973,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelFactoryCreated == true && achievement13Achieved == false)
+            if (imgFactoryCreated == true && achievement13Achieved == false)
             {
                 achievement13Achieved = true;
                 if (achievement13Achieved)
@@ -1985,7 +1985,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelBankCreated == true && achievement14Achieved == false)
+            if (imgBankCreated == true && achievement14Achieved == false)
             {
                 achievement14Achieved = true;
                 if (achievement14Achieved)
@@ -1997,7 +1997,7 @@ namespace Cookie_Clicker
 
                 }
             }
-            if (wrapPanelTempleCreated == true && achievement15Achieved == false)
+            if (imgTempleCreated == true && achievement15Achieved == false)
             {
                 achievement15Achieved = true;
                 if (achievement15Achieved)
@@ -2074,4 +2074,5 @@ namespace Cookie_Clicker
         }
 
     }
+
 }
