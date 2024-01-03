@@ -34,7 +34,7 @@ namespace Cookie_Clicker
         double prodMultiplier = 1.05;
         double costMultiplier = 1.25;
         //amount gained per click
-        double clickCount = 1;
+        double clickCount = 100;
 
         //clicker
         double clickerCost = 15;
@@ -185,7 +185,7 @@ namespace Cookie_Clicker
         private void SecondsCounter(object sender, EventArgs e)
         {
             seconds++;
-            LblSeconds.Content = "Seconds" + seconds.ToString();
+            //LblSeconds.Content = "Seconds" + seconds.ToString();
         }
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -196,7 +196,7 @@ namespace Cookie_Clicker
             SoundClickOn();
             DrawCookies();
             clicks++;
-            LblClicks.Content = "Clicks" + clicks;
+            //LblClicks.Content = "Clicks" + clicks;
         }
 
         
@@ -283,7 +283,7 @@ namespace Cookie_Clicker
         private void gameTimer_tick(object sender, EventArgs e)
         {
             //update game every 10ms
-            LblTick.Content = "Ticks" + tick;
+            //LblTick.Content = "Ticks" + tick;
 
             DrawCookies();
             ClickerVerify();
@@ -295,6 +295,7 @@ namespace Cookie_Clicker
             TempleVerify();
             UIupdate();
             UpgradeUnlock();
+            VerifyAchievements();
         }
         private void UIupdate()
         {
@@ -390,6 +391,7 @@ namespace Cookie_Clicker
             ClickerVerify();
         }
 
+        private bool clickerPVisibilityChanged = false;
         private void ClickerVerify()
         {
             //verify if cookie count is high enough to purchase clicker
@@ -407,6 +409,15 @@ namespace Cookie_Clicker
             {
                 ClickerP.IsEnabled = true;
                 ClickerP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+            if (cookies >= clickerCost && clickerPVisibilityChanged == false)
+            {
+                ClickerBorder.Visibility = Visibility.Visible;
+                clickerPVisibilityChanged = true;
+            }
+            else
+            {
+
             }
         }
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -501,6 +512,7 @@ namespace Cookie_Clicker
             GrandmaVerify();
         }
 
+        private bool grandmaPVisibilityChanged = false;
         private void GrandmaVerify()
         {
             //verify if cookie count is high enough to purchase grandma
@@ -518,6 +530,15 @@ namespace Cookie_Clicker
             {
                 GrandmaP.IsEnabled = true;
                 GrandmaP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+            if (cookies >= grandmaCost && grandmaPVisibilityChanged == false)
+            {
+                GrandmaBorder.Visibility = Visibility.Visible;
+                grandmaPVisibilityChanged = true;
+            }
+            else
+            {
+
             }
         }
 
@@ -613,6 +634,7 @@ namespace Cookie_Clicker
             FarmVerify();
         }
 
+        private bool farmPVisibilityChanged = false;
         private void FarmVerify()
         {
 
@@ -631,6 +653,15 @@ namespace Cookie_Clicker
             {
                 FarmP.IsEnabled = true;
                 FarmP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+            if (cookies >= farmCost && farmPVisibilityChanged == false)
+            {
+                FarmBorder.Visibility = Visibility.Visible;
+                farmPVisibilityChanged = true;
+            }
+            else
+            {
+
             }
         }
 
@@ -728,6 +759,8 @@ namespace Cookie_Clicker
             isMouseOverMine = false;
             MineVerify();
         }
+
+        private bool minePVisibilityChanged = false;
         private void MineVerify()
         {
             //verify if cookie count is high enough to purchase Farm
@@ -746,6 +779,15 @@ namespace Cookie_Clicker
             {
                 MineP.IsEnabled = true;
                 MineP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+            if (cookies >= mineCost && minePVisibilityChanged == false)
+            {
+                MineBorder.Visibility = Visibility.Visible;
+                minePVisibilityChanged = true;
+            }
+            else
+            {
+
             }
         }
         private void MineP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -844,6 +886,8 @@ namespace Cookie_Clicker
             FactoryVerify();
 
         }
+
+        private bool factoryPVisibilityChanged = false;
         private void FactoryVerify()
         {
 
@@ -863,6 +907,16 @@ namespace Cookie_Clicker
                 FactoryP.IsEnabled = true;
                 FactoryP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
+            if (cookies >= factoryCost && factoryPVisibilityChanged == false)
+            {
+                FactoryBorder.Visibility = Visibility.Visible;
+                factoryPVisibilityChanged = true;
+            }
+            else
+            {
+
+            }
+
         }
         private void FactoryP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -964,9 +1018,15 @@ namespace Cookie_Clicker
             BankVerify();
         }
 
+        private bool bankPVisibilityChanged = false;
+
         private void BankVerify()
         {
             //verify if cookie count is high enough to purchase Bank
+
+
+            BankP.Visibility = Visibility.Visible;
+            bankPVisibilityChanged = true;
             if (cookies < bankCost)
             {
                 BankP.IsEnabled = false;
@@ -982,6 +1042,16 @@ namespace Cookie_Clicker
                 BankP.IsEnabled = true;
                 BankP.Background = new SolidColorBrush(Colors.AliceBlue);
             }
+            if (cookies >= bankCost && bankPVisibilityChanged == false)
+            {
+                BankBorder.Visibility = Visibility.Visible;
+                bankPVisibilityChanged = true;
+            }
+            else
+            {
+
+            }
+
         }
 
         private void BankP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1087,9 +1157,11 @@ namespace Cookie_Clicker
             TempleVerify();
         }
 
+        private bool templePVisibilityChanged = false; 
         private void TempleVerify()
         {
             // Verify if cookie count is high enough to purchase Temple
+
             if (cookies < templeCost)
             {
                 TempleP.IsEnabled = false;
@@ -1104,6 +1176,16 @@ namespace Cookie_Clicker
             {
                 TempleP.IsEnabled = true;
                 TempleP.Background = new SolidColorBrush(Colors.AliceBlue);
+            }
+
+            if (cookies >= templeCost && templePVisibilityChanged == false)
+            {
+                TempleBorder.Visibility = Visibility.Visible;
+                templePVisibilityChanged = true;
+            }
+            else
+            {
+
             }
         }
 
@@ -1302,11 +1384,29 @@ namespace Cookie_Clicker
             UpgradeUnlock();
         }
 
+        private bool upgrade1isVisable = false;
+        private bool upgrade2isVisable = false;
+        private bool upgrade3isVisable = false;
+        private bool upgrade4isVisable = false;
+        private bool upgrade5isVisable = false;
+        private bool upgrade6isVisable = false;
+        private bool upgrade7isVisable = false;
+
         private void UpgradeUnlock()
         {
             //verifies if u have enough cookies to purchase upgrade.
 
             //upgrade 1 Cursor
+            if (cookies > cookieCostUpgradeCursor && upgrade1isVisable == false)
+            {
+                BorderUpgradeCursor.Visibility = Visibility.Visible;
+                upgrade1isVisable = true;
+               
+            }
+            else
+            {
+
+            }
             if (cookies < cookieCostUpgradeCursor)
             {
                 Upgrade1.IsEnabled = false;
@@ -1327,8 +1427,19 @@ namespace Cookie_Clicker
                 LblUpgrade1.Foreground = new SolidColorBrush(Colors.Black);
             }
 
+
             //upgrade 2 Clicker1
 
+            if (cookies > cookieCostUpgradeClicker && upgrade2isVisable == false)
+            {
+                BorderUpgradeClicker1.Visibility = Visibility.Visible;
+                upgrade2isVisable = true;
+
+            }
+            else
+            {
+
+            }
             if (cookies < cookieCostUpgradeClicker)
             {
                 Upgrade2.IsEnabled = false;
@@ -1348,12 +1459,25 @@ namespace Cookie_Clicker
                 LblUpgrade2.Foreground = new SolidColorBrush(Colors.Black);
             }
 
+
+
             //upgrade 3 Grandm2x
 
+            if (cookies > cookieCostUpgradeGrandma && upgrade3isVisable == false)
+            {
+                BorderUpgradeGrandma.Visibility = Visibility.Visible;
+                upgrade3isVisable = true;
+
+            }
+            else
+            {
+
+            }
 
             if (cookies < cookieCostUpgradeGrandma)
             {
                 Upgrade3.IsEnabled = false;
+
                 Upgrade3.Background = new SolidColorBrush(Colors.SaddleBrown);
                 LblUpgrade3.Foreground = new SolidColorBrush(Colors.Wheat);
             }
@@ -1369,7 +1493,19 @@ namespace Cookie_Clicker
                 Upgrade3.Background = new SolidColorBrush(Colors.SandyBrown);
                 LblUpgrade3.Foreground = new SolidColorBrush(Colors.Black);
             }
+
+
             // Upgrade 4 Farm2x
+            if (cookies > cookieCostUpgradeFarm && upgrade4isVisable == false)
+            {
+                BorderUpgradeFarm.Visibility = Visibility.Visible;
+                upgrade4isVisable = true;
+
+            }
+            else
+            {
+
+            }
             if (cookies < cookieCostUpgradeFarm)
             {
                 Upgrade4.IsEnabled = false;
@@ -1390,6 +1526,16 @@ namespace Cookie_Clicker
             }
 
             //upgrade 5 Mine2x
+            if (cookies > cookieCostUpgradeMine && upgrade5isVisable == false)
+            {
+                BorderUpgradeMine.Visibility = Visibility.Visible;
+                upgrade5isVisable = true;
+
+            }
+            else
+            {
+
+            }
             if (cookies > cookieCostUpgradeMine && upgradeMineCount != 1)
             {
                 BorderUpgradeMine.Visibility = Visibility.Visible;
@@ -1427,7 +1573,16 @@ namespace Cookie_Clicker
 
 
             //upgrade 6 Clicker2
+            if (cookies > cookieCostUpgradeClicker2 && upgrade6isVisable == false)
+            {
+                BorderUpgradeClicker2.Visibility = Visibility.Visible;
+                upgrade6isVisable = true;
 
+            }
+            else
+            {
+
+            }
             if (upgradeClicker2Count != 1 && upgradeClickerCount > 0)
             {
                 BorderUpgradeClicker2.Visibility = Visibility.Visible;
@@ -1452,7 +1607,16 @@ namespace Cookie_Clicker
                 }
             }
             //upgrade 7 Factory
+            if (cookies > cookieCostUpgradeFactory && upgrade7isVisable == false)
+            {
+                BorderUpgradeFactory.Visibility = Visibility.Visible;
+                upgrade7isVisable = true;
 
+            }
+            else
+            {
+
+            }
             if (cookies > cookieCostUpgradeFactory && upgradeFactoryCount != 1)
             {
                 BorderUpgradeFactory.Visibility = Visibility.Visible;
@@ -1601,5 +1765,313 @@ namespace Cookie_Clicker
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
         }
+
+        private void LblBakeryName_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string newName = Microsoft.VisualBasic.Interaction.InputBox("Enter the new name for the bakery:", "Change Bakery Name", LblBakeryName.Content.ToString());
+
+            // Check if the user clicked 'Cancel'
+            if (!string.IsNullOrEmpty(newName))
+            {
+                LblBakeryName.Content = newName;
+            }
+        }
+        private bool foundGoldenCookie = false;
+        double achievementScore = 0;
+        private bool achievement1Achieved = false;
+        private bool achievement2Achieved = false;
+        private bool achievement3Achieved = false;
+        private bool achievement4Achieved = false;
+        private bool achievement5Achieved = false;
+        private bool achievement6Achieved = false;
+        private bool achievement7Achieved = false;
+        private bool achievement8Achieved = false;
+        private bool achievement9Achieved = false;
+        private bool achievement10Achieved = false;
+        private bool achievement11Achieved = false;
+        private bool achievement12Achieved = false;
+        private bool achievement13Achieved = false;
+        private bool achievement14Achieved = false;
+        private bool achievement15Achieved = false;
+        private bool achievement16Achieved = false;
+        private bool achievement17Achieved = false;
+        private bool achievement18Achieved = false;
+        private bool achievement19Achieved = false;
+        private bool achievement20Achieved = false;
+
+        private bool achievementsOpened = false;
+        private void AchievemntsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (achievementsOpened == false)
+            {
+                AchievementsScrollviewer.Visibility = Visibility.Visible;
+                AchievementsP.Visibility = Visibility.Visible;
+                LblScore.Content = "Score: " + achievementScore.ToString();
+                achievementsOpened = true;
+
+            }
+            else if (achievementsOpened == true)
+            {
+                AchievementsScrollviewer.Visibility = Visibility.Collapsed;
+                AchievementsP.Visibility = Visibility.Collapsed;
+                achievementsOpened = false;
+            }
+        }
+
+        private void VerifyAchievements()
+        {
+            if (clicks >= 1 && achievement1Achieved == false)
+            {
+                achievement1Achieved = true;
+
+                if (achievement1Achieved)
+                {
+                    achievementScore += 50;
+                    Achievement1.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: You made a cookie! (clicked for the first time - 50)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (clicks >= 100 && achievement2Achieved == false)
+            {
+                achievement2Achieved = true;
+
+                if (achievement2Achieved)
+                {
+                    achievementScore += 250;
+                    Achievement2.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: You clicked 100 times! (100 clicks - 250)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (clicks >= 1000 && achievement3Achieved == false)
+            {
+                achievement3Achieved = true;
+
+                if (achievement3Achieved)
+                {
+                    achievementScore += 2500;
+                    Achievement3.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Thats 1000 times.. Are you okay? (1000 clicks - 2500)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (cookiesPerSecond >= 1 && achievement4Achieved == false)
+            {
+                achievement4Achieved = true;
+
+                if (achievement4Achieved)
+                {
+                    achievementScore += 100;
+                    Achievement4.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Production expands! (1 cookies per second - 100)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (cookiesPerSecond >= 10 && achievement5Achieved == false)
+            {
+                achievement5Achieved = true;
+
+                if (achievement5Achieved)
+                {
+                    achievementScore += 250;
+                    Achievement5.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: More than 100 per second! (10 cookies per second - 250)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (cookiesPerSecond >= 100 && achievement6Achieved == false)
+            {
+                achievement6Achieved = true;
+
+                if (achievement6Achieved)
+                {
+                    achievementScore += 500;
+                    Achievement6.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Thats a lot of cookies! (100 cookies per second - 500)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (cookiesPerSecond >= 1000 && achievement7Achieved == false)
+            {
+                achievement7Achieved = true;
+
+                if (achievement7Achieved)
+                {
+                    achievementScore += 1000;
+                    Achievement7.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Industrial Revolution! (1000 cookies per second - 1000)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (cookiesPerSecond >= 10000 && achievement8Achieved == false)
+            {
+                achievement8Achieved = true;
+
+                if (achievement8Achieved)
+                {
+                    achievementScore += 5000;
+                    Achievement8.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Industrial Revolution! (10000 cookies per second - 5000)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelClickerCreated == true && achievement9Achieved == false)
+            {
+                achievement9Achieved = true;
+
+                if (achievement9Achieved)
+                {
+                    achievementScore += 100;
+                    Achievement9.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: You bought your first investment! (Bought first investment - 100)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelGrandmaCreated == true && achievement10Achieved == false)
+            {
+                achievement10Achieved = true;
+                if (achievement10Achieved)
+                {
+                    achievementScore += 150;
+                    Achievement10.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Use grandma's as slaves! (Bought a grandma - 150)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelFarmCreated == true && achievement11Achieved == false)
+            {
+                achievement11Achieved = true;
+                if (achievement11Achieved)
+                {
+                    achievementScore += 200;
+                    Achievement11.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Agricultural Revolution! (Bought a farm - 200)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelMineCreated == true && achievement12Achieved == false)
+            {
+                achievement12Achieved = true;
+                if (achievement12Achieved)
+                {
+                    achievementScore += 250;
+                    Achievement12.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Cookies discovered underground! (Bought a mine - 250)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelFactoryCreated == true && achievement13Achieved == false)
+            {
+                achievement13Achieved = true;
+                if (achievement13Achieved)
+                {
+                    achievementScore += 300;
+                    Achievement13.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Churning out cookies! (Bought a factory - 300)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelBankCreated == true && achievement14Achieved == false)
+            {
+                achievement14Achieved = true;
+                if (achievement14Achieved)
+                {
+                    achievementScore += 350;
+                    Achievement14.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Cookies being traded in stocks! (Bought a bank - 350)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (wrapPanelTempleCreated == true && achievement15Achieved == false)
+            {
+                achievement15Achieved = true;
+                if (achievement15Achieved)
+                {
+                    achievementScore += 400;
+                    Achievement15.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Cookies being worshipped by millions! (Bought a temple - 400)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if ((upgradeCursorCount >= 1 || upgradeClicker2Count >= 1 || upgradeGrandmaCount >= 1 || upgradeFarmCount >= 1 || upgradeMineCount >= 1 || upgradeFactoryCount >= 1 || upgradeClickerCount >= 1) && achievement16Achieved == false)
+            {
+                achievement16Achieved = true;
+                if (achievement16Achieved)
+                {
+                    achievementScore += 100;
+                    Achievement16.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: You discovered upgrades! (Bought an upgrade - 200)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+                }
+            }
+
+            if (seconds >= 600 && achievement17Achieved == false)
+            {
+                achievement17Achieved = true;
+                if (achievement17Achieved)
+                {
+                    achievementScore += 100;
+                    Achievement17.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Having fun? (Played for 10 minutes - 100)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (seconds >= 3600 && achievement18Achieved == false)
+            {
+                achievement18Achieved = true;
+                if (achievement18Achieved)
+                {
+                    achievementScore += 500;
+                    Achievement18.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: REALLY having fun?! (Played for 60 minutes - 500)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (achievementsOpened == true && achievement19Achieved == false)
+            {
+                achievement19Achieved = true;
+                if (achievement19Achieved)
+                {
+                    achievementScore += 50;
+                    Achievement19.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Here we are! (Opened achievements - 50)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (foundGoldenCookie == true && achievement20Achieved == false)
+            {
+                achievement20Achieved = true;
+                if (achievement20Achieved)
+                {
+                    achievementScore += 1000;
+                    Achievement20.Visibility = Visibility.Visible;
+                    MessageBox.Show("Achievement: Enjoy!! (Found first golden cookie - 1000)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+
+
+        }
+
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="Cookie Clicker" Height="300" Width="640"
+        Title="Cookie Clicker" Height="300" Width="680"
         Icon="cookie.png" 
         >
     <!--<Window.Resources>
@@ -20,7 +20,7 @@
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="300"></RowDefinition>
                     
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -33,15 +33,16 @@
                 <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0">
                     <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Name="CookieStackPanel">
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Label Name="LblBakeryName" Content="PXL - Bakery" ></Label>
+                            <Label Name="LblBakeryName" Content="PXL - Bakery" MouseLeftButtonDown="LblBakeryName_MouseLeftButtonDown" ></Label>
+                            <Button Width="80" Height="20" Margin="10, 0, 5, 0" Name="AchievemntsBtn" Click="AchievemntsBtn_Click">Achievements</Button>
                         </WrapPanel>
-                        <WrapPanel>
+                        <!--<WrapPanel>
                             <Label Content="Seconds" Name="LblSeconds"></Label>
                             <Label Content="Tick" Name="LblTick"></Label>
                             <Label Content="Clicks" Name="LblClicks"></Label>
                         <Button Name="DevBtn" Content="Dev" Click="DevBtn_Click"></Button>
                             
-                        </WrapPanel>
+                        </WrapPanel>-->
                         <Label Name="LblCookiePerSecond" Content="0.0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
                         <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
                         <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
@@ -50,6 +51,161 @@
                 <!-- Middle Panel -->
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                     <StackPanel Background="Bisque" Width="230">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="300" Visibility="Collapsed" Name="AchievementsScrollviewer">
+                            <StackPanel Name="AchievementsP" Visibility="Collapsed">
+                                <StackPanel Background="SandyBrown">
+                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Label>Achievements</Label>
+                                    </WrapPanel>
+                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" >
+                                        <Label Name="LblScore">Score:</Label>
+                                    </WrapPanel>
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <WrapPanel Name="Achievement1" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement1" Content="Made a Cookie!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="You clicked on the cookie to bake your very own" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement2" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement2" Content="Click Master!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Achieved a click count of 100" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement3" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement3" Content="Click Legend!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Achieved a click count of 1000" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement4" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement4" Content="Cookie Producer!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Produced 1 cookie per second" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement5" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement5" Content="Production Expands!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Achieved a production rate of 10 cookies per second" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement6" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement6" Content="Cookie Tycoon!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Reached a production rate of 100 cookies per second" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement7" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement7" Content="Cookie Master!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Reached a production rate of 1000 cookies per second" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement8" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement8" Content="Cookie King!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Reached a production rate of 10,000 cookies per second" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement9" Visibility="Collapsed " Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement9" Content="Investment Beginner!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought your first investment" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement10" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement10" Content="Grandma Enslaver!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought a grandma" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement11" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement11" Content="Agricultural Revolution!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought a farm" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement12" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement12" Content="Cookie Mines!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought a mine" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement13" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement13" Content="Factory Operator!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought a factory" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement14" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement14" Content="Banker!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought a bank" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement15" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement15" Content="Temple Builder!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought a temple" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement16" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement16" Content="Upgrade Discoverer!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Bought an upgrade" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement17" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement17" Content="Cookie Enthusiast!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Played for 10 minutes" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement18" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement18" Content="Cookie Mastermind!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Played for 60 minutes" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement19" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement19" Content="Achievement Explorer!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Opened the achievements window" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel Name="Achievement20" Visibility="Collapsed" Margin="2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement20" Content="Golden Cookie Hunter!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Found the first golden cookie" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </ScrollViewer>
                         <ScrollViewer Name="ScrollMain" VerticalScrollBarVisibility="Auto" MaxHeight="300" Height="300">
                             <StackPanel Name="StackMain">
                                 
@@ -76,9 +232,9 @@
 
                                 <WrapPanel Name="WrapUpgrades">
                                     <!--Upgrade Cursor-->
-                                    <Border BorderBrush="Bisque" BorderThickness="2">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeCursor" Visibility="Collapsed">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade1" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade1_MouseLeftButtonDown" MouseEnter="Upgrade1_MouseEnter" MouseLeave="Upgrade1_MouseLeave" >
+                                            <StackPanel Name="Upgrade1" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade1_MouseLeftButtonDown" MouseEnter="Upgrade1_MouseEnter" MouseLeave="Upgrade1_MouseLeave">
                                                 <StackPanel.ToolTip>
                                                     <ToolTip Content="Costs:" Name="TooltipUpgrade1">
                                                         <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
@@ -91,7 +247,7 @@
                                     </Border>
                                     <!--First Upgrade Clicker-->
 
-                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker1">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeClicker1" Visibility="Collapsed">
                                         <WrapPanel>
                                             <StackPanel Name="Upgrade2" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade2_MouseLeftButtonDown" MouseEnter="Upgrade2_MouseEnter" MouseLeave="Upgrade2_MouseLeave">
                                                 <StackPanel.ToolTip >
@@ -107,9 +263,9 @@
                                     </Border>
                                     <!--Upgrade Grandma-->
 
-                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeGrandma">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeGrandma" Visibility="Collapsed">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade3" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade3_MouseLeftButtonDown" MouseEnter="Upgrade3_MouseEnter" MouseLeave="Upgrade3_MouseLeave">
+                                            <StackPanel Name="Upgrade3" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade3_MouseLeftButtonDown" MouseEnter="Upgrade3_MouseEnter" MouseLeave="Upgrade3_MouseLeave" >
                                                 <StackPanel.ToolTip>
                                                     <ToolTip Content="Costs:" Name="TooltipUpgrade3">
                                                         <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
@@ -122,9 +278,9 @@
                                     </Border>
                                     <!-- Upgrade Farm -->
 
-                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFarm">
+                                    <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFarm" Visibility="Collapsed">
                                         <WrapPanel>
-                                            <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave">
+                                            <StackPanel Name="Upgrade4" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade4_MouseLeftButtonDown" MouseEnter="Upgrade4_MouseEnter" MouseLeave="Upgrade4_MouseLeave" >
                                                 <StackPanel.ToolTip>
                                                     <ToolTip Content="Costs:" Name="TooltipUpgrade4">
                                                         <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
@@ -165,6 +321,7 @@
                                             </StackPanel>
                                         </WrapPanel>
                                     </Border>
+                                    <!-- Upgrade Factory -->
                                     <Border BorderBrush="Bisque" BorderThickness="2" Name="BorderUpgradeFactory" Visibility="Collapsed">
                                         <WrapPanel>
                                             <StackPanel Name="Upgrade7" Width="45" Height="45" Background="SaddleBrown" MouseLeftButtonDown="Upgrade7_MouseLeftButtonDown"  MouseEnter="Upgrade7_MouseEnter" MouseLeave="Upgrade7_MouseLeave">
@@ -190,11 +347,11 @@
                         <Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0">
 
 
-                            <ScrollViewer  Name="ScrollItems">
-                                <StackPanel Background="Beige" >
+                            <ScrollViewer  Name="ScrollItems" VerticalScrollBarVisibility="Auto">
+                                <StackPanel Background="Beige" MinWidth="165">
 
                                     <!--Clicker-->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="ClickerBorder" Visibility="Collapsed">
                                         <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="ClickerP_MouseEnter" MouseLeave="ClickerP_MouseLeave" >
                                             <Image Source="Clicker.png" Width="40"/>
                                             <StackPanel >
@@ -207,7 +364,7 @@
                                         </WrapPanel>
                                     </Border>
                                     <!--Grandma-->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="GrandmaBorder" Visibility="Collapsed">
                                         <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="GrandmaP_MouseEnter" MouseLeave="GrandmaP_MouseLeave">
                                             <Image  Width="40" Source="/Grandma.png"/>
                                             <StackPanel >
@@ -220,7 +377,7 @@
                                         </WrapPanel>
                                     </Border>
                                     <!--Farm-->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="FarmBorder" Visibility="Collapsed">
                                         <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FarmP_MouseEnter" MouseLeave="FarmP_MouseLeave">
                                             <Image  Width="40" Source="/farm.png"/>
                                             <StackPanel >
@@ -233,7 +390,7 @@
                                         </WrapPanel>
                                     </Border>
                                     <!--Mine-->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="MineBorder" Visibility="Collapsed">
                                         <WrapPanel Name="MineP" Background="LightSlateGray" MouseLeftButtonDown="MineP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="MineP_MouseEnter" MouseLeave="MineP_MouseLeave">
                                             <Image  Width="40" Source="/mine.png"/>
                                             <StackPanel >
@@ -246,7 +403,7 @@
                                         </WrapPanel>
                                     </Border>
                                     <!--Factory-->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="FactoryBorder" Visibility="Collapsed">
                                         <WrapPanel Name="FactoryP" Background="LightSlateGray" MouseLeftButtonDown="FactoryP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FactoryP_MouseEnter" MouseLeave="FactoryP_MouseLeave">
                                             <Image  Width="40" Source="/factory.png"/>
                                             <StackPanel >
@@ -257,7 +414,7 @@
                                         </WrapPanel>
                                     </Border>
                                     <!-- Bank -->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="BankBorder" Visibility="Collapsed">
                                         <WrapPanel Name="BankP" Background="LightSlateGray" MouseLeftButtonDown="BankP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="BankP_MouseEnter" MouseLeave="BankP_MouseLeave">
                                             <Image Width="40" Source="/bank.png"/>
                                             <StackPanel>
@@ -268,7 +425,7 @@
                                         </WrapPanel>
                                     </Border>
                                     <!-- Temple -->
-                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="TempleBorder" Visibility="Collapsed">
                                         <WrapPanel Name="TempleP" Background="LightSlateGray" MouseLeftButtonDown="TempleP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="TempleP_MouseEnter" MouseLeave="TempleP_MouseLeave">
                                             <Image Width="40" Source="/temple.png"/>
                                             <StackPanel>
