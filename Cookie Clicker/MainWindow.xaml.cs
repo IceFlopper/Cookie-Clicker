@@ -100,7 +100,7 @@ namespace Cookie_Clicker
         //players for the sounds
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
-        MediaPlayer soundAchievement = new MediaPlayer();
+        SoundPlayer soundAchievement = new SoundPlayer("C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\Achievement.wav");
 
         //timers for game logic and updating
         DispatcherTimer gameTimer = new DispatcherTimer();
@@ -120,8 +120,7 @@ namespace Cookie_Clicker
 
 
             soundBuy.Volume = 0.4;
-            soundAchievement.Volume = 0.6;
-
+            
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             gameTimer.Tick += gameTimer_tick;
@@ -285,7 +284,7 @@ namespace Cookie_Clicker
         private void PlayAchievementSound() 
         {
             //unlock achievement sound
-            soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
+            //soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
             soundAchievement.Play();
         }
 
@@ -1675,6 +1674,7 @@ namespace Cookie_Clicker
                 upgradeCursorLevel = 3;
             }
             LblUpgrade1.Content = upgradeCursorLevel + "x" + " Cursor";
+            BuyItemSound();
 
         }
 
@@ -1693,6 +1693,8 @@ namespace Cookie_Clicker
             BorderUpgradeClicker1.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
+            BuyItemSound();
+
         }
 
         //Grandma upgrade
@@ -1708,6 +1710,8 @@ namespace Cookie_Clicker
             BorderUpgradeGrandma.Visibility = Visibility.Collapsed;
             double grandmaProductionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProductionRounded + "/s";
+            BuyItemSound();
+
         }
 
         //Farm upgrade
@@ -1724,6 +1728,8 @@ namespace Cookie_Clicker
             BorderUpgradeFarm.Visibility = Visibility.Collapsed;
             double farmProductionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProductionRounded + "/s";
+            BuyItemSound();
+
         }
 
         //Mine upgrade
@@ -1740,6 +1746,8 @@ namespace Cookie_Clicker
             BorderUpgradeMine.Visibility = Visibility.Collapsed;
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
+            BuyItemSound();
+
         }
 
         //Clicker2 upgrade
@@ -1757,6 +1765,8 @@ namespace Cookie_Clicker
             BorderUpgradeClicker2.Visibility = Visibility.Collapsed;
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
+            BuyItemSound();
+
         }
 
         //Factory upgrade
@@ -1773,6 +1783,8 @@ namespace Cookie_Clicker
             BorderUpgradeFactory.Visibility = Visibility.Collapsed;
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
+            BuyItemSound();
+
         }
 
         private void LblBakeryName_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
