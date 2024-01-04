@@ -176,5 +176,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Achievement.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="goldencookie.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

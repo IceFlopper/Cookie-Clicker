@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -34,7 +35,7 @@ namespace Cookie_Clicker
         double prodMultiplier = 1.05;
         double costMultiplier = 1.25;
         //amount gained per click
-        double clickCount = 10000;
+        double clickCount = 10000000000000;
 
         //clicker
         double clickerCost = 15;
@@ -131,6 +132,8 @@ namespace Cookie_Clicker
             secondsTimer.Interval = TimeSpan.FromSeconds(1);
             secondsTimer.Tick += SecondsCounter;
             secondsTimer.Start();
+
+            InitializeGoldenCookieTimer();
 
             //content for clickerproduction
             LblClickerProd.Content = clickerProduction + "/s";
@@ -1032,9 +1035,6 @@ namespace Cookie_Clicker
         {
             //verify if cookie count is high enough to purchase Bank
 
-
-            BankP.Visibility = Visibility.Visible;
-            bankPVisibilityChanged = true;
             if (cookies < bankCost)
             {
                 BankP.IsEnabled = false;
@@ -1827,7 +1827,6 @@ namespace Cookie_Clicker
             {
                 AchievementsScrollviewer.Visibility = Visibility.Visible;
                 AchievementsP.Visibility = Visibility.Visible;
-                PlayAchievementSound();
                 LblScore.Content = "Score: " + achievementScore.ToString();
                 achievementsOpened = true;
 
@@ -2114,6 +2113,109 @@ namespace Cookie_Clicker
 
 
         }
+
+        private Random random = new Random();
+        private DispatcherTimer goldenCookieTimer;
+
+        private void InitializeGoldenCookieTimer()
+        {
+            goldenCookieTimer = new DispatcherTimer();
+            goldenCookieTimer.Interval = TimeSpan.FromMinutes(3);
+            goldenCookieTimer.Tick += GoldenCookieTimer_Tick;
+            goldenCookieTimer.Start();
+        }
+
+        private void GoldenCookieTimer_Tick(object sender, EventArgs e)
+        {
+            if (random.NextDouble() < 0.2)
+            {
+                //Activate the golden cookie
+                Dispatcher.Invoke(() =>
+                {
+                    SpawnGoldenCookie();
+                    goldenCookieTimer.Stop();
+                });
+            }
+            else
+            {
+                goldenCookieTimer.Start();
+            }
+        }
+
+        private void SpawnGoldenCookie()
+        {
+            // Create a new image (representing the cookie)
+            Image goldenCookieImage = new Image
+            {
+                Source = new BitmapImage(new Uri("goldencookie.png", UriKind.Relative)),
+                Width = 30,
+                Height = 30
+            };
+
+            double x = random.Next((int)(Canvas.ActualWidth - goldenCookieImage.Width));
+            double y = random.Next((int)(Canvas.ActualHeight - goldenCookieImage.Height));
+            Canvas.SetLeft(goldenCookieImage, x);
+            Canvas.SetTop(goldenCookieImage, y);
+
+            goldenCookieImage.MouseLeftButtonDown += GoldenCookieImage_MouseLeftButtonDown;
+
+            // Add the image to the Canvas
+            Canvas.Children.Add(goldenCookieImage);
+        }
+
+
+
+        private void GoldenCookieImage_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        {
+            foundGoldenCookie = true;
+
+            // Generate random modifiers between 50% and 1000%
+            double modifier = random.NextDouble() * (10.0 - 0.5) + 0.5;
+
+            // Apply the modifiers to cookiesPerSecond and clickCount
+            cookiesPerSecond *= modifier;
+            clickCount *= modifier;
+
+            // Remove the modifiers after a random time between 30 and 120 seconds
+            int removeModifierTime = random.Next(30000, 120000);
+            DispatcherTimer removeModifierTimer = new DispatcherTimer();
+            removeModifierTimer.Interval = TimeSpan.FromMilliseconds(1000); // Tick every second
+            int remainingTimeInSeconds = removeModifierTime / 1000;
+
+            removeModifierTimer.Tick += (s, args) =>
+            {
+                remainingTimeInSeconds--;
+
+                // Display the countdown in the durationLabel
+                durationLabel.Content = $"Duration: {remainingTimeInSeconds} seconds";
+
+                if (remainingTimeInSeconds <= 0)
+                {
+                    removeModifierTimer.Stop();
+                    removeModifierTimer = null;
+
+                    multiplierLabel.Content = "Multiplier: ";
+                    durationLabel.Content = "Duration: ";
+                }
+            };
+
+            removeModifierTimer.Start();
+
+            multiplierLabel.Content = $"Multiplier Percentage: {(modifier * 100):0}%";
+            durationLabel.Content = $"Duration: {remainingTimeInSeconds} seconds";
+
+            UIElement clickedCookie = Canvas.Children.OfType<Image>().FirstOrDefault();
+
+            if (clickedCookie != null)
+            {
+                Canvas.Children.Remove(clickedCookie);
+            }
+
+            goldenCookieTimer.Start();
+        }
+
+
+
 
     }
 
