@@ -32,10 +32,12 @@ namespace Cookie_Clicker
         int clicks = 0;
         private double cookies = 0;
         private double cookiesPerSecond = 0;
+        //Increase production every investment, helps create a more playable game with less upgrades.
         double prodMultiplier = 1.05;
+        //Increases cost to insure investments become exponentially more expensive as game goes on.
         double costMultiplier = 1.25;
         //Amount gained per click
-        double clickCount = 1;
+        double clickCount = 100000000;
 
         //Clicker
         double clickerCost = 15;
@@ -121,7 +123,7 @@ namespace Cookie_Clicker
 
 
             soundBuy.Volume = 0.4;
-            
+
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             gameTimer.Tick += gameTimer_tick;
@@ -152,7 +154,7 @@ namespace Cookie_Clicker
             LblUpgrade5.Content = upgradeMineLevel + "x" + " Mine";
             LblUpgrade6.Content = upgradeClicker2Level + "x" + " Clicker";
 
-            
+            StartFallingImages();
             CookieRotateAndBounce();
 
         }
@@ -318,8 +320,8 @@ namespace Cookie_Clicker
         private void SoundClickOn()
         {
             //Cookie click sound
-                soundClick.Open(new Uri("clickOn.wav", UriKind.RelativeOrAbsolute));
-                soundClick.Play();
+            soundClick.Open(new Uri("clickOn.wav", UriKind.RelativeOrAbsolute));
+            soundClick.Play();
         }
 
         private void BuyItemSound()
@@ -329,7 +331,7 @@ namespace Cookie_Clicker
             soundBuy.Play();
         }
 
-        private void PlayAchievementSound() 
+        private void PlayAchievementSound()
         {
             //Nlock achievement sound
             soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
@@ -370,8 +372,8 @@ namespace Cookie_Clicker
             public static string FormatCookies(double cCount)
             {
                 //Format cookies to be easier to read
-                
-                if(cCount > 10 && cCount < 9999)
+
+                if (cCount > 10 && cCount < 9999)
                 {
                     return $"{(cCount):F0}";
                 }
@@ -650,7 +652,7 @@ namespace Cookie_Clicker
                 if (scrollGrandma != null)
                 {
                     if (imgClickerCreated == false)
-                    {scrollClicker.Visibility = Visibility.Collapsed;}
+                    { scrollClicker.Visibility = Visibility.Collapsed; }
                     scrollGrandma.Content = wrapGrandma;
                     wrapPanelGrandmaCreated = true;
                 }
@@ -775,9 +777,9 @@ namespace Cookie_Clicker
                 if (scrollFarm != null)
                 {
                     if (imgClickerCreated == false)
-                    {scrollClicker.Visibility = Visibility.Collapsed;}
+                    { scrollClicker.Visibility = Visibility.Collapsed; }
                     if (imgGrandmaCreated == false)
-                    {scrollGrandma.Visibility = Visibility.Collapsed;}
+                    { scrollGrandma.Visibility = Visibility.Collapsed; }
 
                     scrollFarm.Content = wrapFarm;
                     wrapPanelFarmCreated = true;
@@ -825,7 +827,7 @@ namespace Cookie_Clicker
                 MineP.IsEnabled = false;
                 MineP.Background = new SolidColorBrush(Colors.LightSlateGray);
             }
-            else if (isMouseOverMine) 
+            else if (isMouseOverMine)
             {
                 MineP.IsEnabled = true;
                 MineP.Background = new SolidColorBrush(Colors.DeepSkyBlue);
@@ -900,11 +902,11 @@ namespace Cookie_Clicker
                 if (scrollMine != null)
                 {
                     if (imgClickerCreated == false)
-                    { scrollClicker.Visibility = Visibility.Collapsed;}
+                    { scrollClicker.Visibility = Visibility.Collapsed; }
                     if (imgGrandmaCreated == false)
-                    { scrollGrandma.Visibility = Visibility.Collapsed;}
+                    { scrollGrandma.Visibility = Visibility.Collapsed; }
                     if (imgFarmCreated == false)
-                    {  scrollFarm.Visibility = Visibility.Collapsed;}
+                    { scrollFarm.Visibility = Visibility.Collapsed; }
                     scrollMine.Content = wrapMine;
                     wrapPanelMineCreated = true;
                 }
@@ -1027,15 +1029,15 @@ namespace Cookie_Clicker
 
                 if (scrollFactory != null)
                 {
-                    if (imgClickerCreated == false) 
+                    if (imgClickerCreated == false)
                     { scrollClicker.Visibility = Visibility.Collapsed; }
-                    if (imgGrandmaCreated == false) 
+                    if (imgGrandmaCreated == false)
                     { scrollGrandma.Visibility = Visibility.Collapsed; }
                     if (imgFarmCreated == false)
                     { scrollFarm.Visibility = Visibility.Collapsed; }
                     if (imgMineCreated == false)
                     { scrollMine.Visibility = Visibility.Collapsed; }
-                    
+
                     scrollFactory.Content = wrapFactory;
                     wrapPanelFactoryCreated = true;
                 }
@@ -1210,7 +1212,7 @@ namespace Cookie_Clicker
             TempleVerify();
         }
 
-        private bool templePVisibilityChanged = false; 
+        private bool templePVisibilityChanged = false;
         private void TempleVerify()
         {
             //Verify if cookie count is high enough to purchase Temple
@@ -1454,7 +1456,7 @@ namespace Cookie_Clicker
             {
                 BorderUpgradeCursor.Visibility = Visibility.Visible;
                 upgrade1isVisable = true;
-               
+
             }
             else
             {
@@ -1745,7 +1747,7 @@ namespace Cookie_Clicker
         //Grandma upgrade
         private void Upgrade3_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
+
             cookiesPerSecond = cookiesPerSecond - (grandmaProduction * grandmaCount);
             grandmaProduction = grandmaProduction * upgradeGrandmaLevel;
             cookiesPerSecond = cookiesPerSecond + (grandmaProduction * grandmaCount);
@@ -1864,6 +1866,10 @@ namespace Cookie_Clicker
         private bool achievement18Achieved = false;
         private bool achievement19Achieved = false;
         private bool achievement20Achieved = false;
+        private bool achievement21Achieved = false;
+        private bool achievement22Achieved = false;
+
+
 
         private bool achievementsOpened = false;
         private void AchievemntsBtn_Click(object sender, RoutedEventArgs e)
@@ -2157,6 +2163,35 @@ namespace Cookie_Clicker
 
                 }
             }
+            if (cookies >= 1000000 && achievement21Achieved == false)
+            {
+                achievement21Achieved = true;
+                if (achievement21Achieved)
+                {
+                    achievementScore += 1000;
+                    Achievement21.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
+                    MessageBox.Show("Achievement: Millionaire! (Acquired 1 million cookies! - 1000)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+            if (cookies >= 1000000000 && achievement22Achieved == false)
+            {
+                achievement22Achieved = true;
+                if (achievement22Achieved)
+                {
+                    achievementScore += 5000;
+                    Achievement22.Visibility = Visibility.Visible;
+                    PlayAchievementSound();
+                    MessageBox.Show("Achievement: Billionaire! (Acquired 1 Billion cookies! - 5000)");
+                    LblScore.Content = "Score: " + achievementScore.ToString();
+
+                }
+            }
+
+
+
 
 
         }
@@ -2201,7 +2236,7 @@ namespace Cookie_Clicker
 
         private void GoldenCookieTimer_Tick(object sender, EventArgs e)
         {
-            if (random.NextDouble() < 0.2)
+            if (random.NextDouble() < 0.3)
             {
                 //Activate the golden cookie and stop timer
                 Dispatcher.Invoke(() =>
@@ -2306,6 +2341,88 @@ namespace Cookie_Clicker
             removeModifierTimer.Start();
             goldenCookieTimer.Start();
         }
-    }
+        private int maxFallingCookies = 50;
+        private int currentFallingCookies = 0;
+        private System.Windows.Threading.DispatcherTimer timer;
 
+        private void StartFallingImages()
+        {
+            timer = new System.Windows.Threading.DispatcherTimer();
+
+            //Start a timer to periodically add falling images
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Tick += (sender, e) => AddFallingImage();
+            timer.Start();
+        }
+
+        private void AddFallingImage()
+        {
+            if (currentFallingCookies < maxFallingCookies && cookiesPerSecond > 0)
+            {
+                //Create a new Image
+                Image fallingImage = new Image
+                {
+                    Source = new BitmapImage(new Uri("cookie.png", UriKind.Relative)),
+                    Width = 30,
+                    Height = 30,
+                    IsHitTestVisible = false,
+                    Opacity = 0.7
+                };
+
+                //Set initial position
+                Canvas.SetLeft(fallingImage, random.Next((int)FallingImagesCanvas.ActualWidth));
+                Canvas.SetTop(fallingImage, -30);
+                Canvas.SetZIndex(fallingImage, 1);
+
+                FallingImagesCanvas.Children.Add(fallingImage);
+                currentFallingCookies++;
+
+                TranslateTransform translateTransform = new TranslateTransform();
+                fallingImage.RenderTransform = translateTransform;
+
+                //Create a DoubleAnimation to move the image from top to bottom
+                DoubleAnimation translateYAnimation = new DoubleAnimation
+                {
+                    To = FallingImagesCanvas.ActualHeight + 30, 
+                    Duration = TimeSpan.FromSeconds(5), 
+                    FillBehavior = FillBehavior.Stop
+                };
+
+                //Create an OpacityAnimation to fade out the image
+                DoubleAnimation opacityAnimation = new DoubleAnimation
+                {
+                    To = 0,
+                    BeginTime = TimeSpan.FromSeconds(3),
+                    Duration = TimeSpan.FromSeconds(2),
+                    FillBehavior = FillBehavior.Stop
+                };
+
+                //Register the Completed event to remove the image after the animation is complete
+                translateYAnimation.Completed += (s, args) =>
+                {
+                    FallingImagesCanvas.Children.Remove(fallingImage);
+                    currentFallingCookies--;
+                };
+
+                translateTransform.BeginAnimation(TranslateTransform.YProperty, translateYAnimation);
+                fallingImage.BeginAnimation(Image.OpacityProperty, opacityAnimation);
+
+                //Calculate the adjusted interval based on cookiesPerSecond
+                double adjustedInterval = Math.Max(Math.Sqrt(20.0 / cookiesPerSecond), 0.1);
+
+                if (timer != null)
+                {
+                    timer.Interval = TimeSpan.FromSeconds(adjustedInterval);
+                }
+            }
+
+        }
+
+
+    }
 }
+
+
+
+
+

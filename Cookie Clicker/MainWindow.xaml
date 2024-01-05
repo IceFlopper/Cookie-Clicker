@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cookie_Clicker"
         mc:Ignorable="d"
-        Title="Cookie Clicker" Height="316" Width="600"
+        Title="Cookie Clicker" Height="316" Width="690"
         Icon="cookie.png" 
         >
     <!--<Window.Resources>
@@ -16,39 +16,44 @@
         </Style>
     </Window.Resources>-->
     <Viewbox Loaded="Viewbox_Loaded" Name="Viewbox" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Canvas Width="612" Height="300" Name="Canvas" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Grid Width="612">
+        <Canvas Width="690" Height="300" Name="Canvas" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid Width="690">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="300"></RowDefinition>
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="230"></ColumnDefinition>
+                        <ColumnDefinition Width="230"></ColumnDefinition>
+                        <ColumnDefinition Width="230"></ColumnDefinition>
                     </Grid.ColumnDefinitions >
 
                     <!-- Cookie panel -->
-                    <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0">
-                        <StackPanel Background="Beige" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Name="CookieStackPanel">
-                            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Label Name="LblBakeryName" Content="PXL - Bakery" MouseLeftButtonDown="LblBakeryName_MouseLeftButtonDown" ></Label>
-                                <Button Width="80" Height="20" Margin="10, 0, 5, 0" Name="AchievemntsBtn" Click="AchievemntsBtn_Click">Achievements</Button>
-                            </WrapPanel>
-                            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, -20">
-                                <!--<Label Content="Seconds" Name="LblSeconds"></Label>
-                                <Label Content="Tick" Name="LblTick"></Label>
-                                <Label Content="Clicks" Name="LblClicks"></Label>
-                                <Button Name="DevBtn" Content="Dev" Click="DevBtn_Click"></Button>-->
-                                <Label Name="multiplierLabel" FontSize="10"></Label>
-                                <Label Name="durationLabel" FontSize="10"></Label>
-                    
-                            </WrapPanel>    
-                            <Label Name="LblCookiePerSecond" Content="0.0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
-                            <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold"></Label>
-                            <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
-                        </StackPanel>
-                    </Border>
+                <Canvas Grid.Row="0" Grid.Column="0" Name="FallingImagesCanvas" Background="Beige">
+
+                </Canvas>
+                <Border  BorderBrush="Black" BorderThickness="0,0,1,0" Width="230" Height="300">
+                    <StackPanel  Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Name="CookieStackPanel">
+                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label Name="LblBakeryName" Content="PXL - Bakery" MouseLeftButtonDown="LblBakeryName_MouseLeftButtonDown" Panel.ZIndex="100"></Label>
+                            <Button Width="80" Height="20" Margin="10, 0, 5, 0" Name="AchievemntsBtn" Click="AchievemntsBtn_Click" Panel.ZIndex="100">Achievements</Button>
+                        </WrapPanel>
+                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, -20">
+                            <!--<Label Content="Seconds" Name="LblSeconds"></Label>
+                     <Label Content="Tick" Name="LblTick"></Label>
+                     <Label Content="Clicks" Name="LblClicks"></Label>
+                     <Button Name="DevBtn" Content="Dev" Click="DevBtn_Click"></Button>-->
+                            <Label Name="multiplierLabel" FontSize="10"></Label>
+                            <Label Name="durationLabel" FontSize="10"></Label>
+
+                        </WrapPanel>
+                        <Label Name="LblCookiePerSecond" Content="0.0/s" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0" Panel.ZIndex="100"></Label>
+                        <Label Name="LblCookie" Content="0 Cookies"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="25" Foreground="SaddleBrown" FontWeight="Bold" Panel.ZIndex="100"></Label>
+                        <Image Name="CookieImage" Source="/cookie.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="165" MouseLeftButtonDown="Image_MouseLeftButtonDown" Panel.ZIndex="100"/>
+                    </StackPanel>
+                </Border>
+
+                   
                     <!-- Middle Panel -->
                     <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,2,0">
                         <StackPanel Background="Bisque" Width="230">
@@ -203,7 +208,19 @@
                                                 <Label Content="Found the first golden cookie" FontSize="12"/>
                                             </StackPanel>
                                         </WrapPanel>
-                                    </StackPanel>
+                                    <WrapPanel Name="Achievement21" Visibility="Collapsed" Margin="0, 2, 0, 2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement21" Content="Millionaire!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Aqcuired 1 million cookies!" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                    <WrapPanel Name="Achievement22" Visibility="Collapsed" Margin="0, 2, 0, 2" Background="RosyBrown">
+                                        <StackPanel>
+                                            <Label x:Name="LblAchievement22" Content="Billionaire!" FontSize="16" FontWeight="Bold"/>
+                                            <Label Content="Aqcuired 1 billion cookies!" FontSize="12"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
 
                                 </StackPanel>
                             </ScrollViewer>
