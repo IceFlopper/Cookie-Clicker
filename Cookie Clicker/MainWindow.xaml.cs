@@ -37,7 +37,7 @@ namespace Cookie_Clicker
         //Increases cost to insure investments become exponentially more expensive as game goes on.
         double costMultiplier = 1.25;
         //Amount gained per click
-        double clickCount = 100000000;
+        double clickCount = 1;
 
         //Clicker
         double clickerCost = 15;
