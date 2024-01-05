@@ -2241,7 +2241,7 @@ namespace Cookie_Clicker
         private void GoldenCookieImage_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             foundGoldenCookie = true;
-
+            SoundClickOn();
             //Generate random modifiers between 150% and 1000%
             double modifier = random.NextDouble() * (10.0 - 1.5) + 1.5;
 
