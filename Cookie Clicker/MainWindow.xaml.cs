@@ -35,7 +35,7 @@ namespace Cookie_Clicker
         double prodMultiplier = 1.05;
         double costMultiplier = 1.25;
         //Amount gained per click
-        double clickCount = 100000;
+        double clickCount = 1;
 
         //Clicker
         double clickerCost = 15;
