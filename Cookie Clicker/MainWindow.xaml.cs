@@ -208,7 +208,8 @@ namespace Cookie_Clicker
                 Source = new BitmapImage(new Uri("cookie.png", UriKind.Relative)), // Set your small cookie image path
                 Stretch = Stretch.Fill,
                 Width = 15,
-                Height = 15
+                Height = 15,
+                IsHitTestVisible = false
             };
 
             Point relativeMousePosition = e.GetPosition(smallCookie);
@@ -2202,7 +2203,7 @@ namespace Cookie_Clicker
         {
             if (random.NextDouble() < 0.2)
             {
-                //Activate the golden cookie
+                //Activate the golden cookie and stop timer
                 Dispatcher.Invoke(() =>
                 {
                     SpawnGoldenCookie();
@@ -2241,7 +2242,7 @@ namespace Cookie_Clicker
         private void GoldenCookieImage_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             foundGoldenCookie = true;
-            SoundClickOn();
+            BuyItemSound();
             //Generate random modifiers between 150% and 1000%
             double modifier = random.NextDouble() * (10.0 - 1.5) + 1.5;
 
@@ -2293,18 +2294,16 @@ namespace Cookie_Clicker
                 }
             };
 
-            removeModifierTimer.Start();
 
             multiplierLabel.Content = $"Multiplier: {(modifier * 100):0}%";
             durationLabel.Content = $"Duration: {remainingTimeInSeconds} seconds";
 
-            UIElement goldenCookieImage = Canvas.Children.OfType<Image>().FirstOrDefault();
-
-            if (goldenCookieImage != null)
+            foreach (UIElement element in Canvas.Children.OfType<Image>().ToList())
             {
-                Canvas.Children.Remove(goldenCookieImage);
+                Canvas.Children.Remove(element);
             }
 
+            removeModifierTimer.Start();
             goldenCookieTimer.Start();
         }
     }
