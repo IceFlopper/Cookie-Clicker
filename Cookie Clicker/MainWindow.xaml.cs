@@ -27,47 +27,47 @@ namespace Cookie_Clicker
     public partial class MainWindow : Window
     {
 
-        //all variables for the game
+        //Most variables for the game
 
         int clicks = 0;
         private double cookies = 0;
         private double cookiesPerSecond = 0;
         double prodMultiplier = 1.05;
         double costMultiplier = 1.25;
-        //amount gained per click
+        //Amount gained per click
         double clickCount = 100000;
 
-        //clicker
+        //Clicker
         double clickerCost = 15;
         int clickerCount = 0;
         double clickerProduction = 0.1;
-        //grandma
+        //Grandma
         double grandmaCost = 100;
         int grandmaCount = 0;
         double grandmaProduction = 1;
-        //farm
+        //Farm
         double farmCost = 1100;
         int farmCount = 0;
         double farmProduction = 8;
-        //mine
+        //Mine
         double mineCost = 9000;
         int mineCount = 0;
         double mineProduction = 30;
-        //factory
+        //Factory
         double factoryCost = 110000;
         int factoryCount = 0;
         double factoryProduction = 200;
-        //bank
+        //Bank
         double bankCost = 1400000;
         int bankCount = 0;
         double bankProduction = 1000;
-        //temple
+        //Temple
         double templeCost = 20000000;
         int templeCount = 0;
         double templeProduction = 5000;
 
-        //upgrades
-        //cursorupgrade
+        //Upgrades
+        //Cursorupgrade
         int upgradeCursorCount = 0;
         int upgradeCursorCostMultiplier = 5;
         int upgradeCursorLevel = 2;
@@ -76,23 +76,23 @@ namespace Cookie_Clicker
         int upgradeClickerCount = 0;
         int upgradeClickerLevel = 5;
         double cookieCostUpgradeClicker = 250;
-        //grandmaupgrade
+        //Grandmaupgrade
         int upgradeGrandmaCount = 0;
         int upgradeGrandmaLevel = 3;
         double cookieCostUpgradeGrandma = 750;
-        //farmUpgrade
+        //FarmUpgrade
         int upgradeFarmCount = 0;
         int upgradeFarmLevel = 2;
         double cookieCostUpgradeFarm = 5000;
-        //mineupgrade
+        //Mineupgrade
         int upgradeMineCount = 0;
         int upgradeMineLevel = 2;
         double cookieCostUpgradeMine = 30000;
-        //clicker2upgrade
+        //Clicker2upgrade
         int upgradeClicker2Count = 0;
         int upgradeClicker2Level = 5;
         double cookieCostUpgradeClicker2 = 10000;
-        //factoryupgrade
+        //Factoryupgrade
         int upgradeFactoryCount = 0;
         int upgradeFactoryLevel = 2;
         double cookieCostUpgradeFactory = 200000;
@@ -103,11 +103,11 @@ namespace Cookie_Clicker
         MediaPlayer soundBuy = new MediaPlayer();
         MediaPlayer soundAchievement = new MediaPlayer();
 
-        //timers for game logic and updating
+        //Timers for game logic and updating
         DispatcherTimer gameTimer = new DispatcherTimer();
         DispatcherTimer secondsTimer = new DispatcherTimer();
 
-        //height for wrap panels
+        //Height for wrap panels
         int wrapHeight = 50;
         int imgSize = 45;
 
@@ -115,7 +115,7 @@ namespace Cookie_Clicker
         {
             InitializeComponent();
 
-            //thread for thread.sleep in CookieLogic
+            //Thread for thread.sleep in CookieLogic
             Thread cookieThread = new Thread(CookieLogic);
             cookieThread.Start();
 
@@ -135,7 +135,7 @@ namespace Cookie_Clicker
 
             InitializeGoldenCookieTimer();
 
-            //content for clickerproduction
+            //Content for clickerproduction
             LblClickerProd.Content = clickerProduction + "/s";
             LblGrandmaProd.Content = grandmaProduction + "/s";
             LblFarmProd.Content = farmProduction + "/s";
@@ -144,7 +144,7 @@ namespace Cookie_Clicker
             LblBankProd.Content = bankProduction + "/s";
             LblTempleProd.Content = templeProduction + "/s";
 
-            //content for upgrade 
+            //Content for upgrade 
             LblUpgrade1.Content = upgradeCursorLevel + "x" + " Cursor";
             LblUpgrade2.Content = upgradeClickerLevel + "x" + " Clicker";
             LblUpgrade3.Content = upgradeGrandmaLevel + "x" + " Grandma";
@@ -158,7 +158,7 @@ namespace Cookie_Clicker
         }
         private void Viewbox_Loaded(object sender, RoutedEventArgs e)
         {
-            //make inputbo for bakery name label
+            //Make inputbo for bakery name label
             string bakeryName = "";
 
             while (string.IsNullOrEmpty(bakeryName) || bakeryName.Length > 20)
@@ -193,7 +193,7 @@ namespace Cookie_Clicker
         }
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //when left click on cookie image add cookie clickCount to cookies
+            //When left click on cookie image add cookie clickCount to cookies
             cookies = cookies + clickCount;
             LblCookie.Content = cookies + " Cookies";
             CookieRotateAndBounce();
@@ -201,9 +201,52 @@ namespace Cookie_Clicker
             DrawCookies();
             clicks++;
             //LblClicks.Content = "Clicks" + clicks;
+
+            //Create a small cookie image
+            Image smallCookie = new Image
+            {
+                Source = new BitmapImage(new Uri("cookie.png", UriKind.Relative)), // Set your small cookie image path
+                Stretch = Stretch.Fill,
+                Width = 15,
+                Height = 15
+            };
+
+            Point relativeMousePosition = e.GetPosition(smallCookie);
+
+            //Set small cookie position
+            Canvas.SetLeft(smallCookie, e.GetPosition(Canvas).X - smallCookie.Width / 2);
+            Canvas.SetTop(smallCookie, e.GetPosition(Canvas).Y - smallCookie.Height / 2);
+
+            Canvas.Children.Add(smallCookie);
+
+            DoubleAnimation opacityAnimation = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            DoubleAnimation verticalAnimation = new DoubleAnimation
+            {
+                To = e.GetPosition(Canvas).Y - 50,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(opacityAnimation);
+            storyboard.Children.Add(verticalAnimation);
+
+            Storyboard.SetTarget(opacityAnimation, smallCookie);
+            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(Image.OpacityProperty));
+
+            Storyboard.SetTarget(verticalAnimation, smallCookie);
+            Storyboard.SetTargetProperty(verticalAnimation, new PropertyPath(Canvas.TopProperty));
+
+            storyboard.Begin();
         }
 
-        
+
+
         double tick = 0;
         private void CookieLogic()
         {
@@ -226,7 +269,7 @@ namespace Cookie_Clicker
         RotateTransform rotateTransform = new RotateTransform();
         private void CookieRotateAndBounce()
         {
-            //cookie rotation and bounce effect
+            //Cookie rotation and bounce effect
             DoubleAnimation growAnimation = new DoubleAnimation
             {
                 To = 0.95,
@@ -239,6 +282,7 @@ namespace Cookie_Clicker
                 Duration = TimeSpan.FromMilliseconds(100)
             };
             ScaleTransform scaleTransform = new ScaleTransform();
+            //Position cookie in middle of rotation
             CookieImage.RenderTransformOrigin = new Point(0.5, 0.5);
 
             currentCookieRotation = rotateTransform.Angle;
@@ -272,28 +316,28 @@ namespace Cookie_Clicker
         }
         private void SoundClickOn()
         {
-            //cookie click sound
+            //Cookie click sound
                 soundClick.Open(new Uri("clickOn.wav", UriKind.RelativeOrAbsolute));
                 soundClick.Play();
         }
 
         private void BuyItemSound()
         {
-            //buy item click sound
+            //Buy item click sound
             soundBuy.Open(new Uri("buy1.wav", UriKind.RelativeOrAbsolute));
             soundBuy.Play();
         }
 
         private void PlayAchievementSound() 
         {
-            //unlock achievement sound
+            //Nlock achievement sound
             soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
             soundAchievement.Play();
         }
 
         private void gameTimer_tick(object sender, EventArgs e)
         {
-            //update game every 10ms
+            //Update game every 10ms
             //LblTick.Content = "Ticks" + tick;
 
             DrawCookies();
@@ -310,7 +354,7 @@ namespace Cookie_Clicker
         }
         private void UIupdate()
         {
-            //fix UI sizing dynamically
+            //Fix UI sizing dynamically
             if (WrapUpgrades.ActualHeight > 50)
             {
                 ScrollItems.MaxHeight = Math.Max(175, 175);
@@ -324,7 +368,7 @@ namespace Cookie_Clicker
         {
             public static string FormatCookies(double cCount)
             {
-                //format cookies to be easier to read
+                //Format cookies to be easier to read
                 
                 if(cCount > 10 && cCount < 9999)
                 {
@@ -359,13 +403,13 @@ namespace Cookie_Clicker
 
         private string DrawLabel(double amount, string prefix = "", string suffix = "")
         {
-            //cookie formatter main function
+            //Cookie formatter main function
             string label = CookieFormatter.FormatCookies(amount);
             return prefix + label + suffix;
         }
         private void DrawCookies()
         {
-            //update all labels with formatting.
+            //Update all labels with formatting.
             LblCookie.Content = DrawLabel((long)cookies, "", " Cookies"); ;
             LblCostClicker.Content = DrawLabel((long)clickerCost, "Cost: ");
             LblCostGrandma.Content = DrawLabel((long)grandmaCost, "Cost: ");
@@ -385,19 +429,19 @@ namespace Cookie_Clicker
             TooltipUpgrade7.Content = DrawLabel(cookieCostUpgradeFactory, "Costs: ");
         }
 
-        //all functionality for Clicker object
+        //All functionality for Clicker object
         private bool isMouseOverClicker = false;
 
         private void ClickerP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverClicker = true;
             ClickerVerify();
         }
 
         private void ClickerP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverClicker = false;
             ClickerVerify();
         }
@@ -405,7 +449,7 @@ namespace Cookie_Clicker
         private bool clickerPVisibilityChanged = false;
         private void ClickerVerify()
         {
-            //verify if cookie count is high enough to purchase clicker
+            //Verify if cookie count is high enough to purchase clicker
             if (cookies < clickerCost)
             {
                 ClickerP.IsEnabled = false;
@@ -433,22 +477,22 @@ namespace Cookie_Clicker
         }
         private void ClickerP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //buy clicker
+            //Buy clicker
             ClickerVerify(); BuyItemSound();
-            //add 1 clicker to clicker count when executed
+            //Add 1 clicker to clicker count when executed
             clickerCount++;
             LblClicker.Content = "Clicker" + "s: " + clickerCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - clickerCost;
             clickerCost = clickerCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + clickerProduction;
             clickerProduction = clickerProduction * prodMultiplier;
-            //round cost of production
+            //Round cost of production
             clickerCost = Math.Round(clickerCost);
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
 
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             ClickerImageSpawn();
             scrollClicker.Visibility = Visibility.Visible;
@@ -465,7 +509,7 @@ namespace Cookie_Clicker
 
         private void ClickerWrap()
         {
-            //make clicker UI elemnt in middle of screen and create children if needed
+            //Make clicker UI elemnt in middle of screen and create children if needed
 
             if (!scrollviewerClickerCreated)
             {
@@ -491,7 +535,7 @@ namespace Cookie_Clicker
         }
         private void ClickerImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image ImgClicker = new Image();
             ImgClicker.Source = new BitmapImage(new Uri("Clicker.png", UriKind.RelativeOrAbsolute));
@@ -506,19 +550,19 @@ namespace Cookie_Clicker
         }
 
 
-        //all functionality for Grandma object
+        //All functionality for Grandma object
         private bool isMouseOverGrandma = false;
 
         private void GrandmaP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverGrandma = true;
             GrandmaVerify();
         }
 
         private void GrandmaP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverGrandma = false;
             GrandmaVerify();
         }
@@ -526,7 +570,7 @@ namespace Cookie_Clicker
         private bool grandmaPVisibilityChanged = false;
         private void GrandmaVerify()
         {
-            //verify if cookie count is high enough to purchase grandma
+            //Verify if cookie count is high enough to purchase grandma
             if (cookies < grandmaCost)
             {
                 GrandmaP.IsEnabled = false;
@@ -555,22 +599,22 @@ namespace Cookie_Clicker
 
         private void GrandmaP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //buy grandma
+            //Buy grandma
             GrandmaVerify(); BuyItemSound();
-            //add 1 grandma to grandma count when executed
+            //Add 1 grandma to grandma count when executed
             grandmaCount++;
             LblGrandma.Content = "Grandma" + "s: " + grandmaCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - grandmaCost;
             grandmaCost = grandmaCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + grandmaProduction;
             grandmaProduction = grandmaProduction * prodMultiplier;
-            //round cost of production
+            //Round cost of production
             grandmaCost = Math.Round(grandmaCost);
             double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
             LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
 
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             GrandmaWrap();
             GrandmaImageSpawn();
@@ -585,7 +629,7 @@ namespace Cookie_Clicker
 
         private void GrandmaWrap()
         {
-            //make grandma UI elemnt in middle of screen and create children if needed
+            //Make grandma UI elemnt in middle of screen and create children if needed
 
             if (!scrollviewerGrandmaCreated)
             {
@@ -613,7 +657,7 @@ namespace Cookie_Clicker
         }
         private void GrandmaImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image imgGrandma = new Image();
             imgGrandma.Source = new BitmapImage(new Uri("Grandma.png", UriKind.RelativeOrAbsolute));
@@ -627,12 +671,12 @@ namespace Cookie_Clicker
         }
 
 
-        //all functionality for Farm object
+        //All functionality for Farm object
         bool isMouseOverFarm = false;
 
         private void FarmP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverFarm = true;
             FarmVerify();
 
@@ -640,7 +684,7 @@ namespace Cookie_Clicker
 
         private void FarmP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverFarm = false;
             FarmVerify();
         }
@@ -649,7 +693,7 @@ namespace Cookie_Clicker
         private void FarmVerify()
         {
 
-            //verify if cookie count is high enough to purchase Farm
+            //Verify if cookie count is high enough to purchase Farm
             if (cookies < farmCost)
             {
                 FarmP.IsEnabled = false;
@@ -678,22 +722,22 @@ namespace Cookie_Clicker
 
         private void FarmP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //buy farm
+            //Buy farm
             FarmVerify(); BuyItemSound();
-            //add 1 farm to grandma count when executed
+            //Add 1 farm to grandma count when executed
             farmCount++;
             LblFarm.Content = "Farm" + "s: " + farmCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - farmCost;
             farmCost = farmCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + farmProduction;
             farmProduction = farmProduction * prodMultiplier;
-            //round cost of production
+            //Round cost of production
             farmCost = Math.Round(farmCost);
             double farmProudctionRounded = Math.Round(farmProduction, 2);
             LblFarmProd.Content = farmProudctionRounded + "/s";
 
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -711,7 +755,7 @@ namespace Cookie_Clicker
 
         private void FarmWrap()
         {
-            //make farm UI elemnt in middle of screen and create children if needed
+            //Make farm UI elemnt in middle of screen and create children if needed
             if (!scrollviewerFarmCreated)
             {
                 scrollFarm = new ScrollViewer();
@@ -741,7 +785,7 @@ namespace Cookie_Clicker
         }
         private void FarmImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image imgFarm = new Image();
             imgFarm.Source = new BitmapImage(new Uri("farm.png", UriKind.RelativeOrAbsolute));
@@ -755,18 +799,18 @@ namespace Cookie_Clicker
         }
 
 
-        //all functionality for Mine object
+        //All functionality for Mine object
         bool isMouseOverMine = false;
         private void MineP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverMine = true;
             MineVerify();
         }
 
         private void MineP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverMine = false;
             MineVerify();
         }
@@ -774,7 +818,7 @@ namespace Cookie_Clicker
         private bool minePVisibilityChanged = false;
         private void MineVerify()
         {
-            //verify if cookie count is high enough to purchase Farm
+            //Verify if cookie count is high enough to purchase Farm
             if (cookies < mineCost)
             {
                 MineP.IsEnabled = false;
@@ -803,22 +847,22 @@ namespace Cookie_Clicker
         }
         private void MineP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //buy mine
+            //Buy mine
             MineVerify(); BuyItemSound();
-            //add 1 mine to mine count when executed
+            //Add 1 mine to mine count when executed
             mineCount++;
             LblMine.Content = "Mine" + "s: " + mineCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - mineCost;
             mineCost = mineCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + mineProduction;
             mineProduction = mineProduction * prodMultiplier;
-            //round cost of production
+            //Round cost of production
             mineCost = Math.Round(mineCost);
             double mineProductionRounded = Math.Round(mineProduction, 2);
             LblMineProd.Content = mineProductionRounded + "/s";
 
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -835,7 +879,7 @@ namespace Cookie_Clicker
 
         private void MineWrap()
         {
-            //make mine UI elemnt in middle of screen and create children if needed
+            //Make mine UI elemnt in middle of screen and create children if needed
 
             if (!scrollviewerMineCreated)
             {
@@ -867,7 +911,7 @@ namespace Cookie_Clicker
         }
         private void MineImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image imgMine = new Image();
             imgMine.Source = new BitmapImage(new Uri("mine.png", UriKind.RelativeOrAbsolute));
@@ -881,18 +925,18 @@ namespace Cookie_Clicker
         }
 
 
-        //all functionality for Factory object
+        //All functionality for Factory object
         bool isMouseOverFactory = false;
         private void FactoryP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverFactory = true;
             FactoryVerify();
         }
 
         private void FactoryP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverFactory = false;
             FactoryVerify();
 
@@ -902,7 +946,7 @@ namespace Cookie_Clicker
         private void FactoryVerify()
         {
 
-            //verify if cookie count is high enough to purchase Farm
+            //Verify if cookie count is high enough to purchase Farm
             if (cookies < factoryCost)
             {
                 FactoryP.IsEnabled = false;
@@ -931,21 +975,21 @@ namespace Cookie_Clicker
         }
         private void FactoryP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // buy factory
+            //Buy factory
             FactoryVerify(); BuyItemSound();
-            // add 1 factory to factory count when executed
+            //Add 1 factory to factory count when executed
             factoryCount++;
             LblFactory.Content = "Factory" + "s: " + factoryCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - factoryCost;
             factoryCost = factoryCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + factoryProduction;
             factoryProduction = factoryProduction * prodMultiplier;
-            //round cost of production
+            //Round cost of production
             factoryCost = Math.Round(factoryCost);
             double factoryProductionRounded = Math.Round(factoryProduction, 2);
             LblFactoryProd.Content = factoryProductionRounded + "/s";
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -963,7 +1007,7 @@ namespace Cookie_Clicker
 
         private void FactoryWrap()
         {
-            //make factory UI elemnt in middle of screen and create children if needed
+            //Make factory UI elemnt in middle of screen and create children if needed
 
             if (!scrollviewerFactoryCreated)
             {
@@ -998,7 +1042,7 @@ namespace Cookie_Clicker
         }
         private void FactoryImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image imgFactory = new Image();
             imgFactory.Source = new BitmapImage(new Uri("factory.png", UriKind.RelativeOrAbsolute));
@@ -1012,19 +1056,19 @@ namespace Cookie_Clicker
         }
 
 
-        //all functionality for Bank object
+        //All functionality for Bank object
         bool isMouseOverBank = false;
 
         private void BankP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverBank = true;
             BankVerify();
         }
 
         private void BankP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverBank = false;
             BankVerify();
         }
@@ -1033,7 +1077,7 @@ namespace Cookie_Clicker
 
         private void BankVerify()
         {
-            //verify if cookie count is high enough to purchase Bank
+            //Verify if cookie count is high enough to purchase Bank
 
             if (cookies < bankCost)
             {
@@ -1064,23 +1108,23 @@ namespace Cookie_Clicker
 
         private void BankP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // buy bank
+            //Buy bank
             BankVerify();
             BuyItemSound();
 
-            // add 1 bank to bank count when executed
+            //Add 1 bank to bank count when executed
             bankCount++;
             LblBank.Content = "Bank" + "s: " + bankCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - bankCost;
             bankCost = bankCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + bankProduction;
             bankProduction = bankProduction * prodMultiplier;
-            //round cost of production
+            //Rround cost of production
             bankCost = Math.Round(bankCost);
             double bankProductionRounded = Math.Round(bankProduction, 2);
             LblBankProd.Content = bankProductionRounded + "/s";
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -1099,7 +1143,7 @@ namespace Cookie_Clicker
 
         private void BankWrap()
         {
-            //make bank UI elemnt in middle of screen and create children if needed
+            //Make bank UI elemnt in middle of screen and create children if needed
 
             if (!scrollviewerBankCreated)
             {
@@ -1135,7 +1179,7 @@ namespace Cookie_Clicker
         }
         private void BankImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image imgBank = new Image();
             imgBank.Source = new BitmapImage(new Uri("bank.png", UriKind.RelativeOrAbsolute));
@@ -1148,19 +1192,19 @@ namespace Cookie_Clicker
             imgBankCreated = true;
         }
 
-        //all functionality for Temple object
+        //All functionality for Temple object
         bool isMouseOverTemple = false;
 
         private void TempleP_MouseEnter(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect in
+            //Upgrade hover effect in
             isMouseOverTemple = true;
             TempleVerify();
         }
 
         private void TempleP_MouseLeave(object sender, MouseEventArgs e)
         {
-            //upgrade hover effect out
+            //Upgrade hover effect out
             isMouseOverTemple = false;
             TempleVerify();
         }
@@ -1168,7 +1212,7 @@ namespace Cookie_Clicker
         private bool templePVisibilityChanged = false; 
         private void TempleVerify()
         {
-            // Verify if cookie count is high enough to purchase Temple
+            //Verify if cookie count is high enough to purchase Temple
 
             if (cookies < templeCost)
             {
@@ -1199,23 +1243,23 @@ namespace Cookie_Clicker
 
         private void TempleP_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Buy Temple
+            //Buy Temple
             TempleVerify();
             BuyItemSound();
 
-            // Add 1 Temple to Temple count when executed
+            //Add 1 Temple to Temple count when executed
             templeCount++;
             LblTemple.Content = "Temple" + "s: " + templeCount;
-            //increase cost and increase production for scaling
+            //Increase cost and increase production for scaling
             cookies = cookies - templeCost;
             templeCost = templeCost * costMultiplier;
             cookiesPerSecond = cookiesPerSecond + templeProduction;
             templeProduction = templeProduction * prodMultiplier;
-            //round cost of production
+            //Round cost of production
             templeCost = Math.Round(templeCost);
             double templeProductionRounded = Math.Round(templeProduction, 2);
             LblTempleProd.Content = templeProductionRounded + "/s";
-            //show investment in middle
+            //Show investment in middle
             ClickerWrap();
             GrandmaWrap();
             FarmWrap();
@@ -1235,7 +1279,7 @@ namespace Cookie_Clicker
 
         private void TempleWrap()
         {
-            //make temple UI elemnt in middle of screen and create children if needed
+            //Make temple UI elemnt in middle of screen and create children if needed
 
             if (!scrollviewerTempleCreated)
             {
@@ -1273,7 +1317,7 @@ namespace Cookie_Clicker
         }
         private void TempleImageSpawn()
         {
-            //create image element inside the wrap UI element
+            //Create image element inside the wrap UI element
 
             Image imgTemple = new Image();
             imgTemple.Source = new BitmapImage(new Uri("temple.png", UriKind.RelativeOrAbsolute));
@@ -1285,7 +1329,7 @@ namespace Cookie_Clicker
             wrapTemple.Children.Add(imgTemple);
             imgTempleCreated = true;
         }
-        //hover function Upgrade1 Cursor
+        //Hover function Upgrade1 Cursor
 
         private bool isMouseOverUpgrade1 = false;
         private void Upgrade1_MouseEnter(object sender, MouseEventArgs e)
@@ -1300,7 +1344,7 @@ namespace Cookie_Clicker
             UpgradeUnlock();
         }
 
-        //hover function Upgrade2 Clicker
+        //Hover function Upgrade2 Clicker
 
         private bool isMouseOverUpgrade2 = false;
         private void Upgrade2_MouseEnter(object sender, MouseEventArgs e)
@@ -1315,7 +1359,7 @@ namespace Cookie_Clicker
             UpgradeUnlock();
         }
 
-        //hover function Upgrade3 Grandma
+        //Hover function Upgrade3 Grandma
 
         private bool isMouseOverUpgrade3 = false;
 
@@ -1332,7 +1376,7 @@ namespace Cookie_Clicker
         }
         private bool isMouseOverUpgrade4 = false;
 
-        //hover function Upgrade4 Farm
+        //Hover function Upgrade4 Farm
 
         private void Upgrade4_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -1347,7 +1391,7 @@ namespace Cookie_Clicker
         }
         private bool isMouseOverUpgrade5 = false;
 
-        //hover function Upgrade5 Mine
+        //Hover function Upgrade5 Mine
 
         private void Upgrade5_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -1361,7 +1405,7 @@ namespace Cookie_Clicker
             UpgradeUnlock();
 
         }
-        //hover function Upgrade6 Clicker2
+        //Hover function Upgrade6 Clicker2
         private bool isMouseOverUpgrade6 = false;
 
 
@@ -1377,7 +1421,7 @@ namespace Cookie_Clicker
             UpgradeUnlock();
 
         }
-        //hover function Upgrade7 Factory
+        //Hover function Upgrade7 Factory
         private bool isMouseOverUpgrade7 = false;
 
         private void Upgrade7_MouseEnter(object sender, MouseEventArgs e)
@@ -1402,9 +1446,9 @@ namespace Cookie_Clicker
 
         private void UpgradeUnlock()
         {
-            //verifies if u have enough cookies to purchase upgrade.
+            //Verifies if u have enough cookies to purchase upgrade.
 
-            //upgrade 1 Cursor
+            //Upgrade 1 Cursor
             if (cookies > cookieCostUpgradeCursor && upgrade1isVisable == false)
             {
                 BorderUpgradeCursor.Visibility = Visibility.Visible;
@@ -1436,7 +1480,7 @@ namespace Cookie_Clicker
             }
 
 
-            //upgrade 2 Clicker1
+            //Upgrade 2 Clicker1
 
             if (cookies > cookieCostUpgradeClicker && upgrade2isVisable == false)
             {
@@ -1469,7 +1513,7 @@ namespace Cookie_Clicker
 
 
 
-            //upgrade 3 Grandm2x
+            //Upgrade 3 Grandm2x
 
             if (cookies > cookieCostUpgradeGrandma && upgrade3isVisable == false)
             {
@@ -1503,7 +1547,7 @@ namespace Cookie_Clicker
             }
 
 
-            // Upgrade 4 Farm2x
+            //Upgrade 4 Farm2x
             if (cookies > cookieCostUpgradeFarm && upgrade4isVisable == false)
             {
                 BorderUpgradeFarm.Visibility = Visibility.Visible;
@@ -1533,7 +1577,7 @@ namespace Cookie_Clicker
                 LblUpgrade4.Foreground = new SolidColorBrush(Colors.Black);
             }
 
-            //upgrade 5 Mine2x
+            //Upgrade 5 Mine2x
             if (cookies > cookieCostUpgradeMine && upgrade5isVisable == false)
             {
                 BorderUpgradeMine.Visibility = Visibility.Visible;
@@ -1580,7 +1624,7 @@ namespace Cookie_Clicker
 
 
 
-            //upgrade 6 Clicker2
+            //Upgrade 6 Clicker2
             if (cookies > cookieCostUpgradeClicker2 && upgrade6isVisable == false)
             {
                 BorderUpgradeClicker2.Visibility = Visibility.Visible;
@@ -1614,7 +1658,7 @@ namespace Cookie_Clicker
                     LblUpgrade6.Foreground = new SolidColorBrush(Colors.Black);
                 }
             }
-            //upgrade 7 Factory
+            //Upgrade 7 Factory
             if (cookies > cookieCostUpgradeFactory && upgrade7isVisable == false)
             {
                 BorderUpgradeFactory.Visibility = Visibility.Visible;
@@ -1823,6 +1867,7 @@ namespace Cookie_Clicker
         private bool achievementsOpened = false;
         private void AchievemntsBtn_Click(object sender, RoutedEventArgs e)
         {
+            //achievement button to open the achievement history
             if (achievementsOpened == false)
             {
                 AchievementsScrollviewer.Visibility = Visibility.Visible;
@@ -1841,6 +1886,7 @@ namespace Cookie_Clicker
 
         private void VerifyAchievements()
         {
+            //check if achievement is supposed to be unlocked and then give corresponding achievement.
             if (clicks >= 1 && achievement1Achieved == false)
             {
                 achievement1Achieved = true;
@@ -2120,6 +2166,7 @@ namespace Cookie_Clicker
 
         private void UpdateProduction()
         {
+            //refresh the production for all investments
             double clickerProductionRounded = Math.Round(clickerProduction, 2);
             LblClickerProd.Content = clickerProductionRounded + "/s";
 
@@ -2144,15 +2191,16 @@ namespace Cookie_Clicker
 
         private void InitializeGoldenCookieTimer()
         {
+            //start timer for spawn of golden cookie
             goldenCookieTimer = new DispatcherTimer();
-            goldenCookieTimer.Interval = TimeSpan.FromSeconds(1);
+            goldenCookieTimer.Interval = TimeSpan.FromMinutes(3);
             goldenCookieTimer.Tick += GoldenCookieTimer_Tick;
             goldenCookieTimer.Start();
         }
 
         private void GoldenCookieTimer_Tick(object sender, EventArgs e)
         {
-            if (random.NextDouble() < 1.0)
+            if (random.NextDouble() < 0.2)
             {
                 //Activate the golden cookie
                 Dispatcher.Invoke(() =>
@@ -2169,7 +2217,7 @@ namespace Cookie_Clicker
 
         private void SpawnGoldenCookie()
         {
-            // Create a new image (representing the cookie)
+            //Create a new image (representing the cookie)
             Image goldenCookieImage = new Image
             {
                 Source = new BitmapImage(new Uri("goldencookie.png", UriKind.Relative)),
@@ -2184,7 +2232,7 @@ namespace Cookie_Clicker
 
             goldenCookieImage.MouseLeftButtonDown += GoldenCookieImage_MouseLeftButtonDown;
 
-            // Add the image to the Canvas
+            //Add the image to the Canvas
             Canvas.Children.Add(goldenCookieImage);
         }
 
@@ -2194,10 +2242,10 @@ namespace Cookie_Clicker
         {
             foundGoldenCookie = true;
 
-            // Generate random modifiers between 150% and 1000%
+            //Generate random modifiers between 150% and 1000%
             double modifier = random.NextDouble() * (10.0 - 1.5) + 1.5;
 
-            // Apply the modifiers to cookiesPerSecond, clickCount, and other production values
+            //Apply the modifiers to cookiesPerSecond, clickCount, and other production values
             cookiesPerSecond *= modifier;
             clickCount *= modifier;
             clickerProduction *= modifier;
@@ -2210,7 +2258,7 @@ namespace Cookie_Clicker
             UpdateProduction();
 
 
-            // Remove the modifiers after a random time between 30 and 120 seconds
+            //Remove the modifiers after a random time between 30 and 120 seconds
             int removeModifierTime = random.Next(30000, 120000);
             DispatcherTimer removeModifierTimer = new DispatcherTimer();
             removeModifierTimer.Interval = TimeSpan.FromMilliseconds(1000);
@@ -2220,7 +2268,7 @@ namespace Cookie_Clicker
             {
                 remainingTimeInSeconds--;
 
-                // Display the countdown in the durationLabel
+                //Display the countdown in the durationLabel
                 durationLabel.Content = $"Duration: {remainingTimeInSeconds} seconds";
 
                 if (remainingTimeInSeconds <= 0)
@@ -2228,7 +2276,7 @@ namespace Cookie_Clicker
                     removeModifierTimer.Stop();
                     removeModifierTimer = null;
 
-                    // Remove the modifiers by applying the inverse to cookiesPerSecond, clickCount, and other production values
+                    //Remove the modifiers by applying the inverse to cookiesPerSecond, clickCount, and other production values
                     cookiesPerSecond /= modifier;
                     clickCount /= modifier;
                     clickerProduction /= modifier;
@@ -2240,14 +2288,14 @@ namespace Cookie_Clicker
                     templeProduction /= modifier;
                     UpdateProduction();
 
-                    multiplierLabel.Content = "Multiplier: ";
-                    durationLabel.Content = "Duration: ";
+                    multiplierLabel.Content = "";
+                    durationLabel.Content = "";
                 }
             };
 
             removeModifierTimer.Start();
 
-            multiplierLabel.Content = $"Multiplier Percentage: {(modifier * 100):0}%";
+            multiplierLabel.Content = $"Multiplier: {(modifier * 100):0}%";
             durationLabel.Content = $"Duration: {remainingTimeInSeconds} seconds";
 
             UIElement clickedCookie = Canvas.Children.OfType<Image>().FirstOrDefault();
@@ -2259,11 +2307,6 @@ namespace Cookie_Clicker
 
             goldenCookieTimer.Start();
         }
-
-
-
-
-
     }
 
 }

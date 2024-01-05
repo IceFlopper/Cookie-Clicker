@@ -221,11 +221,11 @@
                     <!-- Store -->
                     <Border Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,0" >
                         <!--  Store panel and upgrade panel  -->
-                        <StackPanel MaxWidth="240" MaxHeight="300">
+                    <StackPanel MaxWidth="240" MaxHeight="300" Background="Beige">
                             <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="2">
                                 <StackPanel >
-                                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Name="StoreBorder">
-                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Name="StorePanel">
+                                <Border BorderBrush="Black" BorderThickness="0,0,0,2" Name="StoreBorder">
+                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Name="StorePanel">
                                             <Label Content="Store" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                                         </WrapPanel>
 
