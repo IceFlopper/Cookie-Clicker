@@ -2298,11 +2298,11 @@ namespace Cookie_Clicker
             multiplierLabel.Content = $"Multiplier: {(modifier * 100):0}%";
             durationLabel.Content = $"Duration: {remainingTimeInSeconds} seconds";
 
-            UIElement clickedCookie = Canvas.Children.OfType<Image>().FirstOrDefault();
+            UIElement goldenCookieImage = Canvas.Children.OfType<Image>().FirstOrDefault();
 
-            if (clickedCookie != null)
+            if (goldenCookieImage != null)
             {
-                Canvas.Children.Remove(clickedCookie);
+                Canvas.Children.Remove(goldenCookieImage);
             }
 
             goldenCookieTimer.Start();
