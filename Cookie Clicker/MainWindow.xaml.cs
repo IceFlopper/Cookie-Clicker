@@ -35,7 +35,7 @@ namespace Cookie_Clicker
         double prodMultiplier = 1.05;
         double costMultiplier = 1.25;
         //amount gained per click
-        double clickCount = 10000000000000;
+        double clickCount = 100000;
 
         //clicker
         double clickerCost = 15;
@@ -101,7 +101,7 @@ namespace Cookie_Clicker
         //players for the sounds
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
-        SoundPlayer soundAchievement = new SoundPlayer("C:\\Users\\novie\\Source\\Repos\\IceFlopper\\Cookie-Clicker\\Cookie Clicker\\Achievement.wav");
+        MediaPlayer soundAchievement = new MediaPlayer();
 
         //timers for game logic and updating
         DispatcherTimer gameTimer = new DispatcherTimer();
@@ -287,7 +287,7 @@ namespace Cookie_Clicker
         private void PlayAchievementSound() 
         {
             //unlock achievement sound
-            //soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
+            soundAchievement.Open(new Uri("Achievement.wav", UriKind.RelativeOrAbsolute));
             soundAchievement.Play();
         }
 
@@ -2117,17 +2117,42 @@ namespace Cookie_Clicker
         private Random random = new Random();
         private DispatcherTimer goldenCookieTimer;
 
+
+        private void UpdateProduction()
+        {
+            double clickerProductionRounded = Math.Round(clickerProduction, 2);
+            LblClickerProd.Content = clickerProductionRounded + "/s";
+
+            double grandmaProudctionRounded = Math.Round(grandmaProduction, 2);
+            LblGrandmaProd.Content = grandmaProudctionRounded + "/s";
+
+            double farmProductionRounded = Math.Round(farmProduction, 2);
+            LblFarmProd.Content = farmProductionRounded + "/s";
+
+            double mineProductionRounded = Math.Round(mineProduction, 2);
+            LblMineProd.Content = mineProductionRounded + "/s";
+
+            double factoryProductionRounded = Math.Round(factoryProduction, 2);
+            LblFactoryProd.Content = factoryProductionRounded + "/s";
+
+            double bankProductionRounded = Math.Round(bankProduction, 2);
+            LblBankProd.Content = bankProductionRounded + "/s";
+
+            double templeProductionRounded = Math.Round(templeProduction, 2);
+            LblTempleProd.Content = templeProductionRounded + "/s";
+        }
+
         private void InitializeGoldenCookieTimer()
         {
             goldenCookieTimer = new DispatcherTimer();
-            goldenCookieTimer.Interval = TimeSpan.FromMinutes(3);
+            goldenCookieTimer.Interval = TimeSpan.FromSeconds(1);
             goldenCookieTimer.Tick += GoldenCookieTimer_Tick;
             goldenCookieTimer.Start();
         }
 
         private void GoldenCookieTimer_Tick(object sender, EventArgs e)
         {
-            if (random.NextDouble() < 0.2)
+            if (random.NextDouble() < 1.0)
             {
                 //Activate the golden cookie
                 Dispatcher.Invoke(() =>
@@ -2169,17 +2194,26 @@ namespace Cookie_Clicker
         {
             foundGoldenCookie = true;
 
-            // Generate random modifiers between 50% and 1000%
-            double modifier = random.NextDouble() * (10.0 - 0.5) + 0.5;
+            // Generate random modifiers between 150% and 1000%
+            double modifier = random.NextDouble() * (10.0 - 1.5) + 1.5;
 
-            // Apply the modifiers to cookiesPerSecond and clickCount
+            // Apply the modifiers to cookiesPerSecond, clickCount, and other production values
             cookiesPerSecond *= modifier;
             clickCount *= modifier;
+            clickerProduction *= modifier;
+            grandmaProduction *= modifier;
+            farmProduction *= modifier;
+            mineProduction *= modifier;
+            factoryProduction *= modifier;
+            bankProduction *= modifier;
+            templeProduction *= modifier;
+            UpdateProduction();
+
 
             // Remove the modifiers after a random time between 30 and 120 seconds
             int removeModifierTime = random.Next(30000, 120000);
             DispatcherTimer removeModifierTimer = new DispatcherTimer();
-            removeModifierTimer.Interval = TimeSpan.FromMilliseconds(1000); // Tick every second
+            removeModifierTimer.Interval = TimeSpan.FromMilliseconds(1000);
             int remainingTimeInSeconds = removeModifierTime / 1000;
 
             removeModifierTimer.Tick += (s, args) =>
@@ -2193,6 +2227,18 @@ namespace Cookie_Clicker
                 {
                     removeModifierTimer.Stop();
                     removeModifierTimer = null;
+
+                    // Remove the modifiers by applying the inverse to cookiesPerSecond, clickCount, and other production values
+                    cookiesPerSecond /= modifier;
+                    clickCount /= modifier;
+                    clickerProduction /= modifier;
+                    grandmaProduction /= modifier;
+                    farmProduction /= modifier;
+                    mineProduction /= modifier;
+                    factoryProduction /= modifier;
+                    bankProduction /= modifier;
+                    templeProduction /= modifier;
+                    UpdateProduction();
 
                     multiplierLabel.Content = "Multiplier: ";
                     durationLabel.Content = "Duration: ";
@@ -2213,6 +2259,7 @@ namespace Cookie_Clicker
 
             goldenCookieTimer.Start();
         }
+
 
 
 
