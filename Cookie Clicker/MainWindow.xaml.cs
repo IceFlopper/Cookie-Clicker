@@ -1836,14 +1836,21 @@ namespace Cookie_Clicker
 
         private void LblBakeryName_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string newName = Microsoft.VisualBasic.Interaction.InputBox("Enter the new name for the bakery:", "Change Bakery Name", LblBakeryName.Content.ToString());
+            string currentName = LblBakeryName.Content.ToString();
 
-            // Check if the user clicked 'Cancel'
-            if (!string.IsNullOrEmpty(newName))
+            string newName = Interaction.InputBox("Enter the new name for the bakery (max 20 characters):", "Change Bakery Name", currentName);
+
+            // Check if the user clicked 'Cancel' or entered an empty string
+            if (!string.IsNullOrEmpty(newName) && newName.Length <= 20)
             {
                 LblBakeryName.Content = newName;
             }
+            else if (newName.Length > 20)
+            {
+                LblBakeryName.Content = newName.Substring(0, 20);
+            }
         }
+
         private bool foundGoldenCookie = false;
         double achievementScore = 0;
         private bool achievement1Achieved = false;

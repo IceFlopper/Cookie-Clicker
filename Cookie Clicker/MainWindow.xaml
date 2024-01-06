@@ -35,7 +35,7 @@
                 <Border  BorderBrush="Black" BorderThickness="0,0,1,0" Width="230" Height="300">
                     <StackPanel  Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Name="CookieStackPanel">
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Label Name="LblBakeryName" Content="PXL - Bakery" MouseLeftButtonDown="LblBakeryName_MouseLeftButtonDown" Panel.ZIndex="100"></Label>
+                            <Label Name="LblBakeryName" Content="PXL - Bakery" MouseLeftButtonDown="LblBakeryName_MouseLeftButtonDown" Panel.ZIndex="100" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                             <Button Width="80" Height="20" Margin="10, 0, 5, 0" Name="AchievemntsBtn" Click="AchievemntsBtn_Click" Panel.ZIndex="100">Achievements</Button>
                         </WrapPanel>
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, -20">
