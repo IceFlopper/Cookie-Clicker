@@ -1851,6 +1851,7 @@ namespace Cookie_Clicker
             }
         }
 
+        //all booleans for achievement checking.
         private bool foundGoldenCookie = false;
         double achievementScore = 0;
         private bool achievement1Achieved = false;
@@ -1900,6 +1901,7 @@ namespace Cookie_Clicker
 
         private void VerifyAchievements()
         {
+            //achievement verification system to check if achievement should be unlocked, if it is to not repeat the unlock.
             //check if achievement is supposed to be unlocked and then give corresponding achievement.
             if (clicks >= 1 && achievement1Achieved == false)
             {
