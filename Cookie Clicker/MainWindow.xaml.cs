@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Media;
@@ -43,30 +44,43 @@ namespace Cookie_Clicker
         double clickerCost = 15;
         int clickerCount = 0;
         double clickerProduction = 0.1;
+        double totalProductionClicker = 0;
         //Grandma
         double grandmaCost = 100;
         int grandmaCount = 0;
         double grandmaProduction = 1;
+        double totalProductionGrandma = 0;
+
         //Farm
         double farmCost = 1100;
         int farmCount = 0;
         double farmProduction = 8;
+        double totalProductionFarm = 0;
+
         //Mine
         double mineCost = 9000;
         int mineCount = 0;
         double mineProduction = 30;
+        double totalProductionMine = 0;
+
         //Factory
         double factoryCost = 110000;
         int factoryCount = 0;
         double factoryProduction = 200;
+        double totalProductionFactory = 0;
+
         //Bank
         double bankCost = 1400000;
         int bankCount = 0;
         double bankProduction = 1000;
+        double totalProductionBank = 0;
+
         //Temple
         double templeCost = 20000000;
         int templeCount = 0;
         double templeProduction = 5000;
+        double totalProductionTemple = 0;
+
 
         //Upgrades
         //Cursorupgrade
@@ -99,7 +113,7 @@ namespace Cookie_Clicker
         int upgradeFactoryLevel = 2;
         double cookieCostUpgradeFactory = 200000;
 
-
+        
         //players for the sounds
         MediaPlayer soundClick = new MediaPlayer();
         MediaPlayer soundBuy = new MediaPlayer();
@@ -186,12 +200,68 @@ namespace Cookie_Clicker
         {
             clickCount += 1000000;
         }
+        double producedClicker = 0;
+        double producedGrandma = 0;
+        double producedFarm = 0;
+        double producedMine = 0;
+        double producedFactory = 0;
+        double producedBank = 0;
+        double producedTemple = 0;
+
+        double producedClickerTotal = 0;
+        double producedGrandmaTotal = 0;
+        double producedFarmTotal = 0;
+        double producedMineTotal = 0;
+        double producedFactoryTotal = 0;
+        double producedBankTotal = 0;
+        double producedTempleTotal = 0;
+
+
+
+
+
+
+
 
         int seconds = 0;
+        double totalCookies = 0;
         private void SecondsCounter(object sender, EventArgs e)
         {
             seconds++;
             //LblSeconds.Content = "Seconds" + seconds.ToString();
+            producedClicker = clickerProduction * seconds;
+            producedGrandma = grandmaProduction * seconds;
+            producedFarm = farmProduction * seconds;
+            producedMine = mineProduction * seconds;
+            producedFactory = factoryProduction * seconds;
+            producedBank = bankProduction * seconds;
+            producedTemple = templeProduction * seconds;
+
+            producedClickerTotal = producedClicker * clickerCount;
+            producedGrandmaTotal = producedGrandma * grandmaCount;
+            producedFarmTotal = producedFarm * farmCount;
+            producedMineTotal = producedMine * mineCount;
+            producedFactoryTotal = producedFactory * factoryCount;
+            producedBankTotal = producedBank * bankCount;
+            producedTempleTotal = producedTemple * templeCount;
+
+
+
+
+
+
+
+            totalCookies = producedClickerTotal + producedGrandmaTotal + producedFarmTotal + producedMineTotal + producedFactoryTotal + producedBankTotal + producedTempleTotal;
+
+
+            double minutes = seconds / 60;
+            double hours = minutes / 60;
+            ClickLabel.Content = $"clicked {clickCount} times";
+            TimeLabel.Content = $"Played for {seconds} s, {minutes} minutes, {hours} hours.";
+            GoldenLabel.Content = $"Found {goldenCookieClick} golden cookies";
+            QuestLabel.Content = $"Achieved {achievementsAchieved} Achievements";
+
+
         }
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -404,34 +474,65 @@ namespace Cookie_Clicker
             }
         }
 
-        private string DrawLabel(double amount, string prefix = "", string suffix = "")
+        private string DrawLabel(double amount, string prefix, string suffix, double amount2, string prefix2, string suffix2, double amount3, string prefix3, string suffix3, double amount4, string prefix4, string suffix4, double amount5, string prefix5, string suffix5)
         {
             //Cookie formatter main function
             string label = CookieFormatter.FormatCookies(amount);
-            return prefix + label + suffix;
+            string label2 = CookieFormatter.FormatCookies(amount2);
+            string label3 = CookieFormatter.FormatCookies(amount3);
+            string label4 = CookieFormatter.FormatCookies(amount4);
+            string label5 = CookieFormatter.FormatCookies(amount5);
+
+
+
+
+            return prefix + label + suffix + prefix2 + label2 + suffix2 + prefix3 + label3 + suffix3 + prefix4 + label4 + suffix4 + prefix5 + label5 + suffix5;
         }
         private void DrawCookies()
         {
             //Update all labels with formatting.
-            LblCookie.Content = DrawLabel((long)cookies, "", " Cookies"); ;
-            LblCostClicker.Content = DrawLabel((long)clickerCost, "Cost: ");
-            LblCostGrandma.Content = DrawLabel((long)grandmaCost, "Cost: ");
-            LblCostFarm.Content = DrawLabel((long)farmCost, "Cost: ");
-            LblCostMine.Content = DrawLabel((long)mineCost, "Cost: ");
-            LblCostFactory.Content = DrawLabel((long)factoryCost, "Cost: ");
-            LblCostBank.Content = DrawLabel((long)bankCost, "Cost: ");
-            LblCostTemple.Content = DrawLabel((long)templeCost, "Cost: ");
-            LblCookiePerSecond.Content = DrawLabel(Math.Round(cookiesPerSecond, 2), "", "/s");
+            LblCookie.Content = DrawLabel((long)cookies, "", " Cookies", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", ""); ;
+            LblCostClicker.Content = DrawLabel((long)clickerCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCostGrandma.Content = DrawLabel((long)grandmaCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCostFarm.Content = DrawLabel((long)farmCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCostMine.Content = DrawLabel((long)mineCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCostFactory.Content = DrawLabel((long)factoryCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCostBank.Content = DrawLabel((long)bankCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCostTemple.Content = DrawLabel((long)templeCost, "Cost: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            LblCookiePerSecond.Content = DrawLabel(Math.Round(cookiesPerSecond,2), "", "/s",0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
 
-            TooltipUpgrade1.Content = DrawLabel(cookieCostUpgradeCursor, "Costs: ");
-            TooltipUpgrade2.Content = DrawLabel(cookieCostUpgradeClicker, "Costs: ");
-            TooltipUpgrade3.Content = DrawLabel(cookieCostUpgradeGrandma, "Costs: ");
-            TooltipUpgrade4.Content = DrawLabel(cookieCostUpgradeFarm, "Costs: ");
-            TooltipUpgrade5.Content = DrawLabel(cookieCostUpgradeMine, "Costs: ");
-            TooltipUpgrade6.Content = DrawLabel(cookieCostUpgradeClicker2, "Costs: ");
-            TooltipUpgrade7.Content = DrawLabel(cookieCostUpgradeFactory, "Costs: ");
+            TooltipUpgrade1.Content = DrawLabel(cookieCostUpgradeCursor, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            TooltipUpgrade2.Content = DrawLabel(cookieCostUpgradeClicker, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            TooltipUpgrade3.Content = DrawLabel(cookieCostUpgradeGrandma, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            TooltipUpgrade4.Content = DrawLabel(cookieCostUpgradeFarm, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            TooltipUpgrade5.Content = DrawLabel(cookieCostUpgradeMine, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            TooltipUpgrade6.Content = DrawLabel(cookieCostUpgradeClicker2, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+            TooltipUpgrade7.Content = DrawLabel(cookieCostUpgradeFactory, "Costs: ", "", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+
+            ProducedLabel.Content = DrawLabel(totalCookies, "Produced ", " cookies so far", 0, " ", "", 0, " ", "", 0, " ", "", 0, " ", "");
+
+            TooltipCalc();
         }
 
+        private void TooltipCalc()
+        {
+            totalProductionClicker = clickerCount * clickerProduction;
+            totalProductionGrandma = grandmaCount * grandmaProduction;
+            totalProductionFarm = farmCount * farmProduction;
+            totalProductionMine = mineCount * mineProduction;
+            totalProductionFactory = factoryCount * factoryProduction;
+            totalProductionBank = bankCount * bankProduction;
+            totalProductionTemple = templeCount * templeProduction;
+
+            TooltipClicker.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionClicker, " Produces ", " cookie s", upgradeClickerCount, " ", " Upgrades ", upgradeClickerLevel, "Multiplies ", " X", producedClicker, "Total producted cookies: ", "");
+            TooltipGrandma.Content = DrawLabel(grandmaCount, "", "Grandmas ",totalProductionGrandma, " Produces ", " cookies", upgradeGrandmaCount, " ", " Upgrades ", upgradeGrandmaLevel, "Multiplies ", " X", producedGrandma, "Total producted cookies: ", "");
+            TooltipFarm.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFarm, " Produces ", " cookies", upgradeFarmCount, " ", " Upgrades ", upgradeFarmLevel, "Multiplies ", " X", producedFarm, "Total producted cookies: ", "");
+            TooltipMine.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionMine, " Produces ", " cookies", upgradeMineCount, " ", " Upgrades ", upgradeMineLevel, "Multiplies ", " X", producedMine, "Total producted cookies: ", "");
+            TooltipFactory.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFactory, "Produces ", " cookies", upgradeFactoryCount, " ", "Upgrades ", upgradeFactoryLevel, "Multiplies ", " X", producedFactory, "Total producted cookies:", "");
+            TooltipBank.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionBank, "Produces ", " cookies", producedBank, "Total producted cookies:", " ", 0, " ", " ", 0, " ", "");
+            TooltipTemple.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionTemple, "Produces ", " cookies", producedTemple, "Total producted cookies:", "", 0, "", "", 0, " ", "");
+
+        }
         //All functionality for Clicker object
         private bool isMouseOverClicker = false;
 
@@ -1877,7 +1978,7 @@ namespace Cookie_Clicker
         private bool achievement21Achieved = false;
         private bool achievement22Achieved = false;
 
-
+        private int achievementsAchieved = 0;
 
         private bool achievementsOpened = false;
         private void AchievemntsBtn_Click(object sender, RoutedEventArgs e)
@@ -1906,7 +2007,7 @@ namespace Cookie_Clicker
             if (clicks >= 1 && achievement1Achieved == false)
             {
                 achievement1Achieved = true;
-
+                achievementsAchieved++;
                 if (achievement1Achieved)
                 {
                     achievementScore += 50;
@@ -1920,6 +2021,7 @@ namespace Cookie_Clicker
             if (clicks >= 100 && achievement2Achieved == false)
             {
                 achievement2Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement2Achieved)
                 {
@@ -1934,6 +2036,7 @@ namespace Cookie_Clicker
             if (clicks >= 1000 && achievement3Achieved == false)
             {
                 achievement3Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement3Achieved)
                 {
@@ -1948,6 +2051,7 @@ namespace Cookie_Clicker
             if (cookiesPerSecond >= 1 && achievement4Achieved == false)
             {
                 achievement4Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement4Achieved)
                 {
@@ -1962,6 +2066,7 @@ namespace Cookie_Clicker
             if (cookiesPerSecond >= 10 && achievement5Achieved == false)
             {
                 achievement5Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement5Achieved)
                 {
@@ -1976,6 +2081,7 @@ namespace Cookie_Clicker
             if (cookiesPerSecond >= 100 && achievement6Achieved == false)
             {
                 achievement6Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement6Achieved)
                 {
@@ -1990,6 +2096,7 @@ namespace Cookie_Clicker
             if (cookiesPerSecond >= 1000 && achievement7Achieved == false)
             {
                 achievement7Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement7Achieved)
                 {
@@ -2004,6 +2111,7 @@ namespace Cookie_Clicker
             if (cookiesPerSecond >= 10000 && achievement8Achieved == false)
             {
                 achievement8Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement8Achieved)
                 {
@@ -2018,6 +2126,7 @@ namespace Cookie_Clicker
             if (imgClickerCreated == true && achievement9Achieved == false)
             {
                 achievement9Achieved = true;
+                achievementsAchieved++;
 
                 if (achievement9Achieved)
                 {
@@ -2032,6 +2141,8 @@ namespace Cookie_Clicker
             if (imgGrandmaCreated == true && achievement10Achieved == false)
             {
                 achievement10Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement10Achieved)
                 {
                     achievementScore += 150;
@@ -2045,6 +2156,8 @@ namespace Cookie_Clicker
             if (imgFarmCreated == true && achievement11Achieved == false)
             {
                 achievement11Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement11Achieved)
                 {
                     achievementScore += 200;
@@ -2058,6 +2171,8 @@ namespace Cookie_Clicker
             if (imgMineCreated == true && achievement12Achieved == false)
             {
                 achievement12Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement12Achieved)
                 {
                     achievementScore += 250;
@@ -2071,6 +2186,8 @@ namespace Cookie_Clicker
             if (imgFactoryCreated == true && achievement13Achieved == false)
             {
                 achievement13Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement13Achieved)
                 {
                     achievementScore += 300;
@@ -2084,6 +2201,8 @@ namespace Cookie_Clicker
             if (imgBankCreated == true && achievement14Achieved == false)
             {
                 achievement14Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement14Achieved)
                 {
                     achievementScore += 350;
@@ -2097,6 +2216,8 @@ namespace Cookie_Clicker
             if (imgTempleCreated == true && achievement15Achieved == false)
             {
                 achievement15Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement15Achieved)
                 {
                     achievementScore += 400;
@@ -2110,6 +2231,8 @@ namespace Cookie_Clicker
             if ((upgradeCursorCount >= 1 || upgradeClicker2Count >= 1 || upgradeGrandmaCount >= 1 || upgradeFarmCount >= 1 || upgradeMineCount >= 1 || upgradeFactoryCount >= 1 || upgradeClickerCount >= 1) && achievement16Achieved == false)
             {
                 achievement16Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement16Achieved)
                 {
                     achievementScore += 100;
@@ -2123,6 +2246,8 @@ namespace Cookie_Clicker
             if (seconds >= 600 && achievement17Achieved == false)
             {
                 achievement17Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement17Achieved)
                 {
                     achievementScore += 100;
@@ -2136,6 +2261,8 @@ namespace Cookie_Clicker
             if (seconds >= 3600 && achievement18Achieved == false)
             {
                 achievement18Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement18Achieved)
                 {
                     achievementScore += 500;
@@ -2149,6 +2276,8 @@ namespace Cookie_Clicker
             if (achievementsOpened == true && achievement19Achieved == false)
             {
                 achievement19Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement19Achieved)
                 {
                     achievementScore += 50;
@@ -2162,6 +2291,8 @@ namespace Cookie_Clicker
             if (foundGoldenCookie == true && achievement20Achieved == false)
             {
                 achievement20Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement20Achieved)
                 {
                     achievementScore += 1000;
@@ -2175,6 +2306,8 @@ namespace Cookie_Clicker
             if (cookies >= 1000000 && achievement21Achieved == false)
             {
                 achievement21Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement21Achieved)
                 {
                     achievementScore += 1000;
@@ -2188,6 +2321,8 @@ namespace Cookie_Clicker
             if (cookies >= 1000000000 && achievement22Achieved == false)
             {
                 achievement22Achieved = true;
+                achievementsAchieved++;
+
                 if (achievement22Achieved)
                 {
                     achievementScore += 5000;
@@ -2282,9 +2417,11 @@ namespace Cookie_Clicker
         }
 
 
+        int goldenCookieClick;
 
         private void GoldenCookieImage_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
+            goldenCookieClick++;
             foundGoldenCookie = true;
             BuyItemSound();
             //Generate random modifiers between 150% and 1000%
@@ -2426,8 +2563,30 @@ namespace Cookie_Clicker
             }
 
         }
+        private bool statsOpened = false;
 
 
+        private void StatsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            //achievement button to open the achievement history
+            if (statsOpened == false)
+            {
+                StatsScrollviewer.Visibility = Visibility.Visible;
+                StatsP.Visibility = Visibility.Visible;
+                statsOpened = true;
+
+            }
+            else if (statsOpened == true)
+            {
+                StatsScrollviewer.Visibility = Visibility.Collapsed;
+                StatsP.Visibility = Visibility.Collapsed;
+                statsOpened = false;
+            }
+
+
+        }
     }
 }
 

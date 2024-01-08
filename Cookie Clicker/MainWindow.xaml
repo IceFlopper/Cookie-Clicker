@@ -37,6 +37,8 @@
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Label Name="LblBakeryName" Content="PXL - Bakery" MouseLeftButtonDown="LblBakeryName_MouseLeftButtonDown" Panel.ZIndex="100" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                             <Button Width="80" Height="20" Margin="10, 0, 5, 0" Name="AchievemntsBtn" Click="AchievemntsBtn_Click" Panel.ZIndex="100">Achievements</Button>
+                            <Button Width="30" Height="20" Margin="10, 0, 5, 0" Name="StatsBtn"  Panel.ZIndex="100" Click="StatsBtn_Click">Stats</Button>
+
                         </WrapPanel>
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, -20">
                             <!--<Label Content="Seconds" Name="LblSeconds"></Label>
@@ -224,7 +226,46 @@
 
                                 </StackPanel>
                             </ScrollViewer>
-                            <ScrollViewer Name="ScrollMain" VerticalScrollBarVisibility="Auto" MaxHeight="300" Height="300">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="300" Visibility="Collapsed" Name="StatsScrollviewer">
+                            <StackPanel Name="StatsP" Visibility="Collapsed">
+                                <StackPanel Background="SandyBrown">
+                                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Label>Stats</Label>
+                                    </WrapPanel>
+                                    
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <Label Content="Clicked 0 Times" Name="ClickLabel">
+                                             
+                                        </Label>
+                                    </WrapPanel>
+                                    <WrapPanel >
+                                        <Label Content="Played for" Name="TimeLabel">
+
+                                        </Label>
+                                    </WrapPanel>
+                                    <WrapPanel >
+                                        <Label Content="Produced 0 cookies total" Name="ProducedLabel">
+
+                                        </Label>
+                                    </WrapPanel>
+                                    <WrapPanel >
+                                        <Label Content="Produced 0 cookies total" Name="GoldenLabel">
+
+                                        </Label>
+                                    </WrapPanel>
+                                    <WrapPanel >
+                                        <Label Content="Produced 0 cookies total" Name="QuestLabel">
+
+                                        </Label>
+                                    </WrapPanel>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                        <ScrollViewer Name="ScrollMain" VerticalScrollBarVisibility="Auto" MaxHeight="300" Height="300">
                                 <StackPanel Name="StackMain">
 
                                 </StackPanel>
@@ -370,8 +411,14 @@
 
                                         <!--Clicker-->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="ClickerBorder" Visibility="Collapsed">
-                                            <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="ClickerP_MouseEnter" MouseLeave="ClickerP_MouseLeave" >
-                                                <Image Source="Clicker.png" Width="40"/>
+                                        <WrapPanel Name="ClickerP" Background="LightSlateGray" MouseLeftButtonDown="ClickerP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="ClickerP_MouseEnter" MouseLeave="ClickerP_MouseLeave" >
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipClicker">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+                                                
+                                            </WrapPanel.ToolTip>
+                                            <Image Source="Clicker.png" Width="40"/>
                                                 <StackPanel >
                                                     <Label Name="LblClicker" Content="Clicker"></Label>
                                                     <Label Name="LblClickerProd" Content="" Margin="0,-10,0,0"></Label>
@@ -384,7 +431,13 @@
                                         <!--Grandma-->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="GrandmaBorder" Visibility="Collapsed">
                                             <WrapPanel Name="GrandmaP" Background="LightSlateGray" MouseLeftButtonDown="GrandmaP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="GrandmaP_MouseEnter" MouseLeave="GrandmaP_MouseLeave">
-                                                <Image  Width="40" Source="/Grandma.png"/>
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipGrandma">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+
+                                            </WrapPanel.ToolTip>
+                                            <Image  Width="40" Source="/Grandma.png"/>
                                                 <StackPanel >
                                                     <Label Name="LblGrandma" Content="Grandma"></Label>
                                                     <Label Name="LblGrandmaProd" Content="" Margin="0,-10,0,0"></Label>
@@ -397,7 +450,13 @@
                                         <!--Farm-->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="FarmBorder" Visibility="Collapsed">
                                             <WrapPanel Name="FarmP" Background="LightSlateGray" MouseLeftButtonDown="FarmP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FarmP_MouseEnter" MouseLeave="FarmP_MouseLeave">
-                                                <Image  Width="40" Source="/farm.png"/>
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipFarm">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+
+                                            </WrapPanel.ToolTip>
+                                            <Image  Width="40" Source="/farm.png"/>
                                                 <StackPanel >
                                                     <Label Name="LblFarm" Content="Farm"></Label>
                                                     <Label Name="LblFarmProd" Content="" Margin="0,-10,0,0"></Label>
@@ -410,7 +469,13 @@
                                         <!--Mine-->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="MineBorder" Visibility="Collapsed">
                                             <WrapPanel Name="MineP" Background="LightSlateGray" MouseLeftButtonDown="MineP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="MineP_MouseEnter" MouseLeave="MineP_MouseLeave">
-                                                <Image  Width="40" Source="/mine.png"/>
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipMine">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+
+                                            </WrapPanel.ToolTip>
+                                            <Image  Width="40" Source="/mine.png"/>
                                                 <StackPanel >
                                                     <Label Name="LblMine" Content="Mine"></Label>
                                                     <Label Name="LblMineProd" Content="" Margin="0,-10,0,0"></Label>
@@ -423,7 +488,13 @@
                                         <!--Factory-->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="FactoryBorder" Visibility="Collapsed">
                                             <WrapPanel Name="FactoryP" Background="LightSlateGray" MouseLeftButtonDown="FactoryP_MouseLeftButtonDown"  IsEnabled="False" MaxHeight="40" MouseEnter="FactoryP_MouseEnter" MouseLeave="FactoryP_MouseLeave">
-                                                <Image  Width="40" Source="/factory.png"/>
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipFactory">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+
+                                            </WrapPanel.ToolTip>
+                                            <Image  Width="40" Source="/factory.png"/>
                                                 <StackPanel >
                                                     <Label Name="LblFactory" Content="Factory"></Label>
                                                     <Label Name="LblFactoryProd" Content="" Margin="0,-10,0,0"></Label>
@@ -434,7 +505,13 @@
                                         <!-- Bank -->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="BankBorder" Visibility="Collapsed">
                                             <WrapPanel Name="BankP" Background="LightSlateGray" MouseLeftButtonDown="BankP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="BankP_MouseEnter" MouseLeave="BankP_MouseLeave">
-                                                <Image Width="40" Source="/bank.png"/>
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipBank">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+
+                                            </WrapPanel.ToolTip>
+                                            <Image Width="40" Source="/bank.png"/>
                                                 <StackPanel>
                                                     <Label Name="LblBank" Content="Bank"></Label>
                                                     <Label Name="LblBankProd" Content="" Margin="0,-10,0,0"></Label>
@@ -444,8 +521,15 @@
                                         </Border>
                                         <!-- Temple -->
                                         <Border BorderBrush="Black" BorderThickness="0,1,0,1" Name="TempleBorder" Visibility="Collapsed">
-                                            <WrapPanel Name="TempleP" Background="LightSlateGray" MouseLeftButtonDown="TempleP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="TempleP_MouseEnter" MouseLeave="TempleP_MouseLeave">
-                                                <Image Width="40" Source="/temple.png"/>
+                                      
+                                        <WrapPanel Name="TempleP" Background="LightSlateGray" MouseLeftButtonDown="TempleP_MouseLeftButtonDown" IsEnabled="False" MaxHeight="40" MouseEnter="TempleP_MouseEnter" MouseLeave="TempleP_MouseLeave">
+                                            <WrapPanel.ToolTip>
+                                                <ToolTip Content="CPS: Upgrade Count: Multiplier: Cookies Produced:" Name="TooltipTemple">
+                                                    <ToolTipService.InitialShowDelay>200</ToolTipService.InitialShowDelay>
+                                                </ToolTip>
+
+                                            </WrapPanel.ToolTip>
+                                            <Image Width="40" Source="/temple.png"/>
                                                 <StackPanel>
                                                     <Label Name="LblTemple" Content="Temple"></Label>
                                                     <Label Name="LblTempleProd" Content="" Margin="0,-10,0,0"></Label>
