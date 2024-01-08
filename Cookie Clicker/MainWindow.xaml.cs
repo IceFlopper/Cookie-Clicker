@@ -247,16 +247,16 @@ namespace Cookie_Clicker
 
 
 
+            double clickTotal = clickCount * clicks;
 
 
 
 
-            totalCookies = producedClickerTotal + producedGrandmaTotal + producedFarmTotal + producedMineTotal + producedFactoryTotal + producedBankTotal + producedTempleTotal;
-
+            totalCookies = producedClickerTotal + producedGrandmaTotal + producedFarmTotal + producedMineTotal + producedFactoryTotal + producedBankTotal + producedTempleTotal + clickTotal;
 
             double minutes = seconds / 60;
             double hours = minutes / 60;
-            ClickLabel.Content = $"clicked {clickCount} times";
+            ClickLabel.Content = $"clicked {clicks} times";
             TimeLabel.Content = $"Played for {seconds} s, {minutes} minutes, {hours} hours.";
             GoldenLabel.Content = $"Found {goldenCookieClick} golden cookies";
             QuestLabel.Content = $"Achieved {achievementsAchieved} Achievements";
@@ -524,11 +524,11 @@ namespace Cookie_Clicker
             totalProductionBank = bankCount * bankProduction;
             totalProductionTemple = templeCount * templeProduction;
 
-            TooltipClicker.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionClicker, " Produces ", " cookie s", upgradeClickerCount, " ", " Upgrades ", upgradeClickerLevel, "Multiplies ", " X", producedClicker, "Total producted cookies: ", "");
-            TooltipGrandma.Content = DrawLabel(grandmaCount, "", "Grandmas ",totalProductionGrandma, " Produces ", " cookies", upgradeGrandmaCount, " ", " Upgrades ", upgradeGrandmaLevel, "Multiplies ", " X", producedGrandma, "Total producted cookies: ", "");
-            TooltipFarm.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFarm, " Produces ", " cookies", upgradeFarmCount, " ", " Upgrades ", upgradeFarmLevel, "Multiplies ", " X", producedFarm, "Total producted cookies: ", "");
-            TooltipMine.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionMine, " Produces ", " cookies", upgradeMineCount, " ", " Upgrades ", upgradeMineLevel, "Multiplies ", " X", producedMine, "Total producted cookies: ", "");
-            TooltipFactory.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFactory, "Produces ", " cookies", upgradeFactoryCount, " ", "Upgrades ", upgradeFactoryLevel, "Multiplies ", " X", producedFactory, "Total producted cookies:", "");
+            TooltipClicker.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionClicker, " Produces ", " cookie s", upgradeClickerCount, " ", " Upgrades ", upgradeClickerLevel, "Multiplies ", " X", producedClickerTotal, "Total producted cookies: ", "");
+            TooltipGrandma.Content = DrawLabel(grandmaCount, "", "Grandmas ",totalProductionGrandma, " Produces ", " cookies", upgradeGrandmaCount, " ", " Upgrades ", upgradeGrandmaLevel, "Multiplies ", " X", producedGrandmaTotal, "Total producted cookies: ", "");
+            TooltipFarm.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFarm, " Produces ", " cookies", upgradeFarmCount, " ", " Upgrades ", upgradeFarmLevel, "Multiplies ", " X", producedFarmTotal, "Total producted cookies: ", "");
+            TooltipMine.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionMine, " Produces ", " cookies", upgradeMineCount, " ", " Upgrades ", upgradeMineLevel, "Multiplies ", " X", producedMineTotal, "Total producted cookies: ", "");
+            TooltipFactory.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFactory, "Produces ", " cookies", upgradeFactoryCount, " ", "Upgrades ", upgradeFactoryLevel, "Multiplies ", " X", producedFactoryTotal, "Total producted cookies:", "");
             TooltipBank.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionBank, "Produces ", " cookies", producedBank, "Total producted cookies:", " ", 0, " ", " ", 0, " ", "");
             TooltipTemple.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionTemple, "Produces ", " cookies", producedTemple, "Total producted cookies:", "", 0, "", "", 0, " ", "");
 
