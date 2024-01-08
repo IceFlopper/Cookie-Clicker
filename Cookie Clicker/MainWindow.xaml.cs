@@ -38,7 +38,7 @@ namespace Cookie_Clicker
         //Increases cost to insure investments become exponentially more expensive as game goes on.
         double costMultiplier = 1.25;
         //Amount gained per click
-        double clickCount = 1;
+        double clickCount = 100000;
 
         //Clicker
         double clickerCost = 15;
@@ -254,8 +254,8 @@ namespace Cookie_Clicker
 
             totalCookies = producedClickerTotal + producedGrandmaTotal + producedFarmTotal + producedMineTotal + producedFactoryTotal + producedBankTotal + producedTempleTotal + clickTotal;
 
-            double minutes = seconds / 60;
-            double hours = minutes / 60;
+            long minutes = seconds / 60;
+            long hours = minutes / 60;
             ClickLabel.Content = $"clicked {clicks} times";
             TimeLabel.Content = $"Played for {seconds} s, {minutes} minutes, {hours} hours.";
             GoldenLabel.Content = $"Found {goldenCookieClick} golden cookies";
@@ -524,13 +524,28 @@ namespace Cookie_Clicker
             totalProductionBank = bankCount * bankProduction;
             totalProductionTemple = templeCount * templeProduction;
 
-            TooltipClicker.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionClicker, " Produces ", " cookie s", upgradeClickerCount, " ", " Upgrades ", upgradeClickerLevel, "Multiplies ", " X", producedClickerTotal, "Total producted cookies: ", "");
-            TooltipGrandma.Content = DrawLabel(grandmaCount, "", "Grandmas ",totalProductionGrandma, " Produces ", " cookies", upgradeGrandmaCount, " ", " Upgrades ", upgradeGrandmaLevel, "Multiplies ", " X", producedGrandmaTotal, "Total producted cookies: ", "");
-            TooltipFarm.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFarm, " Produces ", " cookies", upgradeFarmCount, " ", " Upgrades ", upgradeFarmLevel, "Multiplies ", " X", producedFarmTotal, "Total producted cookies: ", "");
-            TooltipMine.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionMine, " Produces ", " cookies", upgradeMineCount, " ", " Upgrades ", upgradeMineLevel, "Multiplies ", " X", producedMineTotal, "Total producted cookies: ", "");
-            TooltipFactory.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionFactory, "Produces ", " cookies", upgradeFactoryCount, " ", "Upgrades ", upgradeFactoryLevel, "Multiplies ", " X", producedFactoryTotal, "Total producted cookies:", "");
-            TooltipBank.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionBank, "Produces ", " cookies", producedBank, "Total producted cookies:", " ", 0, " ", " ", 0, " ", "");
-            TooltipTemple.Content = DrawLabel(clickerCount, "", "Clickers ", totalProductionTemple, "Produces ", " cookies", producedTemple, "Total producted cookies:", "", 0, "", "", 0, " ", "");
+            double upgradeClickerLevelTotal = upgradeClickerLevel * upgradeClickerCount;
+            double upgradeGrandmaLevelTotal = upgradeGrandmaLevel * upgradeGrandmaCount;
+            double upgradeFarmLevelTotal = upgradeFarmLevel * upgradeFarmCount;
+            double upgradeMineLevelTotal = upgradeMineLevel * upgradeMineCount;
+            double upgradeFactoryLevelTotal = upgradeFactoryLevel * upgradeFactoryCount;
+
+
+            if (upgradeClicker2Count >= 1)
+            {
+                upgradeClickerLevelTotal *= 5;
+                upgradeClickerLevelTotal -= 25;
+            }
+
+
+
+            TooltipClicker.Content = DrawLabel(clickerCount, "", " Clickers ",Math.Round(totalProductionClicker, 2), " Produces ", " cookie s", upgradeClickerCount, " ", " Upgrades ", upgradeClickerLevelTotal, "Multiplies ", " X", producedClickerTotal, "Total producted cookies: ", "");
+            TooltipGrandma.Content = DrawLabel(grandmaCount, "", " Grandmas ", Math.Round(totalProductionGrandma, 2), " Produces ", " cookies", upgradeGrandmaCount, " ", " Upgrades ", upgradeGrandmaLevelTotal, "Multiplies ", " X", producedGrandmaTotal, "Total producted cookies: ", "");
+            TooltipFarm.Content = DrawLabel(farmCount, "", " Farm ", Math.Round(totalProductionFarm,2), " Produces ", " cookies", upgradeFarmCount, " ", " Upgrades ", upgradeFarmLevelTotal, "Multiplies ", " X", producedFarmTotal, "Total producted cookies: ", "");
+            TooltipMine.Content = DrawLabel(mineCount, "", " Mine ", Math.Round(totalProductionMine,2), " Produces ", " cookies", upgradeMineCount, " ", " Upgrades ", upgradeMineLevelTotal, "Multiplies ", " X", producedMineTotal, "Total producted cookies: ", "");
+            TooltipFactory.Content = DrawLabel(factoryCount, "", " Factory ", Math.Round(totalProductionFactory,2), "Produces ", " cookies", upgradeFactoryCount, " ", "Upgrades ", upgradeFactoryLevelTotal, "Multiplies ", " X", producedFactoryTotal, "Total producted cookies:", "");
+            TooltipBank.Content = DrawLabel(bankCount, "", " Bank ", Math.Round(totalProductionBank,2), "Produces ", " cookies", producedBank, "Total producted cookies:", " ", 0, " ", " ", 0, " ", "");
+            TooltipTemple.Content = DrawLabel(templeCount, "", " Temple ", Math.Round(totalProductionTemple,2), "Produces ", " cookies", producedTemple, "Total producted cookies:", "", 0, "", "", 0, " ", "");
 
         }
         //All functionality for Clicker object
@@ -1903,6 +1918,7 @@ namespace Cookie_Clicker
         private void Upgrade6_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             upgradeClicker2Count++;
+            upgradeClickerCount++;
 
             cookiesPerSecond = cookiesPerSecond - (clickerProduction * clickerCount);
             clickerProduction = clickerProduction * upgradeClicker2Level;
